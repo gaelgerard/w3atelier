@@ -22,3 +22,11 @@ Thumbs.db
 .idea/
 
 cli.md
+
+# Cache d'Acorn / Sage
+/storage/framework/cache
+/storage/framework/views
+/web/app/cache/acorn
+
+# Si tu n'as pas de dossier storage séparé, celui-ci est le plus courant pour Sage 10+ :
+dist

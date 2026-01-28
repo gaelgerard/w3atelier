@@ -126,6 +126,23 @@ http://w3.gg/wp/wp-admin
 
 ---
 
+## Intégration du thème **Sage**
+
+```
+
+cd web/app/themes
+
+composer create-project roots/sage w3-sage
+
+cd w3-sage
+
+npm install
+
+npm run build
+
+wp theme activate w3-sage
+
+```
 ## 📦 Déploiement / CI/CD
 
 Le projet est prêt pour un workflow moderne :
@@ -151,7 +168,6 @@ Ne jamais versionner :
 
 ## ✅ À venir
 
-- Intégration du thème **Sage**
 - Build front moderne (SCSS, Vite)
 - CI/CD complet avec déploiement automatique
 
