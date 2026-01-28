@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build artifacts
+public/build/
+web/app/themes/*/public/build/
+
+# WordPress core
+web/wp/
+
+# Uploads
+web/app/uploads/
+
+# Environment secrets
+.env
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
