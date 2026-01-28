@@ -20,3 +20,5 @@ web/app/uploads/
 Thumbs.db
 .vscode/
 .idea/
+
+cli.md 
