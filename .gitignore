@@ -8,6 +8,8 @@ web/app/themes/*/public/build/
 
 # WordPress core
 web/wp/
+web/app/languages/
+
 
 # Uploads
 web/app/uploads/
