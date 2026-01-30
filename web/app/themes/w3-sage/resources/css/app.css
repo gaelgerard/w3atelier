@@ -1,3 +1,32 @@
-@import "tailwindcss" theme(static);
-@source "../views/";
-@source "../../app/";
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *)); /* Optionnel si besoin de customisation */
+
+@theme static {
+  /* Tes variables de thème ici si besoin */
+}
+@layer base {
+    /* On applique la transition sur l'élément racine et ses descendants */
+    html {
+    /* On prépare la transition pour les changements de thème */
+    color-scheme: light dark;
+    }
+
+    /* On utilise une classe utilitaire pour éviter d'animer tout, tout le temps (performance) */
+    .theme-toggling,
+    .theme-toggling *,
+    .theme-toggling *:before,
+    .theme-toggling *:after {
+    transition: all 400ms ease !important;
+    transition-delay: 0s !important;
+    }
+    a.no-underline,
+    h2 a,
+    header a {
+        text-decoration: none !important;
+    }
+}
+/* Dans ton fichier CSS principal */
+.nav-primary ul li a {
+  @apply block py-2 md:py-0;
+}
