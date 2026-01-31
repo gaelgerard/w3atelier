@@ -1,6 +1,6 @@
 <header class="banner flex py-10">
   <a class="brand text-2xl font-bold font-sans text-gray-900 dark:text-white no-underline" href="{{ home_url('/') }}">
-    {!! $siteName !!}
+    {!! $site_name !!}
   </a>
 
   <div class="flex ml-auto  items-center">
