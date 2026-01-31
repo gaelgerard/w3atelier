@@ -126,18 +126,19 @@ function sage_comment_callback($comment, $args, $depth)
 
         <article class="flex gap-4 py-6">
 
+
+            <!-- Contenu -->
+            <div class="flex-1">
+
+                <header class="flex flex-wrap items-center gap-x-2 text-sm text-gray-700">
+                    
             <!-- Avatar -->
             <div class="shrink-0">
                 <?php echo get_avatar($comment, 40, '', '', [
                     'class' => 'rounded-full',
                 ]); ?>
             </div>
-
-            <!-- Contenu -->
-            <div class="flex-1">
-
-                <header class="flex flex-wrap items-center gap-x-2 text-sm text-gray-700">
-                    <span class="font-medium text-gray-900">
+                    <span class="text-lg font-bold text-gray-900 dark:text-gray-100">
                         <?php comment_author(); ?>
                     </span>
 
