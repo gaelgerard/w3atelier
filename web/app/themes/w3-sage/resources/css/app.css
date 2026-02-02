@@ -1,11 +1,40 @@
 @import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *)); /* Optionnel si besoin de customisation */
-
-@theme static {
-  /* Tes variables de thème ici si besoin */
+@layer theme {
+  :host,
+  :root {
+    --color-red-400:oklch(.704 .191 22.216);
+    --color-red-500:oklch(.637 .237 25.331);
+    --color-green-400:oklch(.792 .209 151.711);
+    --color-blue-500:oklch(.623 .214 259.815);
+    --color-blue-600:oklch(.546 .245 262.881);
+    --color-blue-700:oklch(.488 .243 264.376);
+    --color-pink-500:oklch(.656 .241 354.308);
+    --color-gray-50:oklch(.984 .003 247.858);
+    --color-gray-100:oklch(.968 .007 247.896);
+    --color-gray-200:oklch(.929 .013 255.508);
+    --color-gray-300:oklch(.869 .022 252.894);
+    --color-gray-400:oklch(.704 .04 256.788);
+    --color-gray-500:oklch(.554 .046 257.417);
+    --color-gray-600:oklch(.446 .043 257.281);
+    --color-gray-700:oklch(.372 .044 257.287);
+    --color-gray-800:oklch(.279 .041 260.031);
+    --color-gray-900:oklch(.208 .042 265.755);
+    --color-gray-950:oklch(.129 .042 264.695);
+    --color-black:#000;
+    --color-white:#fff;
+    --color-primary-400:oklch(.746 .16 232.661);
+    --color-primary-500:oklch(.685 .169 237.323);
+    --color-primary-600:oklch(.588 .158 241.966);
+    --color-primary-700:oklch(.5 .134 242.749)
+  }
 }
+
 @layer base {
+    .text-primary-500 {
+        color:var(--color-primary-500);
+    }
     /* On applique la transition sur l'élément racine et ses descendants */
     html {
     /* On prépare la transition pour les changements de thème */
@@ -25,8 +54,38 @@
     header a {
         text-decoration: none !important;
     }
-}
-/* Dans ton fichier CSS principal */
-.nav-primary ul li a {
-  @apply block py-2 md:py-0;
+    .nav-primary ul li a {
+      @apply block py-2 md:py-0;
+    }
+    .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    }
+    .prose :where(.prose > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    margin-top: 0;
+    }
+    .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
+    width: 100px;
+    }
+    .wp-block-separator {
+      border: none;
+        border-bottom-width: medium;
+        border-bottom-style: none;
+        border-bottom-color: currentcolor;
+      border-bottom: 2px solid;
+      margin-left: auto;
+      margin-right: auto;
+      .prose :where(h1, h2) {
+        letter-spacing: var(--tracking-tight);
+        font-weight: 700;
+      }
+      .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+        color: var(--tw-prose-headings);
+        margin-top: 2em;
+        margin-bottom: 1em;
+        font-size: 1.5em;
+        font-weight: 700;
+        line-height: 1.33333;
+      }
+    }
 }
