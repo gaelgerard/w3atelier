@@ -100,6 +100,10 @@ wp core install \
   --admin_user="admin" \
   --admin_password="motdepasse" \
   --admin_email="ton.email@example.com"
+
+// Install and activate the French language.
+
+wp language core install fr_FR --activate
 ```
 
 ---
