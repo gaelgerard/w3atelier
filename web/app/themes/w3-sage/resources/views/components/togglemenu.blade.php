@@ -16,7 +16,7 @@
   {{-- Menu Slide-over --}}
   <div
     id="mobile-menu"
-    class="fixed inset-0 z-40 bg-white dark:bg-gray-950 sm:dark:bg-transparent transform translate-x-full transition-transform duration-300 ease-in-out md:relative md:inset-auto md:translate-x-0 md:flex md:items-center"
+    class="fixed inset-0 z-40 bg-white dark:bg-gray-950 md:dark:bg-transparent transform translate-x-full transition-transform duration-300 ease-in-out md:relative md:inset-auto md:translate-x-0 md:flex md:items-center"
   >
     <div class="flex flex-col items-center justify-center h-full space-y-8 md:h-auto md:space-y-0 md:flex-row">
       {!! wp_nav_menu([
