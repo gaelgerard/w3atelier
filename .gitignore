@@ -32,3 +32,4 @@ cli.md
 
 # Si tu n'as pas de dossier storage séparé, celui-ci est le plus courant pour Sage 10+ :
 dist
+*.log
