@@ -1,4 +1,4 @@
-name: Deploy to server (git pull)
+name: Deploy via SFTP/rsync
 
 on:
   push:
@@ -10,13 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.8.1
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || 22 }}
-          script: |
-            cd /home4/gaelgerard/sites/w3blog.gaelgerard.com
-            git pull origin main
+          ssh-private-key: ${{ secrets.SFTP_PRIVATE_KEY }}
+
+      - name: Sync files to server via rsync
+        run: |
+          rsync -avz --delete \
+            -e "ssh -p ${{ secrets.SFTP_PORT }}" \
+            ./ ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_TARGET_DIR }}
