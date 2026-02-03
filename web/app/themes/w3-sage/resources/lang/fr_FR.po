@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Sage Starter Theme 11.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/w3-sage\n"
 "POT-Creation-Date: 2026-02-03T13:43:03+00:00\n"
-"PO-Revision-Date: 2026-02-03 17:02+0100\n"
+"PO-Revision-Date: 2026-02-03 17:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -143,7 +143,7 @@ msgstr ""
 
 #: resources/views/partials/comments.blade.php:37
 msgid "Comments are closed."
-msgstr ""
+msgstr "Les commentaires sont fermés."
 
 #: resources/views/sections/archive-sidebar.blade.php:4
 msgid "Filter by tag"
