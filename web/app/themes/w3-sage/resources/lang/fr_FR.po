@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Sage Starter Theme 11.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/w3-sage\n"
 "POT-Creation-Date: 2026-02-03T13:43:03+00:00\n"
-"PO-Revision-Date: 2026-02-03 16:05+0100\n"
+"PO-Revision-Date: 2026-02-03 17:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -122,7 +122,7 @@ msgstr ""
 
 #: resources/views/front-page.blade.php:26
 msgid "Latest Writing"
-msgstr ""
+msgstr "Derniers articles"
 
 #: resources/views/front-page.blade.php:33 resources/views/index.blade.php:21
 #: resources/views/search.blade.php:8
