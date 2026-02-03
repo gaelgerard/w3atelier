@@ -9,6 +9,7 @@ web/app/themes/*/public/build/
 # WordPress core
 web/wp/
 web/app/languages/
+web/app/plugins/
 
 
 # Uploads
@@ -34,3 +35,5 @@ cli.md
 # Si tu n'as pas de dossier storage séparé, celui-ci est le plus courant pour Sage 10+ :
 dist
 *.log
+
+*.sql
