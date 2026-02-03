@@ -22,6 +22,7 @@ web/app/uploads/
 Thumbs.db
 .vscode/
 .idea/
+*.code-workspace
 
 cli.md
 
