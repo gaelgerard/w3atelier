@@ -69,23 +69,30 @@
     }
     .wp-block-separator {
       border: none;
-        border-bottom-width: medium;
-        border-bottom-style: none;
-        border-bottom-color: currentcolor;
       border-bottom: 2px solid;
       margin-left: auto;
       margin-right: auto;
-      .prose :where(h1, h2) {
-        letter-spacing: var(--tracking-tight);
-        font-weight: 700;
-      }
-      .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-        color: var(--tw-prose-headings);
+    }
+    .prose :where(h1, h2, h3) {
+    letter-spacing: var(--tracking-tight);
+    font-weight: 700;
+    }
+    .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(:first-child) {
         margin-top: 2em;
-        margin-bottom: 1em;
-        font-size: 1.5em;
-        font-weight: 700;
-        line-height: 1.33333;
-      }
+    }
+    .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: var(--tw-prose-headings);
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: 1.33333;
+    }
+    .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: var(--tw-prose-headings);
+    margin-top: 2em;
+    margin-bottom: 1em;
+    font-size: 1.3em;
+    font-weight: 700;
+    line-height: 1.1111;
     }
 }
