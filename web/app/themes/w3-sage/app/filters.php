@@ -33,7 +33,8 @@ function modify_comment_fields($defaults) {
 
     $commenter = wp_get_current_commenter();
     $req       = get_option('require_name_email');
-    $aria_req  = $req ? "aria-required='true'" : '';
+            
+    $aria_req  = $req ? "aria-required='true' required" : '';
 
     $input_base = 'w-full border-b border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-gray-900 focus:outline-none focus:ring-0';
     $label_base = 'block text-sm font-medium text-gray-700 mb-1 dark:text-gray-100';
