@@ -47,7 +47,7 @@
               class="text-sm text-gray-500 transition hover:text-gray-600"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.linkedin.com/in/gaelgerard"
+              href="https://www.linkedin.com/in/gael-gerard"
             >
               <span class="sr-only">linkedin</span>
               <svg
