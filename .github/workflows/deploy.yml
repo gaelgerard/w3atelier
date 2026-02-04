@@ -54,8 +54,13 @@ jobs:
             # clear acrorn cache
             wp acorn optimize:clear &&
 
-            npm run build &&
-            
+            # Clear Acorn cache
+            wp acorn optimize:clear &&
+
+            # Ajouter node/npm au PATH temporairement et lancer le build
+            export PATH=\"\$PATH:/opt/alt/alt-nodejs22/root/usr/bin/\" &&
+            npm run build &&          
+
             # Optionnel : installer les dépendances si Bedrock/Sage
             if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
           "
