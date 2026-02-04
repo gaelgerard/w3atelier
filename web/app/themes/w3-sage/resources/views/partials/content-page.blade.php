@@ -9,7 +9,7 @@
           <div class="space-y-2">
             <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Gaël GÉRARD</h2>
             <div class="space-y-1">
-              <p class="font-mono text-sm text-gray-600 uppercase dark:text-gray-400">Consultant web indépendant</p>
+              <p class="font-mono text-sm text-gray-600 uppercase dark:text-gray-400">Consultant web</p>
               <p class="font-mono text-sm text-gray-600 uppercase dark:text-gray-400">depuis 2001</p>
             </div>
           </div>
