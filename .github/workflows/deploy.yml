@@ -32,7 +32,17 @@ jobs:
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=out" | jq
 
-      # 3️⃣ Déploiement : git pull sur le serveur
+      # 3️⃣ Checkout repository (optionnel si tu as besoin de fichiers locaux)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 4️⃣ Setup SSH agent avec la clé privée GitHub
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SFTP_PRIVATE_KEY }}
+
+      # 5️⃣ Git pull sur le serveur
       - name: Git pull on server
         shell: bash
         run: |
@@ -41,10 +51,10 @@ jobs:
             git fetch origin &&
             git reset --hard origin/main &&
             # Optionnel : installer les dépendances si Bedrock/Sage
-            # if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
+            if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
           "
 
-      # 4️⃣ Cleanup final : suppression de l’IP du runner de la whitelist
+      # 6️⃣ Cleanup final : suppression de l’IP du runner de la whitelist
       - name: Remove runner IP from whitelist (cleanup)
         if: always()
         shell: bash
