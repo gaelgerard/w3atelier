@@ -1,4 +1,4 @@
-name: Deploy via SFTP with temporary o2switch whitelist
+name: Deploy via Git Pull with temporary o2switch whitelist
 
 on:
   push:
@@ -15,34 +15,37 @@ jobs:
         id: ip
         uses: haythem/public-ip@v1.3
 
-      # 2️⃣ Ajouter temporairement l’IP du runner à la whitelist SSH (IN + OUT)
+      # 2️⃣ Whitelist temporaire du runner via token cPanel
       - name: Whitelist runner IP on o2switch (temporary)
         shell: bash
         run: |
           IP="${{ steps.ip.outputs.ipv4 }}"
           PORT=22
 
-          echo "Whitelisting GitHub runner IP: $IP"
+          echo "Whitelisting GitHub runner IP: $IP (IN + OUT)"
 
+          # IN
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
 
+          # OUT
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=out" | jq
 
-      # 3️⃣ Checkout du code
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 4️⃣ Déploiement via rsync / SFTP
-      - name: Deploy via rsync
+      # 3️⃣ Déploiement : git pull sur le serveur
+      - name: Git pull on server
+        shell: bash
         run: |
-          rsync -avz --delete \
-            -e "ssh -p ${{ secrets.SFTP_PORT }} -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_TARGET_DIR }}
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
+            cd ${{ secrets.SFTP_TARGET_DIR }} &&
+            git fetch origin &&
+            git reset --hard origin/main &&
+            # Optionnel : installer les dépendances si Bedrock/Sage
+            # if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
+          "
 
-      # 5️⃣ Cleanup FINAL : suppression de l’IP du runner (IN + OUT)
-      - name: Remove runner IP from o2switch whitelist (cleanup)
+      # 4️⃣ Cleanup final : suppression de l’IP du runner de la whitelist
+      - name: Remove runner IP from whitelist (cleanup)
         if: always()
         shell: bash
         run: |
@@ -51,8 +54,10 @@ jobs:
 
           echo "Removing GitHub runner IP from whitelist: $IP"
 
+          # IN
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=in" | jq
 
+          # OUT
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=out" | jq
