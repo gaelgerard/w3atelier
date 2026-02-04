@@ -65,7 +65,9 @@ jobs:
             # Ajouter node/npm au PATH temporairement et lancer le build dans le thème
             export PATH="$PATH:/opt/alt/alt-nodejs22/root/usr/bin/" &&
             cd ${{ secrets.THEME_DIR }} &&
-            npm run build    
+            rm -rf node_modules &&
+            npm ci &&
+            npm run build
 
           "
 
