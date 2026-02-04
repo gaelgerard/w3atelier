@@ -151,4 +151,10 @@
       background: #4CAF50;
       color: white;
     }
+    .copy-code-button.copied {
+      background: #4CAF50;
+      color: white;
+      content: "\2713"; /* Unicode checkmark character */
+      padding: 5px 12px; /* Adjust padding to accommodate the checkmark */
+    }
 }
