@@ -57,12 +57,14 @@ jobs:
             # Clear Acorn cache
             wp acorn optimize:clear &&
 
+            # Optionnel : installer les dépendances si Bedrock/Sage
+            if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader && fi
+
             # Ajouter node/npm au PATH temporairement et lancer le build
             export PATH=\"\$PATH:/opt/alt/alt-nodejs22/root/usr/bin/\" &&
-            npm run build &&          
+            cd ${{ secrets.THEME_DIR }} &&
+            npm run build;          
 
-            # Optionnel : installer les dépendances si Bedrock/Sage
-            if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
           "
 
       # 6️⃣ Cleanup final : suppression de l’IP du runner de la whitelist
