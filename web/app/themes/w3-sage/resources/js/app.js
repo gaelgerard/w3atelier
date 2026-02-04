@@ -28,4 +28,36 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  // 1. On cible tous tes blocs de code
+  const codeBlocks = document.querySelectorAll('pre.editor');
+
+  codeBlocks.forEach((block) => {
+    // 2. On crée le bouton
+    const button = document.createElement('button');
+    const btnIcon = '<svg aria-hidden="true" class="svg-icon iconCopy mr4" width="17" height="18" viewBox="0 0 17 18"><path d="M5 6c0-1.09.91-2 2-2h4.5L15 7.5V15c0 1.09-.91 2-2 2H7c-1.09 0-2-.91-2-2zm6-1.25V8h3.25z"></path><path d="M10 1a2 2 0 0 1 2 2H6a2 2 0 0 0-2 2v9a2 2 0 0 1-2-2V4a3 3 0 0 1 3-3z" opacity=".4"></path></svg>';
+    button.innerHTML = btnIcon + ' Copier';
+    button.className = 'copy-code-button'; // Pour le styliser en CSS
+
+    // On s'assure que le parent est en position relative pour placer le bouton
+    block.style.position = 'relative';
+    block.appendChild(button);
+
+    // 3. Logique de copie au clic
+    button.addEventListener('click', () => {
+      const code = block.innerText.replace('Copier', '').trim();
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Petit feedback visuel
+        button.innerText = 'Copié !';
+        button.classList.add('copied');
+
+        setTimeout(() => {
+          button.innerText = 'Copier';
+          button.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Erreur lors de la copie : ', err);
+      });
+    });
+  });
 });
