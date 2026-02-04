@@ -50,6 +50,10 @@ jobs:
             cd ${{ secrets.SFTP_TARGET_DIR }} &&
             git fetch origin &&
             git reset --hard origin/main &&
+
+            # clear acrorn cache
+            wp acorn optimize:clear &&
+
             # Optionnel : installer les dépendances si Bedrock/Sage
             if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
           "
