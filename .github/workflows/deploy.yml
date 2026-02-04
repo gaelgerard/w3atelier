@@ -54,6 +54,8 @@ jobs:
             # clear acrorn cache
             wp acorn optimize:clear &&
 
+            npm run build &&
+            
             # Optionnel : installer les dépendances si Bedrock/Sage
             if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
           "
