@@ -37,3 +37,6 @@ dist
 *.log
 
 *.sql
+web/app/updraft/web.config
+web/app/updraft/.htaccess
+web/app/updraft/index.html
