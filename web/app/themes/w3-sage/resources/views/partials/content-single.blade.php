@@ -6,6 +6,16 @@
         <h1 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 dark:text-gray-100">
           {!! $title !!}
         </h1>
+        @php($tags = get_the_tags())
+        @if($tags)
+          <div class="gap-2 text-center mt-4 text-lead">
+          @foreach($tags as $tag)
+              <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase no-underline" href="{{ get_tag_link($tag->term_id) }}">
+              {{ $tag->name }}
+              </a>
+          @endforeach
+          </div>
+        @endif
       </div>
   
     </header>
