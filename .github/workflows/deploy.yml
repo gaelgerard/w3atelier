@@ -57,15 +57,15 @@ jobs:
             # Clear Acorn cache
             wp acorn optimize:clear &&
 
-            # Installer les dépendances PHP si Bedrock/Sage
-            if [ -f composer.json ]; then
-              composer install --no-dev --optimize-autoloader
-            fi &&
 
             # Ajouter node/npm au PATH temporairement et lancer le build dans le thème
             export PATH="$PATH:/opt/alt/alt-nodejs22/root/usr/bin/" &&
             cd ${{ secrets.THEME_DIR }} &&
             rm -rf node_modules &&
+            # Installer les dépendances PHP si Bedrock/Sage
+            if [ -f composer.json ]; then
+              composer install --no-dev --optimize-autoloader
+            fi &&
             npm ci &&
             npm run build
 
