@@ -56,7 +56,7 @@ jobs:
 
             # Installer les dépendances PHP si Bedrock/Sage
             if [ -f composer.json ]; then
-              php /usr/local/bin/composer install --no-dev --optimize-autoloader
+              composer install --no-dev --optimize-autoloader
             fi &&
 
             # Ajouter node/npm au PATH temporairement et lancer le build dans le thème
