@@ -103,6 +103,11 @@
     font-weight: 700;
     line-height: 1.1111;
     }
+    .prose li {
+      list-style-type: disc;
+      list-style-position: inside;
+      line-height: 1.7rem;
+    }
     pre.editor {
       scrollbar-color: var(--scrollbar) transparent;
       background-color: var(--highlight-bg);
