@@ -58,10 +58,13 @@ class Post extends Composer
      */
     public function pagination(): string
     {
-        return wp_link_pages([
-            'echo' => 0,
-            'before' => '<p>'.__('Pages:', 'sage'),
-            'after' => '</p>',
-        ]);
+        // Pour la navigation entre les articles
+        return get_the_post_navigation([
+            'prev_text' => __('Previous post: %title', 'sage'),
+            'next_text' => __('Next post: %title', 'sage'),
+            'screen_reader_text' => __('Post navigation', 'sage'),
+            'class' => 'post-navigation', 
+            'title' => get_the_title(),
+        ]) ?: ''; // On s'assure de renvoyer une chaîne vide si rien n'existe
     }
 }

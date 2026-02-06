@@ -26,14 +26,12 @@
         <div class="prose dark:prose-invert max-w-none pt-10 pb-8">
           @php(the_content())
         </div>
-
-        @if ($pagination())
+        @if ($pagination)
           <footer>
-            <nav class="page-nav" aria-label="Page">
               {!! $pagination !!}
-            </nav>
           </footer>
         @endif
+
       </div>
     </div>
   

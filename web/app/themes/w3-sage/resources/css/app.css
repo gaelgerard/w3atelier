@@ -4,6 +4,13 @@
 @layer theme {
   :host,
   :root {
+    
+    --text-color: #1a1a1a;
+    --border-color: #e5e5e5;
+    --background-color: #ffffff;
+    --hover-background-color: #ffffff;
+    --hover-border-color: #000;
+    --label-color: #888;
     --color-red-400:oklch(.704 .191 22.216);
     --color-red-500:oklch(.637 .237 25.331);
     --color-green-400:oklch(.792 .209 151.711);
@@ -38,8 +45,18 @@
     --su12: 12px;
   }
 }
-
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #ffffff;
+    --border-color: #444;
+    --background-color: #1a1a1a;
+    --hover-background-color: #2a2a2a;
+    --hover-border-color: #ffffff;
+    --label-color: #aaa;
+  }
+}
 @layer base {
+  
     .text-primary-500 {
         color:var(--color-primary-500);
     }
@@ -161,4 +178,68 @@
       color: white;
       padding: 5px 12px; /* Adjust padding to accommodate the checkmark */
     }
+    .post-navigation {
+      display: flex;
+      margin: 3rem 0;
+      padding: 1.5rem 0;
+
+      .nav-links {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        width: 100%;
+
+        .nav-previous,
+        .nav-next {
+          flex: 1;
+          display: flex;
+          max-width: 33%;
+          a {
+            display: flex;
+            flex-direction: column; 
+            padding: 0.75rem 1.25rem;
+            color: var(--text-color);
+            text-decoration: none!important;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 300px; 
+            background-color: var(--background-color);
+
+            &:hover {
+              background-color: var(--hover-background-color);
+              border-color: var(--hover-border-color);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+              transform: translateY(-2px);
+            }
+
+            &::before {
+              content: attr(data-label); 
+              font-size: 0.7rem;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              color: var(--label-color);
+              margin-bottom: 0.25rem;
+            }
+          }
+        }
+        .nav-next {
+          a {
+            margin-right: 0;
+            margin-left: auto;
+          }
+        }
+      }
+
+    
+      .nav-previous {
+        text-align: left;
+      }
+    
+      .nav-next {
+        text-align: right;
+      }
+    }
+
+    
 }
