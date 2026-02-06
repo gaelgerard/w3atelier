@@ -63,6 +63,10 @@
       </div>
       <div class="prose prose-gray dark:prose-invert max-w-none md:col-span-5">
       @php(the_content())
+      @if(is_page('tags'))
+      @php( do_action('custom_tag_list', 'cloud') )
+      @endif
+      
       </div>
     </div>
   </div>

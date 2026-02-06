@@ -47,10 +47,8 @@ add_filter('get_the_archive_title', function ($title) {
     }
     return $title;
 });
-// Custom tag list
-use App\Controllers\TagController;
-
-add_action('custom_tag_list', function () {
-    $tagController = new TagController(new \App\Models\TagModel());
-    echo $tagController->renderTagList();
-});
+// On accepte un argument $format qui vaut 'list' par défaut
+add_action('custom_tag_list', function ($format = 'list') {
+    $tagController = new \App\Controllers\TagController(new \App\Models\TagModel());
+    echo $tagController->renderTagList($format);
+}, 10, 1);

@@ -13,27 +13,33 @@ class TagController extends Controller
         $this->tagModel = $tagModel;
     }
 
-    public function renderTagList()
+    public function renderTagList($format = 'list') // 'list' ou 'cloud'
     {
         $tags = $this->tagModel->getTags();
         $current_tag_id = $this->tagModel->getCurrentTagId();
+        $isCloud = $format === 'cloud';
 
         return view('partials.tags-list', [
             'tags' => $tags,
             'current_tag_id' => $current_tag_id,
-            'classes' => function ($tag_id, $current_tag_id) {
-                $classes = [
-                    'font-mono',
-                    'text-sm',
-                    'uppercase',
-                    'no-underline',
-                    'hover:underline'
-                ];
+            'isCloud' => $isCloud, // On passe l'info à la vue
+            'classes' => function ($tag_id, $current_tag_id) use ($isCloud) {
+                // Classes de base communes
+                $classes = ['text-sm', 'no-underline', 'transition-all'];
 
-                if ($tag_id == $current_tag_id) {
-                    $classes[] = 'text-primary-500 hover:text-primary-600 dark:hover:text-primary-400';
+                if ($isCloud) {
+                    // Look "Nuage" : Boutons arrondis
+                    $classes[] = 'inline-block px-3 py-1 rounded-full border border-gray-200 bg-gray-50 hover:bg-white';
                 } else {
-                    $classes[] = 'hover:text-primary-600 dark:hover:text-primary-400 text-gray-600 dark:text-gray-300';
+                    // Look "Liste" : Style classique
+                    $classes[] = 'font-mono uppercase hover:underline block py-1';
+                }
+
+                // Gestion de la couleur Active/Inactive
+                if ($tag_id == $current_tag_id) {
+                    $classes[] = 'text-primary-500 font-bold';
+                } else {
+                    $classes[] = 'text-gray-600 dark:text-gray-300 hover:text-primary-600';
                 }
 
                 return $classes;
