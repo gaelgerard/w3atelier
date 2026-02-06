@@ -47,24 +47,30 @@ jobs:
         shell: bash
         run: |
           ssh -o StrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
-            cd ${{ secrets.SFTP_TARGET_DIR }} &&
-            git fetch origin &&
-            git reset --hard origin/main &&
+            set -e # Arrête le script en cas d'erreur
+            
+            cd ${{ secrets.SFTP_TARGET_DIR }}
+            git fetch origin
+            git reset --hard origin/main
 
-            # clear acrorn cache
-            wp acorn optimize:clear &&
-
-            # Installer les dépendances PHP si Bedrock/Sage
+            # 1. On s'occupe de la racine (si Bedrock)
             if [ -f composer.json ]; then
               composer install --no-dev --optimize-autoloader
-            fi &&
+            fi
 
-            # Ajouter node/npm au PATH temporairement et lancer le build dans le thème
-            export PATH="$PATH:/opt/alt/alt-nodejs22/root/usr/bin/" &&
-            cd ${{ secrets.THEME_DIR }} &&
-            rm -rf node_modules &&
-            npm install &&
-            npm run build
+            # 2. On entre dans le thème
+            cd ${{ secrets.THEME_DIR }}
+            
+            # 3. Build PHP (Crucial pour ton erreur "Class not found")
+            composer install --no-dev --optimize-autoloader
+            
+            # 4. Build Assets
+            export PATH=\"$PATH:/opt/alt/alt-nodejs22/root/usr/bin/\"
+            npm install && npm run build
+
+            # 5. On vide le cache Acorn EN DERNIER
+            # On revient à la racine si wp-cli est là-bas, sinon on le lance ici
+            wp acorn optimize:clear
           "
 
       # 6️⃣ Cleanup final : suppression de l’IP du runner de la whitelist
