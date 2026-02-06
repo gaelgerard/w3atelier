@@ -2,8 +2,7 @@
   <a class="brand text-2xl font-bold font-sans text-gray-900 dark:text-white no-underline" href="{{ home_url('/') }}">
     @if (has_custom_logo())
     {!! get_custom_logo() !!}
-    @else
-        {!! $site_name !!}
+    {!! $site_name !!}
     @endif
   </a>
 
