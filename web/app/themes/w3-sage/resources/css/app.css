@@ -56,9 +56,15 @@
   }
 }
 @layer base {
-    .banner .custom-logo {
-      max-height: 44px;
-      width: auto;
+    .banner {
+      .custom-logo-link {
+        display: flex;
+        .custom-logo {
+          max-height: 44px;
+          width: auto;
+          margin:auto;
+        }
+      }
     }
     .text-primary-500 {
         color:var(--color-primary-500);
