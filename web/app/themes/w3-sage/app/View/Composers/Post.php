@@ -63,7 +63,7 @@ class Post extends Composer
 
         $prev = get_previous_post_link(
             '<div class="nav-previous">%link</div>',
-            __('&laquo; Previous: %title', 'sage'),
+            __('&laquo;&nbsp;Previous post: %title', 'sage'),
             false, // in_same_term : false pour naviguer partout
             $excluded_categories, // Les IDs à exclure (string séparée par des virgules)
             'category'
@@ -71,7 +71,7 @@ class Post extends Composer
 
         $next = get_next_post_link(
             '<div class="nav-next">%link</div>',
-            __('Next: %title &raquo;', 'sage'),
+            __('Next post: %title&nbsp;&raquo;', 'sage'),
             false,
             $excluded_categories,
             'category'
