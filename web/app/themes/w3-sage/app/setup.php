@@ -194,3 +194,5 @@ add_filter('should_load_separate_core_block_assets', '__return_true');
 add_action('after_setup_theme', function () {
     load_textdomain( 'sage', get_template_directory() . '/resources/lang/' . determine_locale() . '.mo' );
 });
+
+add_theme_support('custom-logo');
