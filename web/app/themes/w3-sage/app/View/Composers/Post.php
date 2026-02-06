@@ -58,13 +58,31 @@ class Post extends Composer
      */
     public function pagination(): string
     {
-        // Pour la navigation entre les articles
-        return get_the_post_navigation([
-            'prev_text' => __('Previous post: %title', 'sage'),
-            'next_text' => __('Next post: %title', 'sage'),
-            'screen_reader_text' => __('Post navigation', 'sage'),
-            'class' => 'post-navigation', 
-            'title' => get_the_title(),
-        ]) ?: ''; // On s'assure de renvoyer une chaîne vide si rien n'existe
+        // ID de la catégorie à exclure (à adapter si différent de 1)
+        $excluded_categories = '1'; 
+
+        $prev = get_previous_post_link(
+            '<div class="nav-previous">%link</div>',
+            __('&laquo; Previous: %title', 'sage'),
+            false, // in_same_term : false pour naviguer partout
+            $excluded_categories, // Les IDs à exclure (string séparée par des virgules)
+            'category'
+        );
+
+        $next = get_next_post_link(
+            '<div class="nav-next">%link</div>',
+            __('Next: %title &raquo;', 'sage'),
+            false,
+            $excluded_categories,
+            'category'
+        );
+
+        return '<h2 class="screen-reader-text">Post navigation</h2>
+                <nav class="post-navigation">
+                <div class="nav-links">
+                ' . $prev . $next . '
+                </div>
+                </nav>
+                ';
     }
 }
