@@ -26,7 +26,8 @@ class TagController extends Controller
                     'font-mono',
                     'text-sm',
                     'uppercase',
-                    'no-underline'
+                    'no-underline',
+                    'hover:underline'
                 ];
 
                 if ($tag_id == $current_tag_id) {
