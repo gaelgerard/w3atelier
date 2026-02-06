@@ -48,50 +48,13 @@ add_filter('get_the_archive_title', function ($title) {
     return $title;
 });
 // Custom tag list
-function custom_tag_list() {
-    $tags = get_tags();
-    if ( empty( $tags ) ) return;
+use App\Controllers\TagController;
 
-    // Récupérer l'ID de l'objet affiché (si on est sur une page d'archive de tag)
-    $current_tag_id = is_tag() ? get_queried_object_id() : 0;
+add_action('custom_tag_list', function () {
+    $tagController = new TagController(new \App\Models\TagModel());
+    echo $tagController->renderTagList();
+});
 
-    $html = '<ul>';
-
-    foreach ( $tags as $tag ) {
-        $tag_link = get_tag_link( $tag->term_id );
-        
-        // 1. Préparation des classes CSS (Identique à vos catégories)
-        $classes = array(
-            'font-mono', 
-            'text-sm', 
-            'uppercase', 
-            'no-underline'
-        );
-
-        // Gestion du soulignement et de la classe active
-        if ( $tag->term_id == $current_tag_id ) {
-            $classes[] = 'text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'; // Classe active
-        } else {
-            $classes[] = 'hover:text-primary-600 dark:hover:text-primary-400 text-gray-600 dark:text-gray-300';
-        }
-
-        $html .= '<li>';
-        // 2. Construction du lien
-        $html .= '<a href="' . esc_url( $tag_link ) . '" ';
-        $html .= 'title="' . esc_attr( sprintf( __( 'View all posts tagged under %s' ), $tag->name ) ) . '" ';
-        $html .= 'class="' . implode( ' ', $classes ) . '">';
-        
-        // 3. Contenu du lien (Nom + Count à l'intérieur)
-        $html .= esc_html( $tag->name );
-        $html .= ' (' . intval( $tag->count ) . ')';
-        
-        $html .= '</a>';
-        $html .= '</li>';
-    }
-
-    $html .= '</ul>';
-    echo $html;
-}
 // customize category list
 class Custom_Walker_Category extends \Walker_Category {
 

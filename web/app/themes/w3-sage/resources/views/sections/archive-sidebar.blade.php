@@ -3,7 +3,7 @@
         <div class="space-y-4">
             <h2 class="font-mono text-sm tracking-wider text-gray-500 uppercase dark:text-gray-300">{!! __('Filter by tag', 'sage') !!}</h2>
             <nav class="flex flex-col space-y-3">
-                {{ App\custom_tag_list() }}
+                {{ do_action('custom_tag_list') }}
             </nav>
             <h2 class="font-mono text-sm tracking-wider text-gray-500 uppercase dark:text-gray-300">{!! __('Filter by category', 'sage') !!}</h2>
             <nav class="flex flex-col space-y-3">
