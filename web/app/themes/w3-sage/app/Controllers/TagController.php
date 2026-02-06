@@ -29,7 +29,7 @@ class TagController extends Controller
 
                 if ($isCloud) {
                     // Look "Nuage" : Boutons arrondis
-                    $classes[] = 'inline-block px-3 py-1 rounded-full border border-gray-200 bg-gray-50 hover:bg-white';
+                    $classes[] = '';
                 } else {
                     // Look "Liste" : Style classique
                     $classes[] = 'font-mono uppercase hover:underline block py-1';
