@@ -24,7 +24,12 @@
       @include('partials.author-meta')
       <div class="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
         <div class="prose dark:prose-invert max-w-none pt-10 pb-8">
-          @php(the_content())
+          <div class="w-full text-center">
+            @php(the_post_thumbnail())
+          </div>
+          <div class="flex-order-2">
+            @php(the_content())
+          </div>
         </div>
         @if ($pagination)
           <footer>
