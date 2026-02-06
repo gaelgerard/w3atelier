@@ -56,7 +56,10 @@
   }
 }
 @layer base {
-  
+    .banner .custom-logo {
+      max-height: 44px;
+      width: auto;
+    }
     .text-primary-500 {
         color:var(--color-primary-500);
     }
