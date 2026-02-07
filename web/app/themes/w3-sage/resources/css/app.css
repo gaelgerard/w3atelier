@@ -250,14 +250,32 @@
       }
     }
     /* Style de base des champs */
+    /* Empêcher le débordement sur mobile */
     .input-minimal {
-        width: 100% !important;
+        width: 100% !important; /* Force la largeur au conteneur */
+        max-width: 100% !important; /* Interdit de dépasser */
+        box-sizing: border-box !important; /* Inclut le padding dans le calcul de la largeur */
         background-color: transparent !important;
         border: none !important;
         padding: 0.75rem 0 !important;
         outline: none !important;
         box-shadow: none !important;
-        color: #111827; /* gray-900 */
+        color: #111827;
+        /* Supprime le style par défaut d'iOS sur les inputs */
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    /* On s'assure que le conteneur du formulaire ne déborde pas non plus */
+    .wpcf7 {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Correction spécifique pour le textarea */
+    textarea.input-minimal {
+        resize: vertical; /* Empêche l'utilisateur d'étendre le champ horizontalement */
+        min-height: 100px;
     }
 
     /* Adaptation Mode Sombre pour les champs */
