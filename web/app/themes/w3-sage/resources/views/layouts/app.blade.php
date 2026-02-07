@@ -12,7 +12,7 @@
   <body @php(body_class('bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white'))>
     @php(wp_body_open())
 
-    <div id="app" class="max-w-3xl mx-auto px-4 sm:px-6 xl:px-0">
+    <div id="app" class="max-w-4xl mx-auto px-4 sm:px-6 xl:px-0">
       <a class="sr-only focus:not-sr-only" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>
