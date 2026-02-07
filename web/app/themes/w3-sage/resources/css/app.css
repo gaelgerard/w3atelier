@@ -249,6 +249,40 @@
         text-align: right;
       }
     }
+    /* Style de base des champs */
+    .input-minimal {
+        width: 100% !important;
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0.75rem 0 !important;
+        outline: none !important;
+        box-shadow: none !important;
+        color: #111827; /* gray-900 */
+    }
 
+    /* Adaptation Mode Sombre pour les champs */
+    .dark .input-minimal {
+        color: #f9fafb !important; /* gray-50 */
+    }
+
+    /* Bouton Envoyer (Brutaliste) */
+    .btn-submit {
+        width: 100% !important;
+        background-color: #030712 !important; /* gray-950 */
+        color: #f9fafb !important; /* gray-100 */
+        border: 1px solid #f9fafb !important;
+        border-radius: 0 !important; /* Pas d'arrondi */
+        padding: 1rem 2rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #ffffff !important;
+        color: #030712 !important;
+    }
     
 }
