@@ -1,21 +1,43 @@
 <div class="mx-auto max-w-4xl px-4 sm:px-6 xl:px-0">
-  <div class="space-y-8 pt-16 pb-12">
-    <div class="grid gap-12 pt-4 md:grid-cols-7">
-      <div class="flex flex-row items-start gap-8 md:col-span-2 md:flex-col">
-        <div class="w-[150px] overflow-hidden rounded-lg bg-gray-100 lg:w-[200px] dark:bg-gray-800">
-          {{ the_post_thumbnail() }}
+  <article @php(post_class('h-entry'))>
+    <div class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+      <header class="pt-6 xl:pb-6">
+        <div class="space-y-1 text-center">
+          <h1 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 dark:text-gray-100">
+            {!! $title !!}
+          </h1>
+          @php($tags = get_the_tags())
+          @if($tags)
+            <div class="gap-2 text-center mt-4 text-lead">
+              @foreach($tags as $tag)
+                <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase no-underline" href="{{ get_tag_link($tag->term_id) }}">
+                  {{ $tag->name }}
+                </a>
+              @endforeach
+            </div>
+          @endif
         </div>
-        <div class="space-y-4">
-        <x-author-card />
+      </header>
+      <div class="e-content grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
+        @include('partials.author-meta')
+        <div class="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
+          <div class="prose dark:prose-invert max-w-none pt-10 pb-8">
+            <div class="w-full flex">
+              <div class="mx-auto">
+                {{ the_post_thumbnail() }}
+              </div>
+            </div>
+            <div class="flex-order-2">
+              @php(the_content())
+              @if(is_page('tags'))
+              @php( do_action('custom_tag_list', 'cloud') )
+              @endif
+            </div>
+          </div>
+
         </div>
       </div>
-      <div class="prose prose-gray dark:prose-invert max-w-none md:col-span-5">
-      @php(the_content())
-      @if(is_page('tags'))
-      @php( do_action('custom_tag_list', 'cloud') )
-      @endif
-      
-      </div>
+      @php(comments_template())
     </div>
-  </div>
+  </article>
 </div>
