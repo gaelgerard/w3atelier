@@ -9,9 +9,12 @@
     </div>
     @endif
   @endif
+  @if (is_page() || !empty($page_content))
+    <div class="prose space-y-2 mb-10">
+      {!! $page_content ?? the_content() !!}
+    </div>
+  @endif
   <div class="flex flex-col gap-8 md:flex-row">
-    @section('sidebar')
-    @endsection
     @include('sections.archive-sidebar')
     
     <div class="min-w-0 flex-1">
