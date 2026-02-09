@@ -115,6 +115,8 @@ Config::define('AUTH_SALT', env('AUTH_SALT'));
 Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
 Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 Config::define('NONCE_SALT', env('NONCE_SALT'));
+// API KEY for react connexion
+Config::define('REACT_FORM_API_KEY', env('API_KEY'));
 
 /**
  * Custom Settings
