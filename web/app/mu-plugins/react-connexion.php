@@ -35,7 +35,7 @@ add_action('rest_api_init', function () {
             $client_key = $request->get_header('X-GGCOM-KEY');
             
             // Correction de la syntaxe env() avec des guillemets
-            $server_key = env('REACT_FORM_API_KEY');
+            $server_key = REACT_FORM_API_KEY;
 
             // Log de debug (uniquement si WP_DEBUG est à true dans .env)
             if (defined('WP_DEBUG') && WP_DEBUG) {
