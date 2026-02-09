@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dataForm = json_decode(file_get_contents("php://input"), true);
     
     if (!empty($dataForm)) {
-        $ROOT = dirname( __FILE__ ) . '/';
+        $ROOT = dirname( __FILE__ ) . '/wp/';
         require_once( $ROOT. 'wp-load.php' );
         $response = ggcom_react_form_save_and_notify ( $dataForm );
     } else {
