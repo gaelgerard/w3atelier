@@ -14,29 +14,29 @@
       @include('sections.archive-sidebar')
       
       <div class="min-w-0 flex-1">
-      @if ( get_the_archive_description() )
+        @if ( get_the_archive_description() )
         <div class="prose space-y-2">
           {!! get_the_archive_description() !!}
         </div>
-      @endif
+        @endif
       
-      @if (! have_posts())
+        @if (! have_posts())
         <x-alert type="warning">
           {!! __('Sorry, no results were found.', 'sage') !!}
         </x-alert>
 
         {!! get_search_form(false) !!}
-      @endif
-    <ul class="divide-y divide-gray-200 dark:divide-gray-800">
-      @while(have_posts()) @php(the_post())
-        @includeFirst(['partials.content-' . get_post_type(), 'partials.content'])
-      @endwhile
-    </ul>
-    
-      {!! get_the_posts_navigation() !!}
-    @endsection
+        @endif
+      <ul class="divide-y divide-gray-200 dark:divide-gray-800">
+        @while(have_posts()) @php(the_post())
+          @includeFirst(['partials.content-' . get_post_type(), 'partials.content'])
+        @endwhile
+      </ul>
+      
+        {!! get_the_posts_navigation() !!}
+      </div>
+      
     </div>
-
-  </div>
   </div>
 </article>
+@endsection

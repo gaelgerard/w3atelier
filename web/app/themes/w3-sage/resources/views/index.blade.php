@@ -50,9 +50,9 @@
     </ul>
     
       {!! get_the_posts_navigation() !!}
-    @endsection
     </div>
 
   </div>
   </div>
 </article>
+@endsection
