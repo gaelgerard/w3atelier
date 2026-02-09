@@ -4,6 +4,27 @@ Plugin Name: GGCom Custom API
 Description: Sécurisation du formulaire React vers WordPress
 */
 
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$allowed_origins = [
+    'https://www.gaelgerard.com',
+    'https://gaelgerard.com',
+    'https://votre-projet-vercel.vercel.app'
+];
+
+if (in_array($origin, $allowed_origins)) {
+    header("Access-Control-Allow-Origin: " . $origin);
+    header("Access-Control-Allow-Methods: POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, X-GGCOM-KEY");
+    header("Access-Control-Allow-Credentials: true"); // Optionnel mais souvent utile
+}
+
+// Intercepter le preflight OPTIONS immédiatement
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    status_header(200);
+    exit;
+}
+
+
 add_action('rest_api_init', function () {
     register_rest_route('ggcom/v1', '/form', array(
         'methods'             => 'POST',
@@ -14,30 +35,6 @@ add_action('rest_api_init', function () {
             return ( $api_key === env(REACT_FORM_API_KEY) );
         },
     ));
-});
-
-// Gestion du CORS pour autoriser Vercel
-add_action('init', function() {
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-
-    // Liste des domaines autorisés (Vercel, Production avec et sans www)
-    $allowed_origins = [
-        'https://www.gaelgerard.com',
-        'https://gaelgerard.com',
-        'https://votre-projet-vercel.vercel.app' // Utile pour vos tests de déploiement
-    ];
-
-    if (in_array($origin, $allowed_origins)) {
-        header("Access-Control-Allow-Origin: " . $origin);
-    }
-
-    header("Access-Control-Allow-Methods: POST, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type, X-GGCOM-KEY");
-
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        status_header(200);
-        exit;
-    }
 });
 
 function handle_ggcom_react_form(WP_REST_Request $request) {
