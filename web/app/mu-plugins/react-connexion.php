@@ -11,7 +11,7 @@ add_action('rest_api_init', function () {
         'permission_callback' => function (WP_REST_Request $request) {
             $api_key = $request->get_header('X-GGCOM-KEY');
             // CLE A CONFIGURER ICI
-            return ( $api_key === API_KEY );
+            return ( $api_key === env(API_KEY) );
         },
     ));
 });
