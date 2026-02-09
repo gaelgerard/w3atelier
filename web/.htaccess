@@ -14,7 +14,10 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
-
+<Files "debug.log">
+    Order Allow,Deny
+    Deny from all
+</Files>
 Redirect 301 /creation-digitale/plateforme-de-formation-en-ligne-simple-pour-createurs-et-artisans/ /wordpress-cms/plateforme-de-formation-en-ligne-simple-pour-createurs-et-artisans/
 Redirect 301 /creation-digitale/creation-de-plateforme-de-cours-en-ligne-wordpress-retour-dexperience-et-choix-techniques/ /wordpress-cms/creation-de-plateforme-de-cours-en-ligne-wordpress-retour-dexperience-et-choix-techniques/
 Redirect 301 /trucs-et-astuces/cv-gael-gerard-developpeur-senior-wordpress-full-stack/ /inclassable/cv-gael-gerard-developpeur-senior-wordpress-full-stack/
