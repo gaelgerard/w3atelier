@@ -16,10 +16,10 @@
           <div class="md:col-span-7 lg:col-span-8 flex flex-col justify-between">
               
               <div class="space-y-4">
-                  <h2 class="text-xl lg:text-2xl font-semibold leading-tight text-gray-100">
+                  <h2 class="text-xl lg:text-2xl font-semibold leading-tight dark:text-gray-100">
                       Expert WordPress depuis <span class="text-primary-500">25 ans</span>, je partage ici mes analyses pour transformer vos sites en outils performants, scalables et durables. 
                   </h2>
-                  <div class="prose prose-invert prose-sm sm:prose-base text-gray-400">
+                  <div class="prose prose-invert prose-sm sm:prose-base dark:text-gray-400">
                       <p>
                           Que vous soyez développeur, propriétaire de site internet ou de boutique WooCommerce, découvrez mes retours d'expérience sans filtre sur les bonnes pratiques du web moderne.
                       </p>
