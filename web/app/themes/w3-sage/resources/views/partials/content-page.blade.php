@@ -17,6 +17,11 @@
             </div>
           @endif
         </div>
+        <nav aria-label="Fil d'Ariane" class="breadcrumb-container">
+         @if ( function_exists('yoast_breadcrumb') ) 
+               {!! yoast_breadcrumb( '<p id="breadcrumbs">','</p>' ) !!}
+          @endif
+        </nav>
       </header>
       <div class="e-content grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
         @include('partials.author-meta')

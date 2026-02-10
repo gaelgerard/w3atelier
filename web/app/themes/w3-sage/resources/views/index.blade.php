@@ -24,6 +24,11 @@
       @include('sections.archive-sidebar')
       
       <div class="min-w-0 flex-1">
+        <nav aria-label="Fil d'Ariane" class="breadcrumb-container">
+         @if ( function_exists('yoast_breadcrumb') ) 
+               {!! yoast_breadcrumb( '<p id="breadcrumbs">','</p>' ) !!}
+          @endif
+        </nav>
       @if ( is_archive() )
         @if ( category_description() )
         <div class="prose space-y-2">

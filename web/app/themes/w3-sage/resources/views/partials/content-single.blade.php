@@ -16,6 +16,11 @@
           @endforeach
           </div>
         @endif
+        <nav aria-label="Fil d'Ariane" class="breadcrumb-container">
+         @if ( function_exists('yoast_breadcrumb') ) 
+               {!! yoast_breadcrumb( '<p id="breadcrumbs">','</p>' ) !!}
+          @endif
+        </nav>
       </div>
   
     </header>

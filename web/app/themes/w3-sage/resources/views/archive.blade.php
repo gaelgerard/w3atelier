@@ -9,6 +9,11 @@
           {!! get_the_archive_title() !!}
         </h1>
       </div>
+        <nav aria-label="Fil d'Ariane" class="breadcrumb-container">
+         @if ( function_exists('yoast_breadcrumb') ) 
+               {!! yoast_breadcrumb( '<p id="breadcrumbs">','</p>' ) !!}
+          @endif
+        </nav>
     </header>
     <div class="flex flex-col gap-8 md:flex-row mt-6">
       @include('sections.archive-sidebar')
