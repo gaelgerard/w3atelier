@@ -61,21 +61,43 @@ add_action('wp_head', ['App\Controllers\TagController', 'no_index_lowtags']);
  * @param array $links Les liens du fil d'Ariane.
  * @return array Les liens modifiés.
  */
-add_filter( 'wpseo_breadcrumb_links', 'App\force_category_in_breadcrumb' );
-function force_category_in_breadcrumb( $links ) {
+add_filter( 'wpseo_breadcrumb_links', 'App\clean_and_fix_yoast_breadcrumbs' );
+
+function clean_and_fix_yoast_breadcrumbs( $links ) {
+    // On ne cible que les articles seuls
     if ( is_singular( 'post' ) ) {
-        $post = get_queried_object();
-        $category = get_the_category( $post->ID );
-        if ( $category ) {
-            // On récupère la catégorie primaire de Yoast ou la première par défaut
-            $primary_cat_id = get_post_meta( $post->ID, '_yoast_wpseo_primary_category', true );
-            $cat_to_display = $primary_cat_id ? get_term( $primary_cat_id ) : $category[0];
-            $breadcrumb[] = array(
-                'url' => get_term_link( $cat_to_display ),
-                'text' => $cat_to_display->name,
-            );
-            // On insère la catégorie juste après "Accueil" (index 1)
-            array_splice( $links, 1, 0, $breadcrumb );
+        
+        $post_id = get_the_ID();
+        $primary_cat_id = get_post_meta( $post_id, '_yoast_wpseo_primary_category', true );
+        
+        // Si pas de catégorie primaire définie par Yoast, on prend la première
+        if ( ! $primary_cat_id ) {
+            $categories = get_the_category( $post_id );
+            if ( ! empty( $categories ) ) {
+                $primary_cat_id = $categories[0]->term_id;
+            }
+        }
+
+        if ( $primary_cat_id ) {
+            $category = get_term( $primary_cat_id );
+
+            // Si le fil d'ariane n'a que 2 niveaux (Accueil > Article), on insère la catégorie
+            if ( count( $links ) <= 2 ) {
+                $category_link = array(
+                    'url'  => get_term_link( $category ),
+                    'text' => $category->name,
+                );
+                array_splice( $links, 1, 0, array( $category_link ) );
+            } 
+            // Si la catégorie est présente mais s'appelle "rated-1", on corrige le texte
+            else {
+                foreach ( $links as $key => $link ) {
+                    if ( isset($link['text']) && (strpos($link['text'], 'rated') !== false || empty($link['text'])) ) {
+                        $links[$key]['text'] = $category->name;
+                        $links[$key]['url']  = get_term_link( $category );
+                    }
+                }
+            }
         }
     }
     return $links;
