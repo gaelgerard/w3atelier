@@ -54,3 +54,29 @@ add_action('custom_tag_list', function ($format = 'list') {
 }, 10, 1);
 
 add_action('wp_head', ['App\Controllers\TagController', 'no_index_lowtags']);
+
+/**
+ * Force la catégorie dans le fil d'Ariane de Yoast SEO
+ *
+ * @param array $links Les liens du fil d'Ariane.
+ * @return array Les liens modifiés.
+ */
+add_filter( 'wpseo_breadcrumb_links', 'App\force_category_in_breadcrumb' );
+function force_category_in_breadcrumb( $links ) {
+    if ( is_singular( 'post' ) ) {
+        $post = get_queried_object();
+        $category = get_the_category( $post->ID );
+        if ( $category ) {
+            // On récupère la catégorie primaire de Yoast ou la première par défaut
+            $primary_cat_id = get_post_meta( $post->ID, '_yoast_wpseo_primary_category', true );
+            $cat_to_display = $primary_cat_id ? get_term( $primary_cat_id ) : $category[0];
+            $breadcrumb[] = array(
+                'url' => get_term_link( $cat_to_display ),
+                'text' => $cat_to_display->name,
+            );
+            // On insère la catégorie juste après "Accueil" (index 1)
+            array_splice( $links, 1, 0, $breadcrumb );
+        }
+    }
+    return $links;
+}
