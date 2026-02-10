@@ -1,6 +1,6 @@
 @php
     $featured_query = new WP_Query([
-        'post_type'      => 'post',
+        'post_type'      => array('post', 'page'),
         'posts_per_page' => 4,
         'meta_query'     => [[
             'key'   => '_featured_product',

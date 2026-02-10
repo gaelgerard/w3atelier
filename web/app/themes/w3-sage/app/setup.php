@@ -153,6 +153,9 @@ add_action('widgets_init', function () {
         'id' => 'sidebar-footer',
     ] + $config);
 });
+// Register post meta fields
+require_once __DIR__ . '/Fields/PostMeta.php';
+require_once __DIR__ . '/Fields/PageMeta.php';
 
 /**
  * Nettoyage du header WordPress pour le SEO et la performance.
