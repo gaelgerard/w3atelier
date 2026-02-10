@@ -41,6 +41,7 @@
               @endif
             </div>
           </div>
+        <x-author-card />
 
         </div>
       </div>

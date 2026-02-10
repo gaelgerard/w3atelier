@@ -38,6 +38,7 @@
           <div class="flex-order-2">
             @php(the_content())
           </div>
+        <x-author-card />
         </div>
         @if ($pagination)
           <footer>
