@@ -55,48 +55,31 @@ add_action('custom_tag_list', function ($format = 'list') {
 
 add_action('wp_head', ['App\Controllers\TagController', 'no_index_lowtags']);
 
-/**
- * Force la catégorie dans le fil d'Ariane de Yoast SEO
- *
- * @param array $links Les liens du fil d'Ariane.
- * @return array Les liens modifiés.
- */
-add_filter( 'wpseo_breadcrumb_links', 'App\clean_and_fix_yoast_breadcrumbs' );
+add_filter( 'wpseo_breadcrumb_links', 'App\force_real_category_breadcrumb' );
 
-function clean_and_fix_yoast_breadcrumbs( $links ) {
-    // On ne cible que les articles seuls
+function force_real_category_breadcrumb( $links ) {
+    // On n'agit que sur les articles seuls
     if ( is_singular( 'post' ) ) {
-        
-        $post_id = get_the_ID();
-        $primary_cat_id = get_post_meta( $post_id, '_yoast_wpseo_primary_category', true );
-        
-        // Si pas de catégorie primaire définie par Yoast, on prend la première
-        if ( ! $primary_cat_id ) {
-            $categories = get_the_category( $post_id );
-            if ( ! empty( $categories ) ) {
-                $primary_cat_id = $categories[0]->term_id;
-            }
-        }
+        $categories = get_the_category();
 
-        if ( $primary_cat_id ) {
-            $category = get_term( $primary_cat_id );
+        if ( ! empty( $categories ) ) {
+            // On récupère la catégorie (la première, puisqu'il n'y en a qu'une)
+            $main_cat = $categories[0];
+            
+            // On prépare le nouveau lien
+            $new_link = array(
+                'url'  => get_term_link( $main_cat ),
+                'text' => $main_cat->name,
+            );
 
-            // Si le fil d'ariane n'a que 2 niveaux (Accueil > Article), on insère la catégorie
-            if ( count( $links ) <= 2 ) {
-                $category_link = array(
-                    'url'  => get_term_link( $category ),
-                    'text' => $category->name,
-                );
-                array_splice( $links, 1, 0, array( $category_link ) );
-            } 
-            // Si la catégorie est présente mais s'appelle "rated-1", on corrige le texte
-            else {
-                foreach ( $links as $key => $link ) {
-                    if ( isset($link['text']) && (strpos($link['text'], 'rated') !== false || empty($link['text'])) ) {
-                        $links[$key]['text'] = $category->name;
-                        $links[$key]['url']  = get_term_link( $category );
-                    }
-                }
+            // On cherche si un lien erroné (index 1) existe déjà pour le remplacer
+            // Sinon on l'insère entre Accueil (0) et l'Article (2)
+            if ( count( $links ) >= 2 ) {
+                // Remplacement du niveau 1 (souvent là où se trouve le "rated-1")
+                $links[1] = $new_link;
+            } else {
+                // Insertion si le tableau est trop court
+                array_splice( $links, 1, 0, array( $new_link ) );
             }
         }
     }
