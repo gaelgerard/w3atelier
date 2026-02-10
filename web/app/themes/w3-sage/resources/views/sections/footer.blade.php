@@ -1,7 +1,7 @@
 <footer>
   <div class="mt-16 flex flex-col items-center">
     <div class="mb-3 flex space-x-4">
-      <a class="text-sm text-gray-500 transition hover:text-gray-600" target="_blank" rel="noopener noreferrer" href="/contact">
+      <a class="text-sm text-gray-500 transition hover:text-gray-600" rel="noopener noreferrer" href="/accompagnement">
         <span class="sr-only">mail</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="hover:text-primary-500 dark:hover:text-primary-400 fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
           <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
