@@ -10,7 +10,9 @@
           @if($tags)
             <div class="gap-2 text-center mt-4 text-lead">
               @foreach($tags as $tag)
-                <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase no-underline" href="{{ get_tag_link($tag->term_id) }}">
+                <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase no-underline" 
+                href="{{ get_tag_link($tag->term_id) }}"
+                rel="tag">
                   {{ $tag->name }}
                 </a>
               @endforeach
