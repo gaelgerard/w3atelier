@@ -1,40 +1,43 @@
 @import "tailwindcss";
 
-@variant dark (&:where(.dark, .dark *)); /* Optionnel si besoin de customisation */
+@variant dark (&:where(.dark, .dark *));
+
+/* Optionnel si besoin de customisation */
 @layer theme {
+
   :host,
   :root {
-    
+
     --text-color: #1a1a1a;
     --border-color: #e5e5e5;
     --background-color: #ffffff;
     --hover-background-color: #ffffff;
     --hover-border-color: #000;
     --label-color: #888;
-    --color-red-400:oklch(.704 .191 22.216);
-    --color-red-500:oklch(.637 .237 25.331);
-    --color-green-400:oklch(.792 .209 151.711);
-    --color-blue-500:oklch(.623 .214 259.815);
-    --color-blue-600:oklch(.546 .245 262.881);
-    --color-blue-700:oklch(.488 .243 264.376);
-    --color-pink-500:oklch(.656 .241 354.308);
-    --color-gray-50:oklch(.984 .003 247.858);
-    --color-gray-100:oklch(.968 .007 247.896);
-    --color-gray-200:oklch(.929 .013 255.508);
-    --color-gray-300:oklch(.869 .022 252.894);
-    --color-gray-400:oklch(.704 .04 256.788);
-    --color-gray-500:oklch(.554 .046 257.417);
-    --color-gray-600:oklch(.446 .043 257.281);
-    --color-gray-700:oklch(.372 .044 257.287);
-    --color-gray-800:oklch(.279 .041 260.031);
-    --color-gray-900:oklch(.208 .042 265.755);
-    --color-gray-950:oklch(.129 .042 264.695);
-    --color-black:#000;
-    --color-white:#fff;
-    --color-primary-400:oklch(.746 .16 232.661);
-    --color-primary-500:oklch(.685 .169 237.323);
-    --color-primary-600:oklch(.588 .158 241.966);
-    --color-primary-700:oklch(.5 .134 242.749);
+    --color-red-400: oklch(.704 .191 22.216);
+    --color-red-500: oklch(.637 .237 25.331);
+    --color-green-400: oklch(.792 .209 151.711);
+    --color-blue-500: oklch(.623 .214 259.815);
+    --color-blue-600: oklch(.546 .245 262.881);
+    --color-blue-700: oklch(.488 .243 264.376);
+    --color-pink-500: oklch(.656 .241 354.308);
+    --color-gray-50: oklch(.984 .003 247.858);
+    --color-gray-100: oklch(.968 .007 247.896);
+    --color-gray-200: oklch(.929 .013 255.508);
+    --color-gray-300: oklch(.869 .022 252.894);
+    --color-gray-400: oklch(.704 .04 256.788);
+    --color-gray-500: oklch(.554 .046 257.417);
+    --color-gray-600: oklch(.446 .043 257.281);
+    --color-gray-700: oklch(.372 .044 257.287);
+    --color-gray-800: oklch(.279 .041 260.031);
+    --color-gray-900: oklch(.208 .042 265.755);
+    --color-gray-950: oklch(.129 .042 264.695);
+    --color-black: #000;
+    --color-white: #fff;
+    --color-primary-400: oklch(.746 .16 232.661);
+    --color-primary-500: oklch(.685 .169 237.323);
+    --color-primary-600: oklch(.588 .158 241.966);
+    --color-primary-700: oklch(.5 .134 242.749);
     --scrollbar: #888;
     --highlight-bg: #f5f5f5;
     --highlight-color: #333;
@@ -45,6 +48,7 @@
     --su12: 12px;
   }
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: #ffffff;
@@ -55,252 +59,297 @@
     --label-color: #aaa;
   }
 }
+
 @layer base {
-    .banner {
-      .custom-logo-link {
-        display: flex;
-        .custom-logo {
-          max-height: 44px;
-          width: auto;
-          margin:auto;
-        }
+  .banner {
+    .custom-logo-link {
+      display: flex;
+
+      .custom-logo {
+        max-height: 44px;
+        width: auto;
+        margin: auto;
       }
     }
-    .text-primary-500 {
-        color:var(--color-primary-500);
-    }
-    /* On applique la transition sur l'élément racine et ses descendants */
-    html {
+  }
+
+  .text-primary-500 {
+    color: var(--color-primary-500);
+  }
+
+  /* On applique la transition sur l'élément racine et ses descendants */
+  html {
     /* On prépare la transition pour les changements de thème */
     color-scheme: light dark;
-    }
+  }
 
-    /* On utilise une classe utilitaire pour éviter d'animer tout, tout le temps (performance) */
-    .theme-toggling,
-    .theme-toggling *,
-    .theme-toggling *:before,
-    .theme-toggling *:after {
+  /* On utilise une classe utilitaire pour éviter d'animer tout, tout le temps (performance) */
+  .theme-toggling,
+  .theme-toggling *,
+  .theme-toggling *:before,
+  .theme-toggling *:after {
     transition: all 400ms ease !important;
     transition-delay: 0s !important;
+  }
+
+  a.no-underline,
+  h2 a,
+  header :not(#breadcrumbs) a {
+    text-decoration: none !important;
+  }
+
+  header p#breadcrumbs {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-body1);
+    margin-top: 1.25em;
+    a {
+      text-decoration: underline !important;
     }
-    a.no-underline,
-    h2 a,
-    header a {
-        text-decoration: none !important;
-    }
-    .nav-primary ul li a {
-      @apply block py-2 md:py-0;
-    }
-    .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  }
+
+  .nav-primary ul li a {
+    @apply block py-2 md:py-0;
+  }
+
+  .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     margin-top: 1.25em;
     margin-bottom: 1.25em;
-    }
-    .prose :where(.prose > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  }
+
+  .prose :where(.prose > :first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     margin-top: 0;
-    }
-    .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
+  }
+
+  .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
     width: 100px;
-    }
-    .wp-block-separator {
-      border: none;
-      border-bottom: 2px solid;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .prose :where(h1, h2, h3) {
+  }
+
+  .wp-block-separator {
+    border: none;
+    border-bottom: 2px solid;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .prose :where(h1, h2, h3) {
     letter-spacing: var(--tracking-tight);
     font-weight: 700;
-    }
-    .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(:first-child) {
-        margin-top: 2em;
-    }
-    .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  }
+
+  .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(:first-child) {
+    margin-top: 2em;
+  }
+
+  .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     color: var(--tw-prose-headings);
     margin-bottom: 1em;
     font-size: 1.5em;
     font-weight: 700;
     line-height: 1.33333;
-    }
-    .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  }
+
+  .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     color: var(--tw-prose-headings);
     margin-top: 2em;
     margin-bottom: 1em;
     font-size: 1.3em;
     font-weight: 700;
     line-height: 1.1111;
-    }
-    .prose li {
-      list-style-type: disc;
-      list-style-position: inside;
-      line-height: 1.7rem;
-    }
-    pre.editor {
-      scrollbar-color: var(--scrollbar) transparent;
-      background-color: var(--highlight-bg);
-      border-radius: var(--br-md);
-      color: var(--highlight-color);
-      font-family: var(--ff-mono);
-      font-size: var(--fs-body1);
-      line-height: var(--lh-md);
-      margin: 0;
-        margin-top: 0px;
-        margin-bottom: 0px;
-      overflow: auto;
-      padding: var(--su12);
-        white-space: pre-wrap;
-    }
-    .dark pre.editor {
-        color: #ffffff;
-        background-color: #1d1f21;
-    }
-    .dark pre.editor .commented {color: #c5c8c6;}
-    pre.editor {
-      position: relative;
-      padding-top: 30px; /* Espace pour le bouton */
-    }
+  }
 
-    .copy-code-button {
+  .prose li {
+    list-style-type: disc;
+    list-style-position: inside;
+    line-height: 1.7rem;
+  }
+
+  pre.editor {
+    scrollbar-color: var(--scrollbar) transparent;
+    background-color: var(--highlight-bg);
+    border-radius: var(--br-md);
+    color: var(--highlight-color);
+    font-family: var(--ff-mono);
+    font-size: var(--fs-body1);
+    line-height: var(--lh-md);
+    margin: 0;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    overflow: auto;
+    padding: var(--su12);
+    white-space: pre-wrap;
+  }
+
+  .dark pre.editor {
+    color: #ffffff;
+    background-color: #1d1f21;
+  }
+
+  .dark pre.editor .commented {
+    color: #c5c8c6;
+  }
+
+  pre.editor {
+    position: relative;
+    padding-top: 30px;
+    /* Espace pour le bouton */
+  }
+
+  .copy-code-button {
+    display: flex;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #eeeeee;
+    border: 1px solid #ddd;
+    color: var(--color-gray-950);
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .copy-code-button:hover {
+    background: #e0e0e0;
+  }
+
+  .copy-code-button.copied {
+    background: #4CAF50;
+    color: white;
+  }
+
+  .copy-code-button.copied {
+    background: #4CAF50;
+    color: white;
+    padding: 5px 12px;
+    /* Adjust padding to accommodate the checkmark */
+  }
+
+  .post-navigation {
+    display: flex;
+    margin: 3rem 0;
+    padding: 1.5rem 0;
+
+    .nav-links {
       display: flex;
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background: #eeeeee;
-      border: 1px solid #ddd;
-      color: var(--color-gray-950);
-      padding: 5px 10px;
-      font-size: 12px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
 
-    .copy-code-button:hover {
-      background: #e0e0e0;
-    }
-
-    .copy-code-button.copied {
-      background: #4CAF50;
-      color: white;
-    }
-    .copy-code-button.copied {
-      background: #4CAF50;
-      color: white;
-      padding: 5px 12px; /* Adjust padding to accommodate the checkmark */
-    }
-    .post-navigation {
-      display: flex;
-      margin: 3rem 0;
-      padding: 1.5rem 0;
-
-      .nav-links {
-        display: flex;
-        justify-content: space-between; 
-        align-items: center;
-        width: 100%;
-
-        .nav-previous,
-        .nav-next {
-          flex: 1;
-          display: flex;
-          max-width: 33%;
-          a {
-            display: flex;
-            flex-direction: column; 
-            padding: 0.75rem 1.25rem;
-            color: var(--text-color);
-            text-decoration: none!important;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 300px; 
-            background-color: var(--background-color);
-
-            &:hover {
-              background-color: var(--hover-background-color);
-              border-color: var(--hover-border-color);
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-              transform: translateY(-2px);
-            }
-
-            &::before {
-              content: attr(data-label); 
-              font-size: 0.7rem;
-              text-transform: uppercase;
-              letter-spacing: 1px;
-              color: var(--label-color);
-              margin-bottom: 0.25rem;
-            }
-          }
-        }
-        .nav-next {
-          a {
-            margin-right: 0;
-            margin-left: auto;
-          }
-        }
-      }
-
-    
-      .nav-previous {
-        text-align: left;
-      }
-    
+      .nav-previous,
       .nav-next {
-        text-align: right;
+        flex: 1;
+        display: flex;
+        max-width: 33%;
+
+        a {
+          display: flex;
+          flex-direction: column;
+          padding: 0.75rem 1.25rem;
+          color: var(--text-color);
+          text-decoration: none !important;
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          max-width: 300px;
+          background-color: var(--background-color);
+
+          &:hover {
+            background-color: var(--hover-background-color);
+            border-color: var(--hover-border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+          }
+
+          &::before {
+            content: attr(data-label);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--label-color);
+            margin-bottom: 0.25rem;
+          }
+        }
+      }
+
+      .nav-next {
+        a {
+          margin-right: 0;
+          margin-left: auto;
+        }
       }
     }
-    /* Style de base des champs */
-    /* Empêcher le débordement sur mobile */
-    .input-minimal {
-        width: 100% !important; /* Force la largeur au conteneur */
-        max-width: 100% !important; /* Interdit de dépasser */
-        box-sizing: border-box !important; /* Inclut le padding dans le calcul de la largeur */
-        background-color: transparent !important;
-        border: none !important;
-        padding: 0.75rem 0 !important;
-        outline: none !important;
-        box-shadow: none !important;
-        color: #111827;
-        /* Supprime le style par défaut d'iOS sur les inputs */
-        -webkit-appearance: none;
-        appearance: none;
+
+
+    .nav-previous {
+      text-align: left;
     }
 
-    /* On s'assure que le conteneur du formulaire ne déborde pas non plus */
-    .wpcf7 {
-        max-width: 100% !important;
-        overflow-x: hidden !important;
+    .nav-next {
+      text-align: right;
     }
+  }
 
-    /* Correction spécifique pour le textarea */
-    textarea.input-minimal {
-        resize: vertical; /* Empêche l'utilisateur d'étendre le champ horizontalement */
-        min-height: 100px;
-    }
+  /* Style de base des champs */
+  /* Empêcher le débordement sur mobile */
+  .input-minimal {
+    width: 100% !important;
+    /* Force la largeur au conteneur */
+    max-width: 100% !important;
+    /* Interdit de dépasser */
+    box-sizing: border-box !important;
+    /* Inclut le padding dans le calcul de la largeur */
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0.75rem 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: #111827;
+    /* Supprime le style par défaut d'iOS sur les inputs */
+    -webkit-appearance: none;
+    appearance: none;
+  }
 
-    /* Adaptation Mode Sombre pour les champs */
-    .dark .input-minimal {
-        color: #f9fafb !important; /* gray-50 */
-    }
+  /* On s'assure que le conteneur du formulaire ne déborde pas non plus */
+  .wpcf7 {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
 
-    /* Bouton Envoyer (Brutaliste) */
-    .btn-submit {
-        width: 100% !important;
-        background-color: #030712 !important; /* gray-950 */
-        color: #f9fafb !important; /* gray-100 */
-        border: 1px solid #f9fafb !important;
-        border-radius: 0 !important; /* Pas d'arrondi */
-        padding: 1rem 2rem !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+  /* Correction spécifique pour le textarea */
+  textarea.input-minimal {
+    resize: vertical;
+    /* Empêche l'utilisateur d'étendre le champ horizontalement */
+    min-height: 100px;
+  }
 
-    .btn-submit:hover {
-        background-color: #ffffff !important;
-        color: #030712 !important;
-    }
-    
+  /* Adaptation Mode Sombre pour les champs */
+  .dark .input-minimal {
+    color: #f9fafb !important;
+    /* gray-50 */
+  }
+
+  /* Bouton Envoyer (Brutaliste) */
+  .btn-submit {
+    width: 100% !important;
+    background-color: #030712 !important;
+    /* gray-950 */
+    color: #f9fafb !important;
+    /* gray-100 */
+    border: 1px solid #f9fafb !important;
+    border-radius: 0 !important;
+    /* Pas d'arrondi */
+    padding: 1rem 2rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-submit:hover {
+    background-color: #ffffff !important;
+    color: #030712 !important;
+  }
+
 }
