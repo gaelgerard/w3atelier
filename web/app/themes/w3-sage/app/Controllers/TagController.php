@@ -46,4 +46,14 @@ class TagController extends Controller
             }
         ]);
     }
+    public static function no_index_lowtags()
+    {
+        if (is_tag()) {
+            $term = get_queried_object();
+            if ($term && $term->count < 3) {
+                echo '<meta name="robots" content="noindex">' . "\n";
+            }
+        }
+    }
+
 }

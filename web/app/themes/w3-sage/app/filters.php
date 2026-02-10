@@ -52,3 +52,5 @@ add_action('custom_tag_list', function ($format = 'list') {
     $tagController = new \App\Controllers\TagController(new \App\Models\TagModel());
     echo $tagController->renderTagList($format);
 }, 10, 1);
+
+add_action('wp_head', ['App\Controllers\TagController', 'no_index_lowtags']);
