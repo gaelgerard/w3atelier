@@ -76,7 +76,9 @@
   .text-primary-500 {
     color: var(--color-primary-500);
   }
-
+  .dark .has-very-light-gray-background-color {
+    color: var(--color-gray-950);
+  }
   /* On applique la transition sur l'élément racine et ses descendants */
   html {
     /* On prépare la transition pour les changements de thème */
