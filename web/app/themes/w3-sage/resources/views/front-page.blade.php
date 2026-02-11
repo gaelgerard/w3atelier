@@ -24,9 +24,9 @@
                           Que vous soyez développeur, propriétaire de site internet ou de boutique WooCommerce, découvrez mes retours d'expérience sans filtre sur les bonnes pratiques du web moderne.
                       </p>
                   </div>
-                  <a href="{{get_the_permalink(1404)}}" class="inline-flex items-center text-sm font-medium text-primary-400 hover:text-primary-300 transition-colors">
+                  <a href="{{get_the_permalink(1404)}}" class="group inline-flex items-center text-sm font-medium text-primary-400 hover:text-primary-300 transition-all">
                       En savoir plus sur mon parcours 
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                      <x-arrow />
                   </a>
               </div>
               

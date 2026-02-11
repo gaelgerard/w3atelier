@@ -15,10 +15,11 @@
         {{ __('Lectures conseillées', 'sage') }}
     </h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        @while($featured_query->have_posts()) @php $featured_query->the_post() @endphp            <a href="{{ get_permalink() }}" 
-               class="group p-3 rounded-lg bg-gray-900/50 border border-gray-800 hover:border-primary-500/50 transition-all">
+        @while($featured_query->have_posts()) @php $featured_query->the_post() @endphp            
+            <a href="{{ get_permalink() }}" 
+            class="group p-3 rounded-lg bg-gray-900/50 border border-gray-800 hover:border-primary-500/50 transition-all inline-block">
                 <span class="text-sm font-medium group-hover:text-primary-400">
-                    {{ get_the_title() }}
+                    {{ get_the_title() }}<span class="inline-block whitespace-nowrap"> <x-arrow class="inline-block w-4 h-4" /></span>
                 </span>
             </a>
         @endwhile
