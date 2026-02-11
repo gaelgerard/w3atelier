@@ -20,7 +20,6 @@ RewriteRule . /index.php [L]
 </Files>
 Redirect 301 /creation-digitale/plateforme-de-formation-en-ligne-simple-pour-createurs-et-artisans/ /wordpress-cms/plateforme-de-formation-en-ligne-simple-pour-createurs-et-artisans/
 Redirect 301 /creation-digitale/creation-de-plateforme-de-cours-en-ligne-wordpress-retour-dexperience-et-choix-techniques/ /wordpress-cms/creation-de-plateforme-de-cours-en-ligne-wordpress-retour-dexperience-et-choix-techniques/
-Redirect 301 /trucs-et-astuces/cv-gael-gerard-developpeur-senior-wordpress-full-stack/ /inclassable/cv-gael-gerard-developpeur-senior-wordpress-full-stack/
 Redirect 301 /creation-digitale/comment-jai-transforme-un-site-woocommerce-en-plateforme-de-reservation-devenements-legere-et-sur-mesure/ /e-commerce-woocommerce/comment-jai-transforme-un-site-woocommerce-en-plateforme-de-reservation-devenements-legere-et-sur-mesure/
 Redirect 301 /creation-digitale/cnil-vie-privee-et-protection-contre-les-cookies/ /securite-conformite-rgpd/cnil-vie-privee-et-protection-contre-les-cookies/
 Redirect 301 /creation-digitale/site-internet-artisan-pme/ /gestion-de-projet-methodes/site-internet-artisan-pme/
@@ -31,13 +30,11 @@ Redirect 301 /creation-digitale/developpement-plugins-wordpress-creez-votre-plug
 Redirect 301 /creation-digitale/gestion-de-projet/pourquoi-j-utilise-les-services-d-o2switch-depuis-mes-debuts-en-freelance/ /gestion-de-projet-methodes/pourquoi-j-utilise-les-services-d-o2switch-depuis-mes-debuts-en-freelance/
 Redirect 301 /creation-digitale/gestion-de-projet/logiciel-de-gestion-de-la-formation-training-management-system-sous-wordpress/ /wordpress-cms/logiciel-de-gestion-de-la-formation-training-management-system-sous-wordpress/
 Redirect 301 /creation-digitale/securite-et-protection-des-donnees/5-facons-dont-les-applications-de-messagerie-epient-vos-conversations/ /securite-conformite-rgpd/5-facons-dont-les-applications-de-messagerie-epient-vos-conversations/
-Redirect 301 /creation-digitale/coup-de-frais-site-internet/ /inclassable/coup-de-frais-site-internet/
 Redirect 301 /creation-digitale/comment-publier-sur-linkedin/ /marketing-digital/comment-publier-sur-linkedin/
 Redirect 301 /creation-digitale/en-2021-nous-vous-souhaitons/ /inclassable/en-2021-nous-vous-souhaitons/
 Redirect 301 /creation-digitale/gestion-de-projet/voici-comment-prosperer-en-2021/ /gestion-de-projet-methodes/voici-comment-prosperer-en-2021/
 Redirect 301 /creation-digitale/comment-vider-son-cache/ /inclassable/comment-vider-son-cache/
 Redirect 301 /creation-digitale/secrets-succes-freelancer/ /gestion-de-projet-methodes/secrets-succes-freelancer/
-Redirect 301 /creation-digitale/boutique-en-ligne-e-commerce/ecommercesolidaire/ /inclassable/ecommercesolidaire/
 Redirect 301 /creation-digitale/avec-vous-depuis-7-ans/ /inclassable/avec-vous-depuis-7-ans/
 Redirect 301 /creation-digitale/2020-une-excellente-annee/ /inclassable/2020-une-excellente-annee/
 Redirect 301 /creation-digitale/tracker-les-vues-de-videos-youtube-sur-mon-site-internet/ /seo-geo-visibilite/tracker-les-vues-de-videos-youtube-sur-mon-site-internet/
@@ -45,7 +42,6 @@ Redirect 301 /creation-digitale/maintenance-site-internet/ /inclassable/maintena
 Redirect 301 /creation-digitale/site-internet-eco-responsable/ /inclassable/site-internet-eco-responsable/
 Redirect 301 /trucs-et-astuces/error-listen-eaddrinuse-3000-resolu/ /developpement-web/error-listen-eaddrinuse-3000-resolu/
 Redirect 301 /trucs-et-astuces/signature-email/ /marketing-digital/signature-email/
-Redirect 301 /creation-digitale/creer-un-site-internet-en-local/ /inclassable/creer-un-site-internet-en-local/
 Redirect 301 /creation-digitale/gestion-de-projet/booster-son-business/ /gestion-de-projet-methodes/booster-son-business/
 Redirect 301 /creation-digitale/une-excellente-annee/ /inclassable/une-excellente-annee/
 Redirect 301 /creation-digitale/gestion-de-projet/creer-un-site-internet-gratuit/ /gestion-de-projet-methodes/creer-un-site-internet-gratuit/
@@ -53,7 +49,6 @@ Redirect 301 /creation-digitale/2-minutes-pour-convaincre/ /inclassable/2-minute
 Redirect 301 /creation-digitale/developpement-web/tester-les-formulaires-de-contact-en-local-avec-une-adresse-free/ /developpement-web/tester-les-formulaires-de-contact-en-local-avec-une-adresse-free/
 Redirect 301 /creation-digitale/integration-web/responsive-email-campagnes-mailing/ /marketing-digital/responsive-email-campagnes-mailing/
 Redirect 301 /a-la-une/ameliorer-referencement-naturel/ /seo-geo-visibilite/ameliorer-referencement-naturel/
-Redirect 301 /creation-digitale/nouveau-formulaire-contact-form-7/ /inclassable/nouveau-formulaire-contact-form-7/
 Redirect 301 /creation-digitale/mise-en-conformite-rgpd/ /securite-conformite-rgpd/mise-en-conformite-rgpd/
 Redirect 301 /creation-digitale/gdpr-manager-plugin-pour-wordpress/ /securite-conformite-rgpd/gdpr-manager-plugin-pour-wordpress/
 Redirect 301 /creation-digitale/comment-securiser-un-site/ /securite-conformite-rgpd/comment-securiser-un-site/
@@ -64,7 +59,6 @@ Redirect 301 /creation-digitale/integration-web/boutique-wordpress-woocommerce/ 
 Redirect 301 /creation-digitale/integration-web/migration-prestashop-1-4-vers-1-6/ /e-commerce-woocommerce/migration-prestashop-1-4-vers-1-6/
 Redirect 301 /creation-digitale/integration-web/extranet-adherents-wordpress/ /wordpress-cms/extranet-adherents-wordpress/
 Redirect 301 /creation-digitale/integration-web/site-communautaire-extranet-wordpress/ /wordpress-cms/site-communautaire-extranet-wordpress/
-Redirect 301 /creation-digitale/integration-web/site-multilingue-administrable-wordpress/ /inclassable/site-multilingue-administrable-wordpress/
 Redirect 301 /creation-digitale/integration-web/site-vitrine-administrable-wordpress/ /inclassable/site-vitrine-administrable-wordpress/
 Redirect 301 /creation-digitale/integration-web/site-administrable-emajine/ /inclassable/site-administrable-emajine/
 Redirect 301 /creation-digitale/developpement-web/module-galerie-site-dynamique-php/ /developpement-web/module-galerie-site-dynamique-php/
@@ -76,4 +70,15 @@ Redirect 301 /creation-digitale/integration-web/site-catalogue-de-realisations-e
 Redirect 301 /creation-digitale/integration-web/portfolio-decoration-wordpress/ /inclassable/portfolio-decoration-wordpress/
 Redirect 301 /creation-digitale/integration-web/site-vitrine-statique/ /inclassable/site-vitrine-statique/
 
-# ... rest of the .htaccess file ...
+Redirect 301 /tag/email-responsive/ /tag/responsive/
+
+Redirect 301 /tag/campagnes-mailing/ /tag/email/
+Redirect 301 /contact/ /accompagnement/
+Redirect 301 /tag/migration-prestashop/ /tag/prestashop/
+Redirect 301 /trucs-et-astuces/cv-gael-gerard-developpeur-senior-wordpress-full-stack/ /expertises/
+Redirect 301 /creation-digitale/nouveau-formulaire-contact-form-7/ /wordpress-cms/nouveau-formulaire-contact-form-7/
+Redirect 301 /creation-digitale/creer-un-site-internet-en-local/ /gestion-de-projet-methodes/creer-un-site-internet-en-local/
+Redirect 301 /wp-content/uploads/2025/08/CV-Gael-GERARD-Developpeur-Senior-WordPress-Full-Stack.pdf /expertises/
+Redirect 301 /creation-digitale/integration-web/site-multilingue-administrable-wordpress/ /wordpress-cms/site-multilingue-administrable-wordpress/
+Redirect 301 /creation-digitale/coup-de-frais-site-internet/ /gestion-de-projet-methodes/coup-de-frais-site-internet/
+Redirect 301 /creation-digitale/boutique-en-ligne-e-commerce/ecommercesolidaire/ /e-commerce-woocommerce/ecommercesolidaire/
