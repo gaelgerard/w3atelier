@@ -3,7 +3,7 @@
         'post_type'      => array('post', 'page'),
         'posts_per_page' => 4,
         'meta_query'     => [[
-            'key'   => '_featured_product',
+            'key'   => '_featured_post',
             'value' => '1',
         ]]
     ]);
