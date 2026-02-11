@@ -26,14 +26,14 @@
                   </div>
                   <a href="{{get_the_permalink(1404)}}" class="inline-flex items-center text-sm font-medium text-primary-400 hover:text-primary-300 transition-colors">
                       En savoir plus sur mon parcours 
-                      <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                   </a>
               </div>
-              <x-featured-lectures />
-
               
+              
+            </div>
           </div>
-      </div>
+          <x-featured-lectures />
     </header>
     <div class="space-y-2 pt-6 pb-8 md:space-y-5 divide-y divide-gray-200 dark:divide-gray-700">
       <div class="space-y-2 pt-6 pb-8 md:space-y-5">
