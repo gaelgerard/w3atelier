@@ -324,7 +324,10 @@
     /* Empêche l'utilisateur d'étendre le champ horizontalement */
     min-height: 100px;
   }
-
+  .wpcf7-form-control-wrap {
+    display: block !important;
+    width: 100% !important;
+  }
   /* Adaptation Mode Sombre pour les champs */
   .dark .input-minimal {
     color: #f9fafb !important;
