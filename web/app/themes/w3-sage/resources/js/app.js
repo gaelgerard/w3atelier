@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  /** 
+   * Bouton copier le texte dans les bloc code de gutenberg
+   *  */
+
   // 1. On cible tous tes blocs de code
   const codeBlocks = document.querySelectorAll('pre.editor');
 
@@ -63,3 +67,90 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+/**
+ * Back to Top Button
+ */
+const backToTopButton = document.createElement('button');
+backToTopButton.id = 'back-to-top';
+backToTopButton.innerHTML = `<span class="sr-only">Retour en haut de page / Back to top</span><svg width="3rem" height="3rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <path d="M16 12L12 8M12 8L8 12M12 8V16M7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V7.8C21 6.11984 21 5.27976 20.673 4.63803C20.3854 4.07354 19.9265 3.6146 19.362 3.32698C18.7202 3 17.8802 3 16.2 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>`;
+backToTopButton.style.display = 'none';
+backToTopButton.style.position = 'fixed';
+backToTopButton.style.bottom = '20px';
+backToTopButton.style.right = '20px';
+backToTopButton.style.zIndex = '1000';
+backToTopButton.style.color = 'var(--color-primary)';
+backToTopButton.style.border = 'none';
+backToTopButton.style.cursor = 'pointer';
+backToTopButton.style.opacity = '0';
+backToTopButton.style.transition = 'opacity 0.5s ease-in-out';
+backToTopButton.style.transform = 'translateY(0)';
+
+document.body.appendChild(backToTopButton);
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block';
+        setTimeout(() => {
+            backToTopButton.style.opacity = '1';
+        }, 10);
+    } else {
+        backToTopButton.style.opacity = '0';
+        setTimeout(() => {
+            backToTopButton.style.display = 'none';
+        }, 10);
+    }
+});
+backToTopButton.addEventListener('mouseover', () => {
+  backToTopButton.style.transform = 'translateY(-5px)';
+});
+
+backToTopButton.addEventListener('mouseout', () => {
+  backToTopButton.style.transform = 'translateY(0)';
+});
+
+backToTopButton.addEventListener('mousedown', () => {
+  backToTopButton.style.transform = 'translateY(-10px)';
+});
+
+backToTopButton.addEventListener('mouseup', () => {
+  backToTopButton.style.transform = 'translateY(0)';
+});
+backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+/**
+ * Smooth scrolling on anchor link
+ */
+function anchorLinkHandler(e) {
+    const distanceToTop = el => Math.floor(el.getBoundingClientRect().top);
+
+    e.preventDefault();
+    const targetID = this.getAttribute("href");
+    const targetAnchor = document.querySelector(targetID);
+    if (!targetAnchor) return;
+    const originalTop = distanceToTop(targetAnchor);
+
+    window.scrollBy({ top: originalTop, left: 0, behavior: "smooth" });
+
+    const checkIfDone = setInterval(function() {
+        const atBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2;
+        if (distanceToTop(targetAnchor) === 0 || atBottom) {
+            targetAnchor.tabIndex = "-1";
+            targetAnchor.focus();
+            window.history.pushState("", "", targetID);
+            clearInterval(checkIfDone);
+        }
+    }, 100);
+}
+
+const linksToAnchors = document.querySelectorAll('a[href^="#"]');
+
+linksToAnchors.forEach(each => (each.onclick = anchorLinkHandler));
+
+// it could probably work in two dimensions too... that'd be kinda cool.
