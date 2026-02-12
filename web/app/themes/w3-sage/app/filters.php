@@ -85,3 +85,18 @@ function force_real_category_breadcrumb( $links ) {
     }
     return $links;
 }
+
+/**
+ * Vanilla JS Lightbox data attribute to image links
+ */
+add_filter('the_content', function ($content) {
+    // On ne cible que les liens pointant directement vers des images (jpg, jpeg, png, gif, webp)
+    $pattern = '/<a(.*?)href=["\']([^"\']+\.(?:jpe?g|png|gif|webp))["\']([^>]*)>/i';
+    
+    // On remplace pour ajouter data-fslightbox
+    $replacement = '<a$1href="$2"$3 data-fslightbox="gallery">';
+    
+    $content = preg_replace($pattern, $replacement, $content);
+    
+    return $content;
+}, 10);
