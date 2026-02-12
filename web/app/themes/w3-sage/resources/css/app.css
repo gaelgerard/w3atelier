@@ -73,6 +73,9 @@
     }
   }
 
+  .text-primary-400 {
+    color: var(--color-primary-400);
+  }
   .text-primary-500 {
     color: var(--color-primary-500);
   }
