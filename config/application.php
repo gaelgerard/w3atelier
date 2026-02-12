@@ -167,3 +167,7 @@ Config::apply();
 if (!defined('ABSPATH')) {
     define('ABSPATH', $webroot_dir . '/wp/');
 }
+/**
+ * Prevent CF7 from adding paragraphs everywhere
+ */
+define( 'WPCF7_AUTOP', false );

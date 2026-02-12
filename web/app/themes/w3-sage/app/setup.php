@@ -199,5 +199,3 @@ add_action('after_setup_theme', function () {
 });
 
 add_theme_support('custom-logo');
-
-define( 'WPCF7_AUTOP', false );
