@@ -1,5 +1,5 @@
 @if ($isCloud)
-    <div class="flex max-w-lg flex-wrap">
+    <div class="flex max-w-xl flex-wrap">
     @foreach ($tags as $tag)
             <div class="mt-2 mr-5 mb-2">
             <a href="{{ esc_url(get_tag_link($tag->term_id)) }}"
