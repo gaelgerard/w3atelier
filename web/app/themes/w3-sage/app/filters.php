@@ -100,3 +100,64 @@ add_filter('the_content', function ($content) {
     
     return $content;
 }, 10);
+
+/**
+ * Custom search form
+ */
+add_filter('get_search_form', function ($form) {
+    ob_start();
+    echo view('partials.searchform')->render();
+    return ob_get_clean();
+});
+/**
+ * Register a custom REST API endpoint to fetch random tags.
+ */
+function register_random_tags_endpoint() {
+    register_rest_route('custom/v1', '/random-tags', array(
+        'methods' => 'GET',
+        'callback' => 'App\\get_random_tags',
+                'permission_callback' => '__return_true', // Add permission_callback for public access
+
+    ));
+}
+
+add_action('rest_api_init', 'App\register_random_tags_endpoint');
+
+/**
+ * Callback function to fetch random tags.
+ */
+function get_random_tags($request) {
+    // Number of tags to fetch randomly
+    $num_tags = isset($request['number']) ? intval($request['number']) : 3;
+
+    // Get all tags
+    $tags = get_terms(array(
+        'taxonomy' => 'post_tag',
+        'hide_empty' => false,
+    ));
+
+    // Check if there are tags
+    if (empty($tags) || is_wp_error($tags)) {
+        return new WP_Error('no_tags', 'No tags found', array('status' => 404));
+    }
+
+    // Shuffle the tags array to get random tags
+    shuffle($tags);
+
+    // Get the specified number of random tags
+    $random_tags = array_slice($tags, 0, $num_tags);
+
+    // Prepare the response
+    $response = array();
+    foreach ($random_tags as $tag) {
+        $response[] = array(
+            'id' => $tag->term_id,
+            'name' => $tag->name,
+            'slug' => $tag->slug,
+            'count' => $tag->count,
+        );
+    }
+
+
+    return rest_ensure_response($response);
+}

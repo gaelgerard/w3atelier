@@ -3,13 +3,25 @@ import.meta.glob([
   '../fonts/**',
 ]);
 import 'fslightbox';
+import i18next from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import translations from './translations';
+
+i18next
+  .use(LanguageDetector)
+  .init({
+    fallbackLng: 'en',
+    resources: translations
+  });
+
 document.addEventListener('DOMContentLoaded', () => {
+  
   const button = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
   const body = document.body;
-
+  
   if (button && menu) {
     button.addEventListener('click', () => {
       const isOpen = menu.classList.contains('translate-x-0');
@@ -73,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 const backToTopButton = document.createElement('button');
 backToTopButton.id = 'back-to-top';
-backToTopButton.innerHTML = `<span class="sr-only">Retour en haut de page / Back to top</span><svg width="3rem" height="3rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+backToTopButton.innerHTML = `<span class="sr-only">${i18next.t('backToTop')}</span><svg width="3rem" height="3rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
  <path d="M16 12L12 8M12 8L8 12M12 8V16M7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V7.8C21 6.11984 21 5.27976 20.673 4.63803C20.3854 4.07354 19.9265 3.6146 19.362 3.32698C18.7202 3 17.8802 3 16.2 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
  </svg>`;
 backToTopButton.style.display = 'none';
@@ -153,4 +165,70 @@ const linksToAnchors = document.querySelectorAll('a[href^="#"]');
 
 linksToAnchors.forEach(each => (each.onclick = anchorLinkHandler));
 
-// it could probably work in two dimensions too... that'd be kinda cool.
+/**
+ * Search form suggestions
+ */
+// Fetch tags from WordPress REST API
+async function fetchTags() {
+    try {
+        const response = await fetch('/wp-json/custom/v1/random-tags?number=10');
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Network response was not ok:', errorText);
+            throw new Error('Network response was not ok');
+        }
+
+        const tags = await response.json();
+        return tags.map(tag => tag.name);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        return [];
+    }
+}
+// Popular search suggestions
+let searchSuggestions = '';
+
+// Update search suggestions with tags
+async function updateSearchSuggestions() {
+    const tags = await fetchTags();
+    if (tags.length > 0) {
+        // Update the outer searchSuggestions variable with the tags
+        searchSuggestions = tags;
+        // Initialize search suggestions after the searchSuggestions variable has been updated
+        initializeSearchSuggestions();
+    } else {
+        console.log('No tags found, using default suggestions.');
+    }
+}
+
+// Call the function to update search suggestions
+updateSearchSuggestions();
+// Initialize search suggestions
+function initializeSearchSuggestions() {
+  const searchInput = document.getElementById("search-input");
+  i18next
+  .use(LanguageDetector)
+  .init({
+    fallbackLng: 'fr',
+    resources: translations
+  }).then(() => {
+    // Ton code qui utilise les traductions ici
+    let suggestionIndex = 0;
+
+    // Rotate through suggestions
+    function showNextSuggestion() {
+        if (searchInput.value === "") {
+            searchInput.placeholder = `${i18next.t('searchPlaceholder')} ${i18next.t('searchExample', { suggestion: searchSuggestions[suggestionIndex] })}`;
+            
+            suggestionIndex = (suggestionIndex + 1) % searchSuggestions.length;
+        }
+    }
+
+    // Show initial suggestion
+    showNextSuggestion();
+
+    // Rotate suggestions every 3 seconds
+    setInterval(showNextSuggestion, 3000);
+  });
+}
