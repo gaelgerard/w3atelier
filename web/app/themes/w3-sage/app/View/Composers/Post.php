@@ -85,4 +85,10 @@ class Post extends Composer
                 </nav>
                 ';
     }
+    public function with()
+    {
+        return [
+            'is_significantly_modified' => (get_the_modified_time('U') > (get_the_time('U') + 2592000)),
+        ];
+    }
 }
