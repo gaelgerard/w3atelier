@@ -1,8 +1,3 @@
-@php
-  $u_time = get_the_time('U'); 
-  $u_modified_time = get_the_modified_time('U'); 
-  $un_mois_en_secondes = 30 * 24 * 60 * 60;
-@endphp
 <li class="py-12 first:pt-0">
     <article>
         <div class="space-y-8">
@@ -12,7 +7,8 @@
                 <dt class="sr-only">{__('Published on', 'sage')}</dt>
                 <dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-200">
                 <time datetime="{{ get_post_time('c', true) }}">{{ get_the_date() }}</time>
-                @if ($u_modified_time >= ($u_time + $un_mois_en_secondes))
+
+                @if($is_significantly_modified)
                 <time class="updated" datetime="{{ get_the_modified_time('c') }}">
                     ({{__('Updated on:', 'sage')}} {{ get_the_modified_date() }})
                 </time>
