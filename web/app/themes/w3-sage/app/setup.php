@@ -7,7 +7,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\Vite;
-
+use Illuminate\Support\Facades\Blade;
 /**
  * Inject styles into the block editor.
  *
@@ -199,3 +199,11 @@ add_action('after_setup_theme', function () {
 });
 
 add_theme_support('custom-logo');
+/**
+ * Register custom Blade directives.
+ */
+add_action('after_setup_theme', function () {
+    Blade::directive('readingtime', function () {
+        return '<?php echo \App\reading_time(); ?>';
+    });
+});

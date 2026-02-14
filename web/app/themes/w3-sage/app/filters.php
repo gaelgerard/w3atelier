@@ -5,7 +5,7 @@
  */
 
 namespace App;
-
+use Illuminate\Support\Str;
 /**
  * Add "… Continued" to the excerpt.
  *
@@ -24,6 +24,27 @@ function wpse_134143_excerpt_more_link( $excerpt ) {
 }
 // Utilisez la constante magique __NAMESPACE__ pour plus de sécurité
 add_filter( 'the_excerpt', __NAMESPACE__ . '\\wpse_134143_excerpt_more_link', 21 );
+
+/**
+ * Get post reading time with pluralization.
+ */
+function reading_time($post_id = null) {
+    $post_id = $post_id ?: get_the_ID();
+    $content = get_post_field('post_content', $post_id);
+    
+    // Fallback if content is empty
+    if (empty(strip_tags($content))) {
+        return '0 minute';
+    }
+
+    $word_count = Str::wordCount(strip_tags($content));
+    $minutes = ceil($word_count / 200);
+
+    // If minutes is 1, use 'min', otherwise use 'mins'
+    $suffix = ($minutes == 1) ? 'minute' : 'minutes';
+
+    return "{$minutes} {$suffix}";
+}
 
 add_filter('wp_list_comments_args', function ($args) {
     $args['callback'] = function ($comment, $args, $depth) {
