@@ -23,7 +23,7 @@
                 $image_alt = get_post_meta($thumb_id, '_wp_attachment_image_alt', true) ?: get_the_title();
             @endphp
              <!-- Article Card 1 -->
-                <div class="bg-white rounded-2xl overflow-hidden border border-primary-100 card-hover">
+                <div class="bg-white dark:bg-gray-950 rounded-2xl overflow-hidden border border-primary-100 card-hover">
                     <div class="h-48 overflow-hidden">
                         <img 
                             src="{{ $image_url }}" 
