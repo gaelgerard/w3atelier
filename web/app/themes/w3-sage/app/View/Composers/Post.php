@@ -6,11 +6,6 @@ use Roots\Acorn\View\Composer;
 
 class Post extends Composer
 {
-    /**
-     * List of views served by this composer.
-     *
-     * @var array
-     */
     protected static $views = [
         'partials.page-header',
         'partials.content',
@@ -18,8 +13,31 @@ class Post extends Composer
     ];
 
     /**
-     * Retrieve the post title.
+     * Data to be passed to view before rendering.
+     *
+     * @return array
      */
+    public function with()
+    {
+        return [
+            'title' => $this->title(),
+            'pagination' => $this->pagination(),
+            'is_significantly_modified' => $this->isSignificantlyModified(),
+        ];
+    }
+
+    /**
+     * Check if post was modified more than 30 days after publication.
+     */
+    public function isSignificantlyModified(): bool
+    {
+        $published = get_the_time('U');
+        $modified = get_the_modified_time('U');
+        $one_month = 30 * 24 * 60 * 60;
+
+        return $modified > ($published + $one_month);
+    }
+
     public function title(): string
     {
         if ($this->view->name() !== 'partials.page-header') {
@@ -30,7 +48,6 @@ class Post extends Composer
             if ($home = get_option('page_for_posts', true)) {
                 return get_the_title($home);
             }
-
             return __('Latest Posts', 'sage');
         }
 
@@ -39,33 +56,21 @@ class Post extends Composer
         }
 
         if (is_search()) {
-            return sprintf(
-                /* translators: %s is replaced with the search query */
-                __('Search Results for %s', 'sage'),
-                get_search_query()
-            );
+            return sprintf(__('Search Results for %s', 'sage'), get_search_query());
         }
 
-        if (is_404()) {
-            return __('Not Found', 'sage');
-        }
-
-        return get_the_title();
+        return is_404() ? __('Not Found', 'sage') : get_the_title();
     }
 
-    /**
-     * Retrieve the pagination links.
-     */
     public function pagination(): string
     {
-        // ID de la catégorie à exclure (à adapter si différent de 1)
         $excluded_categories = '1'; 
 
         $prev = get_previous_post_link(
             '<div class="nav-previous">%link</div>',
             __('&laquo;&nbsp;Previous post: %title', 'sage'),
-            false, // in_same_term : false pour naviguer partout
-            $excluded_categories, // Les IDs à exclure (string séparée par des virgules)
+            false,
+            $excluded_categories,
             'category'
         );
 
@@ -77,18 +82,10 @@ class Post extends Composer
             'category'
         );
 
-        return '<h2 class="screen-reader-text">Post navigation</h2>
-                <nav class="post-navigation">
-                <div class="nav-links">
-                ' . $prev . $next . '
-                </div>
-                </nav>
-                ';
-    }
-    public function with()
-    {
-        return [
-            'is_significantly_modified' => (get_the_modified_time('U') > (get_the_time('U') + 2592000)),
-        ];
+        return '
+            <h2 class="screen-reader-text">Post navigation</h2>
+            <nav class="post-navigation">
+                <div class="nav-links">' . $prev . $next . '</div>
+            </nav>';
     }
 }
