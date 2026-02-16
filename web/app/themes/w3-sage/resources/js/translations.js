@@ -8,7 +8,7 @@ const translations = {
   },
   fr: {
     translation: {
-      searchPlaceholder: 'Rechercher parmi les articles, pages...',
+      searchPlaceholder: 'Rechercher dans les articles de blog, pages...',
       searchExample: ' (ex. "{{suggestion}}")',
       backToTop: 'Retour en haut de page',
     }
