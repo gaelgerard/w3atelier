@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
 
-  <body @php(body_class('bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white'))>
+  <body @php(body_class('bg-zinc-50 pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white'))>
     @php(wp_body_open())
 
     <div id="app" class="max-w-4xl mx-auto px-4 sm:px-6 xl:px-0">

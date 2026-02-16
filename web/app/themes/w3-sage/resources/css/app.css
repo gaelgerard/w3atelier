@@ -7,37 +7,7 @@
 
   :host,
   :root {
-
-    --text-color: #1a1a1a;
-    --border-color: #e5e5e5;
-    --background-color: #ffffff;
-    --hover-background-color: #ffffff;
-    --hover-border-color: #000;
-    --label-color: #888;
-    --color-red-400: oklch(.704 .191 22.216);
-    --color-red-500: oklch(.637 .237 25.331);
-    --color-green-400: oklch(.792 .209 151.711);
-    --color-blue-500: oklch(.623 .214 259.815);
-    --color-blue-600: oklch(.546 .245 262.881);
-    --color-blue-700: oklch(.488 .243 264.376);
-    --color-pink-500: oklch(.656 .241 354.308);
-    --color-gray-50: oklch(.984 .003 247.858);
-    --color-gray-100: oklch(.968 .007 247.896);
-    --color-gray-200: oklch(.929 .013 255.508);
-    --color-gray-300: oklch(.869 .022 252.894);
-    --color-gray-400: oklch(.704 .04 256.788);
-    --color-gray-500: oklch(.554 .046 257.417);
-    --color-gray-600: oklch(.446 .043 257.281);
-    --color-gray-700: oklch(.372 .044 257.287);
-    --color-gray-800: oklch(.279 .041 260.031);
-    --color-gray-900: oklch(.208 .042 265.755);
-    --color-gray-950: oklch(.129 .042 264.695);
-    --color-black: #000;
-    --color-white: #fff;
-    --color-primary-400: oklch(.746 .16 232.661);
-    --color-primary-500: oklch(.685 .169 237.323);
-    --color-primary-600: oklch(.588 .158 241.966);
-    --color-primary-700: oklch(.5 .134 242.749);
+    /*Couleurs pour les blocks editor*/
     --scrollbar: #888;
     --highlight-bg: #f5f5f5;
     --highlight-color: #333;
