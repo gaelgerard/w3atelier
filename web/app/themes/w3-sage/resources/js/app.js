@@ -41,6 +41,54 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  /**
+   * Search form on clic
+   */
+  const searchButton = document.getElementById('search-form-button');
+  const searchWrapper = document.getElementById('search-form-wrapper');
+  const closeButton = document.getElementById('close-search'); // Optionnel si tu l'ajoutes
+
+  const toggleSearch = (state) => {
+      if (state === 'open') {
+          searchWrapper.classList.remove('translate-x-full');
+          searchWrapper.classList.add('translate-x-0');
+          document.body.style.overflow = 'hidden'; // Bloque le scroll
+          
+          // Focus automatique sur le champ de recherche pour l'utilisateur
+          const input = searchWrapper.querySelector('input[type="search"], input[type="text"]');
+          if (input) setTimeout(() => input.focus(), 300); 
+      } else {
+          searchWrapper.classList.add('translate-x-full');
+          searchWrapper.classList.remove('translate-x-0');
+          document.body.style.overflow = ''; // Libère le scroll
+      }
+  };
+
+  // Clic sur l'icône loupe
+  searchButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isOpen = searchWrapper.classList.contains('translate-x-0');
+      toggleSearch(isOpen ? 'close' : 'open');
+  });
+
+  // Clic sur un bouton fermer (si présent)
+  if (closeButton) {
+      closeButton.addEventListener('click', () => toggleSearch('close'));
+  }
+
+  // Fermeture avec la touche Échap (Esc)
+  document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape" && searchWrapper.classList.contains('translate-x-0')) {
+          toggleSearch('close');
+      }
+  });
+
+  // Fermeture en cliquant à côté du formulaire (sur l'overlay)
+  searchWrapper.addEventListener('click', (e) => {
+      if (e.target === searchWrapper) {
+          toggleSearch('close');
+      }
+  });
   /** 
    * Bouton copier le texte dans les bloc code de gutenberg
    *  */
@@ -180,7 +228,10 @@ async function fetchTags() {
         }
 
         const tags = await response.json();
-        return tags.map(tag => tag.name);
+        return tags.map(tag => {
+            const doc = new DOMParser().parseFromString(tag.name, 'text/html');
+            return doc.documentElement.textContent;
+        });
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         return [];
@@ -206,29 +257,38 @@ async function updateSearchSuggestions() {
 updateSearchSuggestions();
 // Initialize search suggestions
 function initializeSearchSuggestions() {
-  const searchInput = document.getElementById("search-input");
+  // On cible tous les inputs de recherche par leur classe
+  const searchInputs = document.querySelectorAll(".search-input-field");
+  
+  if (searchInputs.length === 0) return;
+
   i18next
-  .use(LanguageDetector)
-  .init({
-    fallbackLng: 'fr',
-    resources: translations
-  }).then(() => {
-    // Ton code qui utilise les traductions ici
-    let suggestionIndex = 0;
+    .use(LanguageDetector)
+    .init({
+      fallbackLng: 'fr',
+      resources: translations
+    }).then(() => {
+      let suggestionIndex = 0;
 
-    // Rotate through suggestions
-    function showNextSuggestion() {
-        if (searchInput.value === "") {
-            searchInput.placeholder = `${i18next.t('searchPlaceholder')} ${i18next.t('searchExample', { suggestion: searchSuggestions[suggestionIndex] })}`;
-            
-            suggestionIndex = (suggestionIndex + 1) % searchSuggestions.length;
-        }
-    }
+      // Fonction pour mettre à jour TOUS les placeholders d'un coup
+      function updateAllPlaceholders() {
+        const currentTag = searchSuggestions[suggestionIndex];
+        const placeholderText = `${i18next.t('searchPlaceholder')} ${i18next.t('searchExample', { suggestion: currentTag })}`;
+        
+        searchInputs.forEach(input => {
+          // On ne change le placeholder que si l'utilisateur n'est pas en train d'écrire
+          if (input.value === "") {
+            input.placeholder = placeholderText;
+          }
+        });
 
-    // Show initial suggestion
-    showNextSuggestion();
+        suggestionIndex = (suggestionIndex + 1) % searchSuggestions.length;
+      }
 
-    // Rotate suggestions every 3 seconds
-    setInterval(showNextSuggestion, 3000);
-  });
+      // Lancement initial
+      updateAllPlaceholders();
+
+      // Rotation toutes les 3 secondes
+      setInterval(updateAllPlaceholders, 3000);
+    });
 }

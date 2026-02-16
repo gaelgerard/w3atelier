@@ -21,7 +21,7 @@
                 </p>
                 
                 <!-- Search Form -->
-                <div class="max-w-2xl mx-auto mb-12">
+                <div class="max-w-3xl mx-auto mb-12">
                     <div class="bg-white p-8 dark:bg-gray-800/50 rounded-2xl p-1 search-shadow">
                       {!! get_search_form(false) !!}
                         
@@ -29,9 +29,9 @@
                     
                     <div class="mt-4 text-sm text-primary-500">
                         <p>{!! __('Try searching for:','sage') !!} 
-                          <a href="/?s=développement web" class="font-medium text-accent-600">"développement web"</a>,
-                          <a href="/?s=WordPress" class="font-medium text-accent-600">"WordPress"</a>,
-                          ou <a href="/?s=SEO" class="font-medium text-accent-600">"SEO"</a></p>
+                          <a href="/?s=développement web" class="font-medium text-accent-600 no-underline">"développement web"</a>,
+                          <a href="/?s=WordPress" class="font-medium text-accent-600 no-underline">"WordPress"</a>,
+                          ou <a href="/?s=SEO" class="font-medium text-accent-600 no-underline">"SEO"</a></p>
                     </div>
                 </div>
                 
