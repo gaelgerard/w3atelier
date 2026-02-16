@@ -229,8 +229,9 @@ async function fetchTags() {
 
         const tags = await response.json();
         return tags.map(tag => {
-            const doc = new DOMParser().parseFromString(tag.name, 'text/html');
-            return doc.documentElement.textContent;
+            const txt = document.createElement("textarea");
+            txt.innerHTML = tag.name;
+            return txt.value;
         });
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
