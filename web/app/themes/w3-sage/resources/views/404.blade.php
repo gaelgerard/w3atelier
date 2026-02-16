@@ -28,7 +28,10 @@
                     </div>
                     
                     <div class="mt-4 text-sm text-primary-500">
-                        <p>{!! __('Try searching for:','sage') !!} <span class="font-medium text-accent-600">"développement web"</span>, <span class="font-medium text-accent-600">"WordPress"</span>, ou <span class="font-medium text-accent-600">"SEO"</span></p>
+                        <p>{!! __('Try searching for:','sage') !!} 
+                          <a href="/?s=développement web" class="font-medium text-accent-600">"développement web"</a>,
+                          <a href="/?s=WordPress" class="font-medium text-accent-600">"WordPress"</a>,
+                          ou <a href="/?s=SEO" class="font-medium text-accent-600">"SEO"</a></p>
                     </div>
                 </div>
                 
