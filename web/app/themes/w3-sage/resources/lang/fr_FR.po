@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Sage Starter Theme 11.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/w3-sage\n"
 "POT-Creation-Date: 2026-02-14T18:13:05+00:00\n"
-"PO-Revision-Date: 2026-02-14 19:15+0100\n"
+"PO-Revision-Date: 2026-02-16 16:11+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -43,7 +43,7 @@ msgstr ""
 
 #: app/Fields/PageMeta.php:7 app/Fields/PostMeta.php:7
 msgid "Featured post"
-msgstr ""
+msgstr "Article à la une"
 
 #: app/filters.php:20
 #: resources/views/components/featured-postcards.blade.php:42
@@ -99,11 +99,11 @@ msgstr "Non trouvé"
 
 #: app/View/Composers/Post.php:71
 msgid "&laquo;&nbsp;Previous post: %title"
-msgstr ""
+msgstr "&laquo;&nbsp;Article précédent : %title"
 
 #: app/View/Composers/Post.php:79
 msgid "Next post: %title&nbsp;&raquo;"
-msgstr ""
+msgstr "Prochain article : %title&nbsp;&raquo;"
 
 #. Template Name of the theme
 msgid "List all posts on page"
@@ -114,9 +114,8 @@ msgid "Custom Template"
 msgstr ""
 
 #: resources/views/404.blade.php:17
-#, fuzzy
 msgid "Page Not Found"
-msgstr "Non trouvé"
+msgstr "Page introuvable"
 
 #: resources/views/404.blade.php:19
 msgid ""
@@ -129,9 +128,8 @@ msgstr ""
 "dans notre blog ou explorer nos articles populaires ci-dessous."
 
 #: resources/views/404.blade.php:33
-#, fuzzy
 msgid "Try searching for:"
-msgstr "Rechercher :"
+msgstr "Essayez de rechercher :"
 
 #: resources/views/404.blade.php:41
 msgid "Go to Homepage"
@@ -152,7 +150,7 @@ msgstr ""
 #: resources/views/archive.blade.php:33 resources/views/front-page.blade.php:49
 #: resources/views/index.blade.php:52
 msgid "Sorry, no results were found."
-msgstr ""
+msgstr "Désolé, aucun résultat trouvé."
 
 #: resources/views/components/featured-lectures.blade.php:15
 msgid "Lectures conseillées"
@@ -200,16 +198,15 @@ msgstr "Les commentaires sont fermés."
 #: resources/views/partials/content-post.blade.php:13
 #: resources/views/partials/entry-meta.blade.php:7
 msgid "Updated on:"
-msgstr ""
+msgstr "Mis à jour le :"
 
 #: resources/views/partials/searchform.blade.php:40
 msgid "Search blog posts, pages..."
-msgstr ""
+msgstr "Rechercher dans les articles de blog, les pages..."
 
 #: resources/views/partials/searchform.blade.php:49
-#, fuzzy
 msgid "Search"
-msgstr "Rechercher :"
+msgstr "Rechercher"
 
 #: resources/views/search.blade.php:9
 #, php-format
@@ -236,7 +233,7 @@ msgstr ""
 
 #: resources/views/sections/archive-sidebar.blade.php:4
 msgid "Filter by tag"
-msgstr "Filtrer par étiquette"
+msgstr "Filtrer par tag"
 
 #: resources/views/sections/archive-sidebar.blade.php:9
 msgid "Filter by category"
