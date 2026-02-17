@@ -1,5 +1,16 @@
 @if($query->have_posts())
-    @if($type === 'lectures')
+    @if($type === 'list')
+        <ul class="space-y-2 text-sm">
+            @while($query->have_posts()) @php $query->the_post() @endphp
+                <li>
+                    <a href="{{ get_permalink() }}" class="hover:text-blue-400 transition-colors no-underline" title="{{ get_the_title() }}">
+                        {!! \Illuminate\Support\Str::limit(get_the_title(), $length, '...') !!}<x-arrow class="inline-block w-4 h-4" />
+                    </a>
+                </li>
+            @endwhile
+        </ul>
+
+    @elseif($type === 'lectures')
         {{-- DESIGN 1 : LECTURES CONSEILLÉES --}}
         <div class="mt-8 pt-8 border-t border-gray-800 md:border-none md:pt-0">
             <h3 class="text-xs font-bold uppercase tracking-widest text-primary-500 mb-4">

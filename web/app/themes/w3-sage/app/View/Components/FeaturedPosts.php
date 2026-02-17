@@ -10,12 +10,13 @@ class FeaturedPosts extends Component
     public $query;
     public $type;
     public $title;
+    public $length;
 
-    public function __construct($type = 'lectures', $count = 3, $title = null)
+    public function __construct($type = 'lectures', $count = 3, $title = null, $length = 500)
     {
         $this->type = $type;
         $this->title = $title;
-
+        $this->length = $length; // Initialisez la variable (150 par défaut)
         $this->query = new WP_Query([
             'post_type'      => ['post', 'page'],
             'posts_per_page' => $count,
