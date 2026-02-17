@@ -37,7 +37,7 @@
 
           <div class="w-full max-w-3xl px-6">
               {!! get_search_form(false) !!}
-              <p class="text-xs text-gray-400 mt-4 text-center">Appuyez sur "Échap" pour fermer</p>
+              <p class="text-xs text-gray-400 mt-4 text-center">Appuyez sur "Entrée" pour lancer la recherche ou sur "Échap" pour fermer</p>
           </div>
       </div>
     </div>

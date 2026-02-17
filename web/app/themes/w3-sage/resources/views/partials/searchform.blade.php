@@ -37,8 +37,9 @@
             name="s" 
             value="{{ get_search_query() }}"
             placeholder= "{{__('Search blog posts, pages...', 'sage')}}" 
-            class="search-input-field w-full pl-12 pr-4 py-4 rounded-2xl border-0 focus:ring-2 focus:ring-[var(--accent-500)] focus:outline-none dark:bg-gray-600"
+            class="search-input-field w-full pl-12 pr-4 py-4 rounded-2xl border-1 dark:border-0 border-gray-200 focus:border-0 focus:ring-2 focus:ring-[var(--accent-500)] focus:outline-none dark:bg-gray-600"
             autocomplete="off"
+            required
         >
     </div>
     <button 
