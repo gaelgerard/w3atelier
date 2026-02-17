@@ -2,8 +2,9 @@
     $id = $post->ID;
     $title = get_the_title($id);
     $url = get_permalink($id);
-    // Préparation du placeholder dynamique comme dans ton ancien fichier
-    $placeholder_text = str_replace(' ', '+', $title);
+    // Préparation du placeholder dynamique (on supprime le html)
+    $clean_title = strip_tags($title);
+    $placeholder_text = urlencode($clean_title);
     $placeholder_url = "https://placehold.co/600x400/0793d7/white?text={$placeholder_text}&font=raleway";
 @endphp
 
