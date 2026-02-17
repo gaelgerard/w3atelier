@@ -1,4 +1,39 @@
-<footer>
+<footer class="dark:text-gray-300 py-12 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    
+    <div>
+      <h3 class="dark:text-white text-lg font-bold mb-4 uppercase tracking-wider">Expertise Web & WordPress</h3>
+      <p class="text-sm leading-relaxed mb-4">
+        Expert en création de site internet, je partage ici plus de 10 ans de retours d'expérience comme freelance Web WordPress 
+        et WooCommerce.
+      </p>
+      <div class="flex space-x-4 text-sm group">
+        <a href="/a-propos/" class="no-underline group inline-flex items-center text-sm font-medium text-primary-400 hover:text-primary-300 transition-all">En savoir plus sur mon parcours <x-arrow /></a>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="dark:text-white text-lg font-bold mb-4 uppercase tracking-wider">Ressources Web & Création</h3>
+            <x-category-list :show-count="false" exclude="inclassable" class="my-custom-class" />
+    </div>
+
+    <div>
+      <h3 class="dark:text-white text-lg font-bold mb-4 uppercase tracking-wider">Articles Incontournables</h3>
+          <x-featured-posts type="list" count="4" length="50" />
+    </div>
+
+    <div>
+      <h3 class="dark:text-white text-lg font-bold mb-4 uppercase tracking-wider">Informations</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/accompagnement/" class="hover:text-primary-400 transition-colors">Contactez-moi</a></li>
+        <li><a href="/mentions-legales/" class="hover:text-primary-400 transition-colors">Mentions Légales</a></li>
+        <li><a href="/politique-de-confidentialite/" class="hover:text-primary-400 transition-colors">Politique de Confidentialité</a></li>
+        <li><a href="/mentions-legales/#cookies" class="hover:text-primary-400 transition-colors">Gestion des Cookies</a></li>
+      </ul>
+    </div>
+
+  </div>
+
   <div class="mt-16 flex flex-col items-center">
     <div class="mb-3 flex space-x-4">
       <a class="text-sm text-gray-500 transition hover:text-gray-600" rel="noopener noreferrer" href="/accompagnement">
