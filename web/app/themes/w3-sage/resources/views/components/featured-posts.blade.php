@@ -24,22 +24,7 @@
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @while($query->have_posts()) @php $query->the_post() @endphp
-                    <div class="bg-white dark:bg-gray-950 rounded-2xl overflow-hidden border border-primary-100 card-hover">
-                        <div class="h-48 overflow-hidden">
-                            <img src="{{ get_the_post_thumbnail_url(get_the_ID(), 'large') ?: 'https://via.placeholder.com/800x450' }}" 
-                                 alt="{{ get_the_title() }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center mb-3">
-                                <span class="px-3 py-1 bg-accent-100 text-accent-700 text-xs font-semibold rounded-full">{!! get_the_category()[0]->name !!}</span>
-                                <span class="ml-3 text-sm text-primary-500">@readingtime {{__('read')}}</span>
-                            </div>
-                            <h4 class="text-lg font-bold text-primary-800 mb-2">{{ get_the_title() }}</h4>
-                            <a href="{{ get_the_permalink() }}" class="group text-accent-600 font-medium text-sm hover:text-accent-700 transition-colors flex items-center no-underline">
-                                {{__('Read article', 'sage')}} <x-arrow />
-                            </a>
-                        </div>
-                    </div>
+                    <x-post-card :post="get_post()" />
                 @endwhile
             </div>
         </div>

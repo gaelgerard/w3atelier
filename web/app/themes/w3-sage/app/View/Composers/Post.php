@@ -10,6 +10,7 @@ class Post extends Composer
         'partials.page-header',
         'partials.content',
         'partials.content-*',
+        'components.post-*'
     ];
 
     /**
@@ -31,8 +32,10 @@ class Post extends Composer
      */
     public function isSignificantlyModified(): bool
     {
-        $published = get_the_time('U');
-        $modified = get_the_modified_time('U');
+        // On récupère l'ID du post actuel géré par le Composer
+        $post_id = get_the_ID(); 
+        $published = get_the_time('U', $post_id);
+        $modified = get_the_modified_time('U', $post_id);
         $one_month = 30 * 24 * 60 * 60;
 
         return $modified > ($published + $one_month);

@@ -34,7 +34,7 @@
     @endif
 
     @while(have_posts()) @php(the_post())
-      @include('partials.content-search')
+      <x-post-card class="mb-6" />
       
     @endwhile
   </div>
