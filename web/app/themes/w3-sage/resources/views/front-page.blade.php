@@ -33,7 +33,7 @@
               
             </div>
           </div>
-          <x-featured-lectures />
+          <x-featured-posts type="lectures" count="4" />
     </header>
     <div class="space-y-2 pt-6 pb-8 md:space-y-5 divide-y divide-gray-200 dark:divide-gray-700">
       <div class="space-y-2 pt-6 pb-8 md:space-y-5">

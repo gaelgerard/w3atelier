@@ -53,8 +53,7 @@
             </div>
 
             <!-- Popular Articles Section -->
-            <x-featured-postcards />
-
+            <x-featured-posts type="cards" count="3" :title="__('Popular Articles You Might Like', 'sage')" />
             <!-- Newsletter Section -->
             
         </div>
