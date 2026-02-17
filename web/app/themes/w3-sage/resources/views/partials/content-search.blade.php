@@ -15,7 +15,7 @@
       @includeWhen(get_post_type() === 'post', 'partials.entry-meta')
     </header>
 
-    <div class="mt-4 text-gray-600 dark:text-gray-300 line-clamp-3">
+    <div class="mt-4 text-gray-600 dark:text-gray-300">
       @php(the_excerpt())
     </div>
   </div>

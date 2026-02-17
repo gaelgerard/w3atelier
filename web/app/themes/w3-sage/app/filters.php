@@ -15,9 +15,13 @@ use Illuminate\Support\Str;
 add_filter( 'excerpt_more', '__return_empty_string', 21 );
 
 function wpse_134143_excerpt_more_link( $excerpt ) {
+    $read_more = __('Read article', 'sage');
+    if ( get_post_type() === 'page'  ) {
+        $read_more = __('Read page', 'sage');
+    }
     $excerpt .= sprintf('<a class="group no-underline mt-4 inline-flex items-center text-sm text-gray-600  hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100" href="%s">%s <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>', 
     get_permalink(), 
-    __('Read article', 'sage')
+    $read_more
     );
 
     return $excerpt;
@@ -130,6 +134,113 @@ add_filter('get_search_form', function ($form) {
     echo view('partials.searchform')->render();
     return ob_get_clean();
 });
+/**
+ * Étendre la recherche WordPress aux Tags et Catégories
+ */
+add_filter('posts_join', function ($join) {
+    global $wpdb;
+    if (is_search() && !is_admin()) {
+        $join .= " LEFT JOIN {$wpdb->term_relationships} tr ON {$wpdb->posts}.ID = tr.object_id ";
+        $join .= " LEFT JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id ";
+        $join .= " LEFT JOIN {$wpdb->terms} t ON t.term_id = tt.term_id ";
+    }
+    return $join;
+});
+
+add_filter('posts_where', function ($where) {
+    global $wpdb;
+    if (is_search() && !is_admin()) {
+        // On cherche dans le titre, le contenu, mais aussi le nom du terme (tag/cat)
+        $where = preg_replace(
+            "/\(\s*{$wpdb->posts}.post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+            "({$wpdb->posts}.post_title LIKE $1) OR ({$wpdb->posts}.post_content LIKE $1) OR (t.name LIKE $1)",
+            $where
+        );
+    }
+    return $where;
+});
+
+add_filter('posts_groupby', function ($groupby) {
+    global $wpdb;
+    if (is_search() && !is_admin()) {
+        $groupby = "{$wpdb->posts}.ID";
+    }
+    return $groupby;
+});
+/**
+ * 1. Générer un extrait dynamique basé sur la recherche
+ */
+add_filter('get_the_excerpt', 'App\dynamic_search_excerpt', 20);
+function dynamic_search_excerpt($excerpt) {
+    if (!is_search() || is_admin()) return $excerpt;
+
+    $query = get_search_query();
+    $content = get_the_content();
+    $content = strip_shortcodes($content);
+    $content = wp_strip_all_tags($content);
+    $content = str_replace(["\r", "\n"], ' ', $content);
+    $content = preg_replace('/\s+/', ' ', $content);
+
+    $words = preg_split('/\s+/', preg_quote($query), -1, PREG_SPLIT_NO_EMPTY);
+    $search_word = '';
+    
+    foreach ($words as $word) {
+        if (mb_strlen($word) >= 3) {
+            $search_word = $word;
+            break; 
+        }
+    }
+
+    if (empty($search_word)) return $excerpt;
+
+    $pos = mb_stripos($content, $search_word);
+
+    if ($pos !== false) {
+        // On recule de 80 caractères pour avoir le début de la phrase
+        $start = max(0, $pos - 80);
+        $fragment = mb_substr($content, $start, 250);
+        
+        $prefix = ($start > 0) ? '...' : '';
+        $suffix = (mb_strlen($content) > ($start + 250)) ? '...' : '';
+        
+        return $prefix . $fragment . $suffix;
+    }
+
+    return $excerpt;
+}
+
+/**
+ * 2. Surligner les mots-clés (Exécuté APRES l'extrait)
+ * Priorité 30 pour passer après le filtre précédent
+ */
+add_filter('the_content', 'App\highlight_search_results', 30);
+add_filter('the_excerpt', 'App\highlight_search_results', 30);
+add_filter('the_title', 'App\highlight_search_results', 30);
+
+function highlight_search_results($text) {
+    if (is_search() && !is_admin()) {
+        $query = get_search_query();
+        if ($query) {
+            $words = preg_split('/\s+/', preg_quote($query), -1, PREG_SPLIT_NO_EMPTY);
+            
+            $words = array_filter($words, function($word) {
+                return mb_strlen($word) >= 3;
+            });
+
+            if (!empty($words)) {
+                // On crée une liste de mots avec un "s" optionnel : (mot1s?|mot2s?)
+                $keys = implode('s?|', $words) . 's?';
+                
+                // On utilise \b au début, mais pas à la fin pour laisser passer le "s"
+                // ou on utilise une alternative plus souple que \b
+                $regex = '/\b('.$keys.')\b(?![^<]*>)/iu';
+                
+                $text = preg_replace($regex, '<mark class="search-highlight">$1</mark>', $text);
+            }
+        }
+    }
+    return $text;
+}
 /**
  * Register a custom REST API endpoint to fetch random tags.
  */
