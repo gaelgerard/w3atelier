@@ -1,9 +1,11 @@
 <article @php(post_class('bg-white dark:bg-gray-700 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-600'))>
-  @if(has_post_thumbnail())
-    <div class="aspect-video overflow-hidden">
+  <div class="aspect-video overflow-hidden">
+      @if(has_post_thumbnail())
       {!! get_the_post_thumbnail(null, 'large', ['class' => 'w-full h-full object-cover transform hover:scale-105 transition-transform duration-500']) !!}
+      @else 
+      <img src="https://placehold.co/600x400/0793d7/white?text={!! str_replace(' ', '+', get_the_title()) !!}&font=raleway" width="1024" height="800" alt="Placehold" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+      @endif
     </div>
-  @endif
   
   <div class="p-6">
     <header>
