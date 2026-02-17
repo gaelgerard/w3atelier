@@ -155,17 +155,19 @@ add_filter('posts_groupby', function ($groupby) {
 
 function wpse_134143_excerpt_more_link( $excerpt ) {
     if (is_admin()) return $excerpt;
-    
+
     $link = \Roots\view('components.read-more')->render();
 
     return $excerpt . $link;
 }
 // Utilisez la constante magique __NAMESPACE__ pour plus de sécurité
 add_filter( 'the_excerpt', __NAMESPACE__ . '\\wpse_134143_excerpt_more_link', 21 );
+
 /**
- * 1. Générer un extrait dynamique basé sur la recherche
+ * EXTRAIT DYNAMIQUE + SURLIGNAGE INTÉGRÉ
  */
 add_filter('get_the_excerpt', 'App\dynamic_search_excerpt', 20);
+
 function dynamic_search_excerpt($excerpt) {
     if (!is_search() || is_admin()) return $excerpt;
 
@@ -177,31 +179,28 @@ function dynamic_search_excerpt($excerpt) {
     $content = preg_replace('/\s+/', ' ', $content);
 
     $words = preg_split('/\s+/', preg_quote($query), -1, PREG_SPLIT_NO_EMPTY);
-    $search_word = '';
-    
-    foreach ($words as $word) {
-        if (mb_strlen($word) >= 3) {
-            $search_word = $word;
-            break; 
-        }
-    }
+    $words = array_filter($words, function($word) { return mb_strlen($word) >= 3; });
 
-    if (empty($search_word)) return $excerpt;
+    if (empty($words)) return $excerpt;
 
-    $pos = mb_stripos($content, $search_word);
+    // On cherche le premier mot pour le positionnement
+    $first_word = reset($words);
+    $pos = mb_stripos($content, $first_word);
 
     if ($pos !== false) {
-        // On recule de 80 caractères pour avoir le début de la phrase
         $start = max(0, $pos - 80);
-        $fragment = mb_substr($content, $start, 150);
-        
+        $fragment = mb_substr($content, $start, 250);
         $prefix = ($start > 0) ? '...' : '';
-        $suffix = (mb_strlen($content) > ($start + 150)) ? '...' : '';
+        $suffix = (mb_strlen($content) > ($start + 250)) ? '...' : '';
         
-        return $prefix . $fragment . $suffix;
+        $final_text = $prefix . $fragment . $suffix;
+
+        // --- FORCE LE SURLIGNAGE ICI ---
+        return highlight_search_results($final_text);
     }
 
-    return $excerpt;
+    // Si on garde l'extrait par défaut, on le surligne aussi
+    return highlight_search_results($excerpt);
 }
 
 /**
@@ -216,21 +215,26 @@ function highlight_search_results($text) {
     if (is_search() && !is_admin()) {
         $query = get_search_query();
         if ($query) {
+            // 1. On prépare les mots (3 lettres min)
             $words = preg_split('/\s+/', preg_quote($query), -1, PREG_SPLIT_NO_EMPTY);
-            
             $words = array_filter($words, function($word) {
                 return mb_strlen($word) >= 3;
             });
 
             if (!empty($words)) {
-                // On crée une liste de mots avec un "s" optionnel : (mot1s?|mot2s?)
-                $keys = implode('s?|', $words) . 's?';
-                
-                // On utilise \b au début, mais pas à la fin pour laisser passer le "s"
-                // ou on utilise une alternative plus souple que \b
-                $regex = '/\b('.$keys.')\b(?![^<]*>)/iu';
-                
-                $text = preg_replace($regex, '<mark class="search-highlight">$1</mark>', $text);
+                // 2. On crée la liste de mots : (mot1|mot2|mot3)
+                $keys = implode('|', $words);
+
+                // 3. LA REGEX "SÉCURISÉE" :
+                // On cherche le mot clé, potentiellement suivi de lettres (pour le pluriel/accents)
+                // Mais on utilise un "callback" pour ne pas toucher au HTML
+                $text = preg_replace_callback(
+                    '/(?![^<]*>)\b(' . $keys . ')[a-zàâäéèêëîïôöùûüç]*/iu',
+                    function($matches) {
+                        return '<mark class="search-highlight">' . $matches[0] . '</mark>';
+                    },
+                    $text
+                );
             }
         }
     }
