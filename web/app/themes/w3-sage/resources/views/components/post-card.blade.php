@@ -21,6 +21,22 @@
     </div>
   
     <div class="p-6">
+        <div class="flex items-center gap-2 mb-3">
+            {{-- Badge de Catégorie --}}
+            @if($category)
+                <span class="px-3 py-1 bg-accent-100 text-accent-700 text-xs font-semibold rounded-full">
+                    {!! $category->name !!}
+                </span>
+            @endif
+
+            @if($is_significantly_modified && $showBadge)
+                <span class="px-3 py-1 bg-green-100 text-green-700 text-[10px] uppercase tracking-wider font-bold rounded-full border border-green-200" title="{{ __('Cet article a été mis à jour récemment', 'sage') }}">
+                    {{ __('Mis à jour', 'sage') }}
+                </span>
+            @endif
+            
+            <span class="ml-auto text-sm text-primary-500">@readingtime {{__('read')}}</span>
+        </div>
         <header>
             <h2 class="text-xl font-bold mb-3">
                 <a href="{{ $url }}" class="hover:text-[var(--accent-500)] transition-colors">
@@ -37,5 +53,6 @@
             {{-- Utilisation de get_the_excerpt pour éviter les conflits de boucle --}}
             {!! get_the_excerpt($id) !!}
         </div>
+        <x-read-more class="text-primary-500" />
     </div>
 </article>

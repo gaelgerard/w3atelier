@@ -154,29 +154,9 @@ add_filter('posts_groupby', function ($groupby) {
 // add_filter( 'excerpt_more', '__return_empty_string', 21 );
 
 function wpse_134143_excerpt_more_link( $excerpt ) {
-    // 1. Définition du texte selon le type de contenu
-    $read_more_text = __('Read article', 'sage');
+    if (is_admin()) return $excerpt;
     
-    if ( get_post_type() === 'page' ) {
-        // "View page" est la traduction la plus naturelle pour "Consulter"
-        $read_more_text = __('View page', 'sage');
-    }
-
-    // 2. Récupération du titre pour le aria-label (Accessibilité)
-    $aria_label = sprintf('%s: %s', $read_more_text, get_the_title());
-
-    // 3. Rendu du composant Arrow (Blade)
-    // On utilise la fonction view() de Sage pour récupérer le HTML du composant
-    $arrow_icon = \Roots\view('components.arrow')->render();
-
-    // 4. Construction du lien
-    $link = sprintf(
-        '<a class="group mt-auto mb-2 no-underline inline-flex items-center text-sm text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100" href="%s" aria-label="%s">%s %s</a>',
-        get_permalink(),
-        esc_attr($aria_label),
-        $read_more_text,
-        $arrow_icon
-    );
+    $link = \Roots\view('components.read-more')->render();
 
     return $excerpt . $link;
 }
