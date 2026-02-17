@@ -11,23 +11,6 @@ use Illuminate\Support\Str;
  *
  * @return string
  */
-// excerpt_more should be set the empty.
-add_filter( 'excerpt_more', '__return_empty_string', 21 );
-
-function wpse_134143_excerpt_more_link( $excerpt ) {
-    $read_more = __('Read article', 'sage');
-    if ( get_post_type() === 'page'  ) {
-        $read_more = __('Read page', 'sage');
-    }
-    $excerpt .= sprintf('<a class="group no-underline mt-4 inline-flex items-center text-sm text-gray-600  hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100" href="%s">%s <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>', 
-    get_permalink(), 
-    $read_more
-    );
-
-    return $excerpt;
-}
-// Utilisez la constante magique __NAMESPACE__ pour plus de sécurité
-add_filter( 'the_excerpt', __NAMESPACE__ . '\\wpse_134143_excerpt_more_link', 21 );
 
 /**
  * Get post reading time with pluralization.
@@ -167,6 +150,23 @@ add_filter('posts_groupby', function ($groupby) {
     }
     return $groupby;
 });
+// excerpt_more should be set the empty.
+// add_filter( 'excerpt_more', '__return_empty_string', 21 );
+
+function wpse_134143_excerpt_more_link( $excerpt ) {
+    $read_more = __('Read article', 'sage');
+    if ( get_post_type() === 'page'  ) {
+        $read_more = __('Read page', 'sage');
+    }
+    $excerpt .= sprintf('<a class="group mt-auto mb-2 no-underline inline-flex items-center text-sm text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100" href="%s">%s <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>', 
+    get_permalink(), 
+    $read_more
+    );
+
+    return $excerpt;
+}
+// Utilisez la constante magique __NAMESPACE__ pour plus de sécurité
+add_filter( 'the_excerpt', __NAMESPACE__ . '\\wpse_134143_excerpt_more_link', 21 );
 /**
  * 1. Générer un extrait dynamique basé sur la recherche
  */
@@ -198,10 +198,10 @@ function dynamic_search_excerpt($excerpt) {
     if ($pos !== false) {
         // On recule de 80 caractères pour avoir le début de la phrase
         $start = max(0, $pos - 80);
-        $fragment = mb_substr($content, $start, 250);
+        $fragment = mb_substr($content, $start, 150);
         
         $prefix = ($start > 0) ? '...' : '';
-        $suffix = (mb_strlen($content) > ($start + 250)) ? '...' : '';
+        $suffix = (mb_strlen($content) > ($start + 150)) ? '...' : '';
         
         return $prefix . $fragment . $suffix;
     }
@@ -241,6 +241,13 @@ function highlight_search_results($text) {
     }
     return $text;
 }
+
+
+function custom_excerpt_length( $length ) {
+return 20;
+}
+add_filter( 'excerpt_length', 'App\custom_excerpt_length', 999 );
+
 /**
  * Register a custom REST API endpoint to fetch random tags.
  */
