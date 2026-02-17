@@ -7,7 +7,7 @@
             </nav>
             <h2 class="font-mono text-sm tracking-wider text-gray-500 uppercase dark:text-gray-300">{!! __('Filter by category', 'sage') !!}</h2>
             <nav class="flex flex-col space-y-3">
-                @include('partials.category-list')
+                <x-category-list />
             </nav>
         </div>
     </div>
