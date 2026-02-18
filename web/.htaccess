@@ -1,4 +1,26 @@
 # ==================================================
+# PERFORMANCES PAGE SPEED INSIGHTS
+# ==================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Images : 1 an
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  
+  # CSS et JS : 1 an (ou 1 mois si vous modifiez souvent)
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/x-javascript "access plus 1 month"
+  
+  # Autres
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# ==================================================
 # SECURITY HARDENING – Bedrock / WordPress
 # ==================================================
 <IfModule mod_rewrite.c>
