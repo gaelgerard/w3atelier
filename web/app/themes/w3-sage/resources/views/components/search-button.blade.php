@@ -21,6 +21,6 @@
 
           <div class="w-full max-w-3xl px-6">
               {!! get_search_form(false) !!}
-              <p class="text-xs text-gray-400 mt-4 text-center">{{ __('Press "Enter" to start the search or "Escape" to close', 'sage') }}</p>
+              <p class="text-xs text-gray-700 dark:text-gray-100 mt-4 text-center">{{ __('Press "Enter" to start the search or "Escape" to close', 'sage') }}</p>
           </div>
       </div>

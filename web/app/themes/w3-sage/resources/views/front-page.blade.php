@@ -24,7 +24,7 @@
                           Que vous soyez développeur, propriétaire de site internet ou de boutique WooCommerce, découvrez mes retours d'expérience sans filtre sur les bonnes pratiques du web moderne.
                       </p>
                   </div>
-                  <a href="{{get_the_permalink(1404)}}" class="group inline-flex items-center text-sm font-medium text-primary-400 hover:text-primary-300 transition-all">
+                  <a href="{{get_the_permalink(1404)}}" class="group inline-flex items-center text-sm font-bold text-primary-400 hover:text-primary-300 transition-all">
                       En savoir plus sur mon parcours 
                       <x-arrow />
                   </a>
