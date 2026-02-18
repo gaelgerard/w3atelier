@@ -25,7 +25,7 @@
                 @if($tags)
                 <div class="flex flex-wrap gap-2">
                 @foreach($tags as $tag)
-                    <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase no-underline" href="{{ get_tag_link($tag->term_id) }}">
+                    <a class="bg-primary-50 text-blue-700 px-2 py-1 rounded hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase no-underline" href="{{ get_tag_link($tag->term_id) }}">
                     {{ $tag->name }}
                     </a>
                 @endforeach

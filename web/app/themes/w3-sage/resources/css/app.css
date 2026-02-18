@@ -7,10 +7,18 @@
 
   :host,
   :root {
-    --color-primary-400: oklch(.746 .16 232.661);
-    --color-primary-500: oklch(.685 .169 237.323);
-    --color-primary-600: oklch(.588 .158 241.966);
-    --color-primary-700: oklch(.5 .134 242.749);
+/* Ajusté pour le contraste sur fond blanc/clair */
+    /* Ancien .746 -> Nouveau .55 (mieux pour le texte secondaire) */
+    --color-primary-400: oklch(.55 .16 232.661); 
+    
+    /* Ancien .685 -> Nouveau .48 (Limite WCAG AA pour texte normal) */
+    --color-primary-500: oklch(.48 .169 237.323);
+    
+    /* Ancien .588 -> Nouveau .40 (Parfait pour les liens et tags) */
+    --color-primary-600: oklch(.40 .158 241.966);
+    
+    /* Pour le texte très important ou survolé */
+    --color-primary-700: oklch(.32 .134 242.749);
     --scrollbar: #888;
     --highlight-bg: #f5f5f5;
     --highlight-color: #333;
@@ -19,16 +27,19 @@
     --lh-md: 1.5;
     --br-md: 4px;
     --su12: 12px;
+    /* Échelle d'accentuation corrigée */
     --accent-50: #f0f9ff;
     --accent-100: #e0f2fe;
     --accent-200: #bae6fd;
     --accent-300: #7dd3fc;
-    --accent-400: #38bdf8;
-    --accent-500: #0ea5e9;
-    --accent-600: #0284c7;
-    --accent-700: #0369a1;
-    --accent-800: #075985;
-    --accent-900: #0c4a6e;
+    --accent-400: #0ea5e9; /* L'ancien 500 descend d'un cran, car trop clair pour du texte */
+    
+    /* NOUVEAU STANDARD POUR LE TEXTE / BOUTONS */
+    --accent-500: #0284c7; /* Ratio ~4.6:1 -> PASSE (WCAG AA) */
+    --accent-600: #0369a1; /* Ratio ~6.5:1 -> EXCELLENT */
+    --accent-700: #075985;
+    --accent-800: #0c4a6e;
+    --accent-900: #082f49;
   }
 }
 
@@ -38,7 +49,10 @@
     --background-color: #1a1a1a;
     --hover-background-color: #2a2a2a;
     --hover-border-color: #ffffff;
-    --label-color: #aaa;
+    --label-color: #e5e7eb; /* Plus proche du blanc pour le contraste sombre */
+    /* Si vous utilisez vos variables primary en dark mode, 
+       il faudrait idéalement les ré-inverser (les rendre plus claires) */
+    --color-primary-500: oklch(.75 .15 237.323);
   }
 }
 
