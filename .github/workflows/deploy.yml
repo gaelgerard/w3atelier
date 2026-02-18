@@ -43,8 +43,18 @@ jobs:
 
       - name: Whitelist runner IP
         run: |
-          # Vos appels curl cPanel actuels ici (identique à votre script)
-          # ... (garde le bloc curl IN et OUT)
+            IP="${{ steps.ip.outputs.ipv4 }}"
+            PORT=22
+
+            echo "Whitelisting GitHub runner IP: $IP (IN + OUT)"
+
+            # IN
+            curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
+              "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
+
+            # OUT
+            curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
+              "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=out" | jq
 
       # 4️⃣ TRANSFERT DES ASSETS (Correction du SCP et du Timeout)
       - name: Setup SSH agent
