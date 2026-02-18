@@ -46,7 +46,7 @@ jobs:
           # Vos appels curl cPanel actuels ici (identique à votre script)
           # ... (garde le bloc curl IN et OUT)
 
-      # 4️⃣ TRANSFERT DES ASSETS COMPILÉS (Via SCP ou SFTP)
+      # 4️⃣ TRANSFERT DES ASSETS (Correction du SCP et du Timeout)
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -54,25 +54,39 @@ jobs:
 
       - name: Deploy and Sync
         run: |
-          # On envoie les fichiers buildés sur le serveur pour qu'ils y soient AVANT le reset
-          scp -P ${{ secrets.SFTP_PORT }} -r ${{ secrets.THEME_DIR }}/public/build ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_TARGET_DIR }}/${{ secrets.THEME_DIR }}/public/
+          # 1. On attend que la whitelist o2switch soit active
+          echo "Waiting for firewall propagation..."
+          sleep 10
 
+          # 2. Nettoyage des variables (pour ignorer les slashs en trop)
+          # On définit les chemins locaux et distants proprement
+          LOCAL_BUILD_PATH="web/app/themes/w3-sage/public/build"
+          REMOTE_THEME_PATH="${{ secrets.SFTP_TARGET_DIR }}/${{ secrets.THEME_DIR }}"
+          # On enlève les doubles slashs potentiels via sed
+          REMOTE_THEME_PATH=$(echo $REMOTE_THEME_PATH | sed 's#//#/#g')
+
+          echo "Transferring build to: $REMOTE_THEME_PATH"
+
+          # 3. Transfert SCP (On utilise -P pour le port)
+          # On transfère le contenu de build/ vers le dossier distant public/build/
+          scp -o StrictHostKeyChecking=no -P ${{ secrets.SFTP_PORT }} -r $LOCAL_BUILD_PATH ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:$REMOTE_THEME_PATH/public/
+
+          # 4. Exécution des commandes SSH
           ssh -o StrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
             set -e
+            
+            # On navigue vers la racine Bedrock
             cd ${{ secrets.SFTP_TARGET_DIR }}
             git fetch origin
             git reset --hard origin/main
             
-            # Composer à la racine
             composer install --no-dev --optimize-autoloader
             
-            # Entrer dans le thème
+            # On navigue vers le thème (en gérant le slash)
             cd ${{ secrets.THEME_DIR }}
             composer install --no-dev --optimize-autoloader
             
-            # Note : On ne fait plus npm install && build ici ! 
-            # Les fichiers sont déjà arrivés via scp.
-            
+            # On s'assure que le cache Acorn est propre pour le LCP
             wp acorn optimize:clear
           "
 
