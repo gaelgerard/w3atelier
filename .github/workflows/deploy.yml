@@ -1,92 +1,72 @@
-name: Deploy via Git Pull with temporary o2switch whitelist
+name: Deploy via Git Pull & Build Assets with Critical CSS
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Récupérer l’IP publique du runner GitHub
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 1️⃣ INSTALLATION DE CHROME ET DÉPENDANCES (Sur GitHub, pas sur o2switch)
+      - name: Install Puppeteer dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libnss3 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libxcb-dri3-0 libxss1 libasound2 libxtst6 libxshmfence1
+
+      # 2️⃣ BUILD DES ASSETS (Inclus Critical CSS)
+      - name: Build Assets
+        run: |
+          cd ${{ secrets.THEME_DIR }} # Ajustez selon votre structure
+          npm install
+          npm run build
+
+      # 3️⃣ RÉCUPÉRER L'IP POUR WHITELIST o2switch
       - name: Get runner public IP
         id: ip
         uses: haythem/public-ip@v1.3
 
-      # 2️⃣ Whitelist temporaire du runner via token cPanel
-      - name: Whitelist runner IP on o2switch (temporary)
-        shell: bash
+      - name: Whitelist runner IP
         run: |
-          IP="${{ steps.ip.outputs.ipv4 }}"
-          PORT=22
+          # Vos appels curl cPanel actuels ici (identique à votre script)
+          # ... (garde le bloc curl IN et OUT)
 
-          echo "Whitelisting GitHub runner IP: $IP (IN + OUT)"
-
-          # IN
-          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
-
-          # OUT
-          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=out" | jq
-
-      # 3️⃣ Checkout repository (optionnel si tu as besoin de fichiers locaux)
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 4️⃣ Setup SSH agent avec la clé privée GitHub
+      # 4️⃣ TRANSFERT DES ASSETS COMPILÉS (Via SCP ou SFTP)
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SFTP_PRIVATE_KEY }}
 
-      # 5️⃣ Git pull sur le serveur
-      - name: Git pull on server
-        shell: bash
+      - name: Deploy and Sync
         run: |
+          # On envoie les fichiers buildés sur le serveur pour qu'ils y soient AVANT le reset
+          scp -P ${{ secrets.SFTP_PORT }} -r ${{ secrets.THEME_DIR }}/public/build ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_TARGET_DIR }}/${{ secrets.THEME_DIR }}/public/
+
           ssh -o StrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
-            set -e # Arrête le script en cas d'erreur
-            
+            set -e
             cd ${{ secrets.SFTP_TARGET_DIR }}
             git fetch origin
             git reset --hard origin/main
-
-            # 1. On s'occupe de la racine (si Bedrock)
-            if [ -f composer.json ]; then
-              composer install --no-dev --optimize-autoloader
-            fi
-
-            # 2. On entre dans le thème
-            cd ${{ secrets.THEME_DIR }}
             
-            # 3. Build PHP (Crucial pour ton erreur "Class not found")
+            # Composer à la racine
             composer install --no-dev --optimize-autoloader
             
-            # 4. Build Assets
-            export PATH=\"$PATH:/opt/alt/alt-nodejs22/root/usr/bin/\"
-            npm install && npm run build
-
-            # 5. On vide le cache Acorn EN DERNIER
-            # On revient à la racine si wp-cli est là-bas, sinon on le lance ici
+            # Entrer dans le thème
+            cd ${{ secrets.THEME_DIR }}
+            composer install --no-dev --optimize-autoloader
+            
+            # Note : On ne fait plus npm install && build ici ! 
+            # Les fichiers sont déjà arrivés via scp.
+            
             wp acorn optimize:clear
           "
 
-      # 6️⃣ Cleanup final : suppression de l’IP du runner de la whitelist
-      - name: Remove runner IP from whitelist (cleanup)
+      # 5️⃣ CLEANUP
+      - name: Remove runner IP
         if: always()
-        shell: bash
         run: |
-          IP="${{ steps.ip.outputs.ipv4 }}"
-          PORT=22
-
-          echo "Removing GitHub runner IP from whitelist: $IP"
-
-          # IN
-          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=in" | jq
-
-          # OUT
-          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=out" | jq
+          # Vos appels curl remove ici

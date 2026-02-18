@@ -42,8 +42,11 @@ export default defineConfig({
       criticalConfig: {
         penthouse: {
           timeout: 60000,        // 60 secondes
-          blockJSRequests: true, // Accélère énormément la capture
           strictSSL: false,      // Évite les blocages de certificats
+          blockJSRequests: true,
+          puppeteer: {
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+          }
         },
       },
     }),
