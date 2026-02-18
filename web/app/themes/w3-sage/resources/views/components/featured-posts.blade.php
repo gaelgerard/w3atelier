@@ -3,8 +3,8 @@
         <ul class="space-y-2 text-sm">
             @while($query->have_posts()) @php $query->the_post() @endphp
                 <li>
-                    <a href="{{ get_permalink() }}" class="hover:text-blue-400 transition-colors no-underline" title="{{ get_the_title() }}">
-                        {!! \Illuminate\Support\Str::limit(get_the_title(), $length, '...') !!}<x-arrow class="inline-block w-4 h-4" />
+                    <a href="{{ get_permalink() }}" class="hover:text-blue-400 transition-colors no-underline group inline-flex sm:inline" title="{{ get_the_title() }}">
+                        {!! \Illuminate\Support\Str::limit(get_the_title(), $length, '...') !!}<x-arrow />
                     </a>
                 </li>
             @endwhile
@@ -20,7 +20,7 @@
                 @while($query->have_posts()) @php $query->the_post() @endphp
                     <a href="{{ get_permalink() }}" class="group p-3 rounded-lg bg-gray-900/50 border border-gray-800 hover:border-primary-500/50 transition-all inline-block">
                         <span class="text-sm font-medium group-hover:text-primary-400">
-                            {{ get_the_title() }} <x-arrow class="inline-block w-4 h-4" />
+                            {{ get_the_title() }} <x-arrow />
                         </span>
                     </a>
                 @endwhile

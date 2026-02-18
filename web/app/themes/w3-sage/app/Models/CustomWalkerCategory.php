@@ -22,7 +22,7 @@ class CustomWalkerCategory extends \Walker_Category
         $link_classes = array('font-mono', 'text-sm', 'uppercase', 'no-underline', 'mb-3');
 
         if ($category->term_id != $current_category) {
-            $link_classes[] = 'hover:text-primary-600 dark:hover:text-primary-400 text-gray-600 dark:text-gray-300';
+            $link_classes[] = 'text-gray-600 dark:text-gray-300 hover:text-blue-400 ';
         } else {
             $link_classes[] = 'text-primary-500 hover:text-primary-600 dark:hover:text-primary-400';
         }
