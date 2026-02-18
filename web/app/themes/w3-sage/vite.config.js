@@ -40,8 +40,11 @@ export default defineConfig({
         { uri: '/wordpress-cms/creation-de-plateforme-de-cours-en-ligne-wordpress-retour-dexperience-et-choix-techniques', template: 'single' }, // Un article pour le LCP
       ],
       criticalConfig: {
-        width: 1300,
-        height: 900,
+        penthouse: {
+          timeout: 60000,        // 60 secondes
+          blockJSRequests: true, // Accélère énormément la capture
+          strictSSL: false,      // Évite les blocages de certificats
+        },
       },
     }),
   ],

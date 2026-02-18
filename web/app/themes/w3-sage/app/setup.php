@@ -207,3 +207,35 @@ add_action('after_setup_theme', function () {
         return '<?php echo \App\reading_time(); ?>';
     });
 });
+//ajoutez ce filtre pour transformer la balise <link> de votre CSS principal en chargement asynchrone (non bloquant)
+add_filter('style_loader_tag', function ($tag, $handle, $href) {
+    // On cible le handle 'sage/app' ou 'sage/main' (vérifiez le nom dans votre setup.php)
+    if ($handle === 'sage/app') {
+        // On transforme le link en 'preload' avec un fallback 'stylesheet' après chargement
+        return str_replace(
+            "rel='stylesheet'", 
+            "rel='preload' as='style' onload=\"this.onload=null;this.rel='stylesheet'\"", 
+            $tag
+        );
+    }
+    return $tag;
+}, 10, 3);
+// lire le fichier généré par Vite/Rollup et l'afficher directement dans le <head>.
+add_action('wp_head', function () {
+    if (is_admin()) return;
+
+    // Déterminer quel fichier charger
+    $filename = '';
+    if (is_front_page() || is_home()) {
+        $filename = 'index_critical.min.css';
+    } elseif (is_single() || is_page()) {
+        $filename = 'single_critical.min.css';
+    }
+    // 1. Chemin vers le fichier généré par rollup-plugin-critical
+    // Adaptez le chemin selon votre config 'target' dans vite.config.js
+    $critical_path = get_theme_file_path('public/build/{$filename}');
+
+    if (file_exists($critical_path)) {
+        echo '<style id="critical-path-css">' . file_get_contents($critical_path) . '</style>';
+    }
+}, 1); // Priorité 1 pour être placé avant tout le reste

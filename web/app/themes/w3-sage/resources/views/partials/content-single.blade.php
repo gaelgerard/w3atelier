@@ -31,7 +31,7 @@
         <div class="prose dark:prose-invert max-w-none pt-10 pb-8">
           <div class="w-full flex">
             <div class="mx-auto">
-              @php(the_post_thumbnail())
+              @php(the_post_thumbnail('large', ['fetchpriority' => 'high', 'loading' => 'eager']))
             </div>
 
           </div>
