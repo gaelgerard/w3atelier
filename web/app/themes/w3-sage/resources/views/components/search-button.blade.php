@@ -1,5 +1,5 @@
 <button
-        id="search-form-button"  class="group flex" arial-label="{{ __('Open search', 'sage') }}">
+        id="search-form-button"  class="group flex" aria-label="{{ __('Open search', 'sage') }}">
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 512 512"
@@ -13,7 +13,7 @@
       {{-- Search form Slide-over --}}
       <div id="search-form-wrapper" class="fixed inset-0 cursor-pointer z-100 bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm transform translate-x-full transition-transform duration-300 ease-in-out flex items-center justify-center">
           
-          <button id="close-search" class="absolute top-6 right-6 text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white cursor-pointer" arial-label="{{ __('Close search', 'sage') }}">
+          <button id="close-search" class="absolute top-6 right-6 text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white cursor-pointer" aria-label="{{ __('Close search', 'sage') }}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
