@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sage Starter Theme 11.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/w3-sage\n"
-"POT-Creation-Date: 2026-02-14T18:13:05+00:00\n"
-"PO-Revision-Date: 2026-02-16 16:11+0100\n"
+"POT-Creation-Date: 2026-02-18T17:05:15+00:00\n"
+"PO-Revision-Date: 2026-02-18 18:08+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -45,11 +45,6 @@ msgstr ""
 msgid "Featured post"
 msgstr "Article à la une"
 
-#: app/filters.php:20
-#: resources/views/components/featured-postcards.blade.php:42
-msgid "Read article"
-msgstr "Lire l’article"
-
 #: app/setup.php:79
 msgid "Primary Navigation"
 msgstr ""
@@ -84,24 +79,24 @@ msgstr "&larr; Commentaires plus anciens"
 msgid "Newer comments &rarr;"
 msgstr "Commentaires plus récents &rarr;"
 
-#: app/View/Composers/Post.php:51
+#: app/View/Composers/Post.php:54
 msgid "Latest Posts"
 msgstr "Derniers articles"
 
-#: app/View/Composers/Post.php:59
+#: app/View/Composers/Post.php:62
 #, php-format
 msgid "Search Results for %s"
 msgstr "Résultats de recherche pour %s"
 
-#: app/View/Composers/Post.php:62
+#: app/View/Composers/Post.php:65
 msgid "Not Found"
 msgstr "Non trouvé"
 
-#: app/View/Composers/Post.php:71
+#: app/View/Composers/Post.php:74
 msgid "&laquo;&nbsp;Previous post: %title"
 msgstr "&laquo;&nbsp;Article précédent : %title"
 
-#: app/View/Composers/Post.php:79
+#: app/View/Composers/Post.php:82
 msgid "Next post: %title&nbsp;&raquo;"
 msgstr "Prochain article : %title&nbsp;&raquo;"
 
@@ -131,15 +126,15 @@ msgstr ""
 msgid "Try searching for:"
 msgstr "Essayez de rechercher :"
 
-#: resources/views/404.blade.php:41
+#: resources/views/404.blade.php:44
 msgid "Go to Homepage"
 msgstr "Aller à la page d'accueil"
 
-#: resources/views/404.blade.php:45
+#: resources/views/404.blade.php:48
 msgid "Browse All Articles"
 msgstr "Parcourir tous les articles"
 
-#: resources/views/404.blade.php:49
+#: resources/views/404.blade.php:52
 msgid "Contact Support"
 msgstr "Contacter le support"
 
@@ -152,13 +147,51 @@ msgstr ""
 msgid "Sorry, no results were found."
 msgstr "Désolé, aucun résultat trouvé."
 
-#: resources/views/components/featured-lectures.blade.php:15
+#: resources/views/components/featured-posts.blade.php:17
 msgid "Lectures conseillées"
 msgstr ""
 
-#: resources/views/components/featured-postcards.blade.php:15
+#: resources/views/components/featured-posts.blade.php:35
 msgid "Popular Articles You Might Like"
 msgstr "Articles populaires qui pourraient vous intéresser"
+
+#: resources/views/components/post-card.blade.php:36
+msgid "Cet article a été mis à jour récemment"
+msgstr ""
+
+#: resources/views/components/post-card.blade.php:37
+msgid "Mis à jour"
+msgstr ""
+
+#: resources/views/components/read-more.blade.php:8
+msgid "View page"
+msgstr ""
+
+#: resources/views/components/read-more.blade.php:8
+msgid "Read article"
+msgstr "Lire l’article"
+
+#: resources/views/components/search-button.blade.php:2
+msgid "Open search"
+msgstr "Ouvrir la recherche"
+
+#: resources/views/components/search-button.blade.php:16
+msgid "Close search"
+msgstr "Fermer la recherche"
+
+#: resources/views/components/search-button.blade.php:25
+msgid "Press \"Enter\" to start the search or \"Escape\" to close"
+msgstr ""
+"Appuyez sur « Entrée » pour lancer la recherche ou sur « Échap » pour fermer."
+
+#: resources/views/components/themeswitch.blade.php:5
+#: resources/views/components/themeswitch.blade.php:7
+msgid "Enable dark mode"
+msgstr "Activer le mode sombre"
+
+#: resources/views/components/themeswitch.blade.php:6
+msgid "Enable light mode"
+msgstr "Activer le mode clair"
 
 #: resources/views/forms/search.blade.php:4
 msgctxt "label"
@@ -181,7 +214,7 @@ msgstr "Derniers articles"
 
 #: resources/views/layouts/app.blade.php:17
 msgid "Skip to content"
-msgstr ""
+msgstr "Aller au contenu"
 
 #: resources/views/partials/author-meta.blade.php:10
 msgid "Name"
@@ -200,7 +233,7 @@ msgstr "Les commentaires sont fermés."
 msgid "Updated on:"
 msgstr "Mis à jour le :"
 
-#: resources/views/partials/searchform.blade.php:40
+#: resources/views/partials/searchform.blade.php:39
 msgid "Search blog posts, pages..."
 msgstr "Rechercher dans les articles de blog, les pages..."
 
