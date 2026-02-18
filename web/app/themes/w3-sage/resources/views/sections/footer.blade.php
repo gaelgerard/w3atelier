@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <h3 class="dark:text-white text-lg font-bold mb-4 uppercase tracking-wider">Ressources Web & Création</h3>
+      <h3 class="dark:text-white text-lg font-bold mb-4 uppercase tracking-wider">Ressources Web</h3>
             <x-category-list :show-count="false" exclude="inclassable" class="my-custom-class" />
     </div>
 
