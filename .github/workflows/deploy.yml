@@ -16,7 +16,18 @@ jobs:
       - name: Install Puppeteer dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgbm-dev libnss3 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libxcb-dri3-0 libxss1 libasound2 libxtst6 libxshmfence1
+          sudo apt-get install -y \
+            libgbm-dev \
+            libnss3 \
+            libatk-bridge2.0-0 \
+            libgtk-3-0 \
+            libx11-xcb1 \
+            libxcb-dri3-0 \
+            libxss1 \
+            libasound2t64 \
+            libxtst6 \
+            libxshmfence1 \
+            libgbm1
 
       # 2️⃣ BUILD DES ASSETS (Inclus Critical CSS)
       - name: Build Assets
