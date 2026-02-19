@@ -8,7 +8,7 @@
         et WooCommerce.
       </p>
       <div class="flex space-x-4 text-sm group">
-        <a href="/a-propos/" class="no-underline group inline-flex items-center text-sm font-medium text-primary-400 hover:text-primary-300 transition-all">En savoir plus sur mon parcours <x-arrow /></a>
+        <a href="/a-propos/" class="no-underline group inline-flex items-center text-xs font-bold text-primary-500 hover:text-primary-300 transition-all">En savoir plus sur mon parcours <x-arrow /></a>
       </div>
     </div>
 
