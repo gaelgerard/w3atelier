@@ -1,4 +1,4 @@
-name: Deploy via Git Pull & Build Assets with Critical CSS
+name: Deploy via GitHub Build (Critical CSS) & Sync
 
 on:
   push:
@@ -12,96 +12,73 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1️⃣ INSTALLATION DE CHROME ET DÉPENDANCES (Sur GitHub, pas sur o2switch)
-      - name: Install Puppeteer dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libgbm-dev \
-            libnss3 \
-            libatk-bridge2.0-0 \
-            libgtk-3-0 \
-            libx11-xcb1 \
-            libxcb-dri3-0 \
-            libxss1 \
-            libasound2t64 \
-            libxtst6 \
-            libxshmfence1 \
-            libgbm1
-
-      # 2️⃣ BUILD DES ASSETS (Inclus Critical CSS)
-      - name: Build Assets
-        run: |
-          cd ${{ secrets.THEME_DIR }} # Ajustez selon votre structure
-          npm install
-          npm run build
-
-      # 3️⃣ RÉCUPÉRER L'IP POUR WHITELIST o2switch
+      # 1️⃣ WHITELIST (Lancée tôt pour laisser le pare-feu s'ouvrir pendant les installs)
       - name: Get runner public IP
         id: ip
         uses: haythem/public-ip@v1.3
 
-      - name: Whitelist runner IP
+      - name: Whitelist runner IP on o2switch
         run: |
-            IP="${{ steps.ip.outputs.ipv4 }}"
-            PORT=22
+          IP="${{ steps.ip.outputs.ipv4 }}"
+          PORT=${{ secrets.SFTP_PORT }}
+          echo "Whitelisting IP: $IP on port $PORT"
+          
+          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
+            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
 
-            echo "Whitelisting GitHub runner IP: $IP (IN + OUT)"
+      # 2️⃣ BUILD DES ASSETS SUR GITHUB (Inclus Critical CSS)
+      - name: Install Puppeteer dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libnss3 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libxcb-dri3-0 libxss1 libasound2t64 libxtst6 libxshmfence1 libgbm1
 
-            # IN
-            curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-              "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
+      - name: Node Build (Local)
+        run: |
+          cd ${{ secrets.THEME_DIR }}
+          npm ci
+          npm run build # Ici, GitHub génère le dossier /public/build avec le Critical CSS
 
-            # OUT
-            curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-              "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=out" | jq
-
-      # 4️⃣ TRANSFERT DES ASSETS (Correction du SCP et du Timeout)
+      # 3️⃣ PRÉPARATION SSH
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SFTP_PRIVATE_KEY }}
 
-      - name: Deploy and Sync
+      # 4️⃣ DÉPLOIEMENT : Transfert des fichiers buildés + Git Pull
+      - name: Sync and SSH Commands
         run: |
-          # 1. On attend que la whitelist o2switch soit active
-          echo "Waiting for firewall propagation..."
-          sleep 10
-
-          # 2. Nettoyage des variables (pour ignorer les slashs en trop)
-          # On définit les chemins locaux et distants proprement
-          LOCAL_BUILD_PATH="web/app/themes/w3-sage/public/build"
+          # Variables de chemins
+          LOCAL_BUILD_PATH="${{ secrets.THEME_DIR }}/public/build"
           REMOTE_THEME_PATH="${{ secrets.SFTP_TARGET_DIR }}/${{ secrets.THEME_DIR }}"
-          # On enlève les doubles slashs potentiels via sed
+          # Nettoyage des slashs
           REMOTE_THEME_PATH=$(echo $REMOTE_THEME_PATH | sed 's#//#/#g')
 
-          echo "Transferring build to: $REMOTE_THEME_PATH"
+          echo "Transferring build assets to: $REMOTE_THEME_PATH/public/"
 
-          # 3. Transfert SCP (On utilise -P pour le port)
-          # On transfère le contenu de build/ vers le dossier distant public/build/
-          scp -o StrictHostKeyChecking=no -P ${{ secrets.SFTP_PORT }} -r $LOCAL_BUILD_PATH ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:$REMOTE_THEME_PATH/public/
+          # Transfert uniquement du dossier build (plus rapide que tout uploader)
+          scp -o StrictHostKeyChecking=no -o ConnectTimeout=60 -P ${{ secrets.SFTP_PORT }} -r $LOCAL_BUILD_PATH ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:$REMOTE_THEME_PATH/public/
 
-          # 4. Exécution des commandes SSH
-          ssh -o StrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
+          # Commandes finales sur le serveur
+          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=60 -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
             set -e
-            
-            # On navigue vers la racine Bedrock
             cd ${{ secrets.SFTP_TARGET_DIR }}
+            
+            # Mise à jour du code (PHP/Templates)
             git fetch origin
             git reset --hard origin/main
             
+            # Dépendances PHP
             composer install --no-dev --optimize-autoloader
             
-            # On navigue vers le thème (en gérant le slash)
-            cd ${{ secrets.THEME_DIR }}
-            composer install --no-dev --optimize-autoloader
-            
-            # On s'assure que le cache Acorn est propre pour le LCP
+            # Nettoyage cache WordPress/Acorn
             wp acorn optimize:clear
           "
 
       # 5️⃣ CLEANUP
-      - name: Remove runner IP
+      - name: Remove runner IP from whitelist
         if: always()
         run: |
-          # Vos appels curl remove ici
+          IP="${{ steps.ip.outputs.ipv4 }}"
+          PORT=${{ secrets.SFTP_PORT }}
+          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
+            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=in" | jq
