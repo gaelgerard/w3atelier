@@ -62,9 +62,12 @@
       display: flex;
 
       .custom-logo {
-        max-height: 44px;
-        width: auto;
-        margin: auto;
+        display: block;
+        img {
+          max-height: 44px;
+          width: auto;
+          margin: auto;
+        }
       }
     }
   }
