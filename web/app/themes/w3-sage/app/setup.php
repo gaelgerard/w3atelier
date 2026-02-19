@@ -205,6 +205,19 @@ add_action('wp_enqueue_scripts', function () {
         // Ajoutez d'autres handles vus dans PageSpeed
     }
 }, 99);
+/**
+ * Remove jQuery Migrate to improve performance
+ */
+add_action('wp_default_scripts', function ($scripts) {
+    if (!is_admin() && isset($scripts->registered['jquery'])) {
+        $script = $scripts->registered['jquery'];
+        
+        if ($script->deps) {
+            // On cherche 'jquery-migrate' dans les dépendances de jQuery et on le retire
+            $script->deps = array_diff($script->deps, ['jquery-migrate']);
+        }
+    }
+});
 // Load language files
 add_action('after_setup_theme', function () {
     load_textdomain( 'sage', get_template_directory() . '/resources/lang/' . determine_locale() . '.mo' );
