@@ -80,5 +80,12 @@ jobs:
         run: |
           IP="${{ steps.ip.outputs.ipv4 }}"
           PORT=${{ secrets.SFTP_PORT }}
+          echo "Removing GitHub runner IP from whitelist: $IP"
+
+          # IN
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=in" | jq
+
+          # OUT
+          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
+            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=out" | jq
