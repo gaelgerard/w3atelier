@@ -60,14 +60,10 @@
   .banner {
     .custom-logo-link {
       display: flex;
-
-      .custom-logo {
-        display: block;
-        img {
-          max-height: 44px;
-          width: auto;
-          margin: auto;
-        }
+      img {
+        max-height: 44px;
+        width: auto;
+        margin: auto;
       }
     }
   }
