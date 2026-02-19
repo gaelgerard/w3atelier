@@ -192,7 +192,19 @@ add_action('init', function () {
  * Charge les styles des blocs uniquement si nécessaire.
  */
 add_filter('should_load_separate_core_block_assets', '__return_true');
-
+/**
+ * Woocommerce styles only for woocommerce
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (!is_woocommerce() && !is_cart() && !is_checkout()) {
+        wp_dequeue_style('woocommerce-layout');
+        wp_dequeue_style('woocommerce-general');
+        wp_dequeue_style('woocommerce-smallscreen');
+        wp_dequeue_style('wc-blocks-style');
+        wp_dequeue_script('wc-add-to-cart');
+        // Ajoutez d'autres handles vus dans PageSpeed
+    }
+}, 99);
 // Load language files
 add_action('after_setup_theme', function () {
     load_textdomain( 'sage', get_template_directory() . '/resources/lang/' . determine_locale() . '.mo' );
