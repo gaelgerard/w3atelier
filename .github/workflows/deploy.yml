@@ -1,86 +1,84 @@
-name: Deploy via Git Pull with temporary o2switch whitelist
+name: Deploy via GitHub Build (Critical CSS) & Sync
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Récupérer l’IP publique du runner GitHub
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 1️⃣ WHITELIST (Lancée tôt pour laisser le pare-feu s'ouvrir pendant les installs)
       - name: Get runner public IP
         id: ip
         uses: haythem/public-ip@v1.3
 
-      # 2️⃣ Whitelist temporaire du runner via token cPanel
-      - name: Whitelist runner IP on o2switch (temporary)
-        shell: bash
+      - name: Whitelist runner IP on o2switch
         run: |
           IP="${{ steps.ip.outputs.ipv4 }}"
-          PORT=22
-
-          echo "Whitelisting GitHub runner IP: $IP (IN + OUT)"
-
-          # IN
+          PORT=${{ secrets.SFTP_PORT }}
+          echo "Whitelisting IP: $IP on port $PORT"
+          
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
 
-          # OUT
-          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=out" | jq
+      # 2️⃣ BUILD DES ASSETS SUR GITHUB (Inclus Critical CSS)
+      - name: Install Puppeteer dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libnss3 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libxcb-dri3-0 libxss1 libasound2t64 libxtst6 libxshmfence1 libgbm1
 
-      # 3️⃣ Checkout repository (optionnel si tu as besoin de fichiers locaux)
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Node Build (Local)
+        run: |
+          cd ${{ secrets.THEME_DIR }}
+          npm install
+          npm run build # Ici, GitHub génère le dossier /public/build avec le Critical CSS
 
-      # 4️⃣ Setup SSH agent avec la clé privée GitHub
+      # 3️⃣ PRÉPARATION SSH
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SFTP_PRIVATE_KEY }}
 
-      # 5️⃣ Git pull sur le serveur
-      - name: Git pull on server
-        shell: bash
+      # 4️⃣ DÉPLOIEMENT : Transfert des fichiers buildés + Git Pull
+      - name: Sync and SSH Commands
         run: |
-          ssh -o StrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
-            cd ${{ secrets.SFTP_TARGET_DIR }} &&
-            git fetch origin &&
-            git reset --hard origin/main &&
+          # Variables de chemins
+          LOCAL_BUILD_PATH="${{ secrets.THEME_DIR }}/public/build"
+          REMOTE_THEME_PATH="${{ secrets.SFTP_TARGET_DIR }}/${{ secrets.THEME_DIR }}"
+          # Nettoyage des slashs
+          REMOTE_THEME_PATH=$(echo $REMOTE_THEME_PATH | sed 's#//#/#g')
 
-            # clear acrorn cache
-            wp acorn optimize:clear &&
+          echo "Transferring build assets to: $REMOTE_THEME_PATH/public/"
 
-            # Installer les dépendances PHP si Bedrock/Sage
-            if [ -f composer.json ]; then
-              composer install --no-dev --optimize-autoloader
-            fi &&
+          # Transfert uniquement du dossier build (plus rapide que tout uploader)
+          scp -o StrictHostKeyChecking=no -o ConnectTimeout=60 -P ${{ secrets.SFTP_PORT }} -r $LOCAL_BUILD_PATH ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:$REMOTE_THEME_PATH/public/
 
-            # Ajouter node/npm au PATH temporairement et lancer le build dans le thème
-            export PATH="$PATH:/opt/alt/alt-nodejs22/root/usr/bin/" &&
-            cd ${{ secrets.THEME_DIR }} &&
-            rm -rf node_modules &&
-            npm install &&
-            npm run build
+          # Commandes finales sur le serveur
+          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=60 -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
+            set -e
+            cd ${{ secrets.SFTP_TARGET_DIR }}
+            
+            # Mise à jour du code (PHP/Templates)
+            git fetch origin
+            git reset --hard origin/main
+            
+            # Dépendances PHP
+            composer install --no-dev --optimize-autoloader
+            
+            # Nettoyage cache WordPress/Acorn
+            wp acorn optimize:clear
           "
 
-      # 6️⃣ Cleanup final : suppression de l’IP du runner de la whitelist
-      - name: Remove runner IP from whitelist (cleanup)
+      # 5️⃣ CLEANUP
+      - name: Remove runner IP from whitelist
         if: always()
-        shell: bash
         run: |
           IP="${{ steps.ip.outputs.ipv4 }}"
-          PORT=22
-
-          echo "Removing GitHub runner IP from whitelist: $IP"
-
-          # IN
+          PORT=${{ secrets.SFTP_PORT }}
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=in" | jq
-
-          # OUT
-          curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
-            "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=out" | jq
