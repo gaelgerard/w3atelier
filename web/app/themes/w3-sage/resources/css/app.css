@@ -4,8 +4,6 @@
 
 /* Optionnel si besoin de customisation */
 @layer theme {
-
-  :host,
   :root {
 /* Ajusté pour le contraste sur fond blanc/clair */
     /* Ancien .746 -> Nouveau .55 (mieux pour le texte secondaire) */
@@ -40,21 +38,24 @@
     --accent-700: #075985;
     --accent-800: #0c4a6e;
     --accent-900: #082f49;
+    --background-color: var(--color-zinc-50);
+    --hover-background-color: var(--color-zinc-100);
+    --border-color: #444;
   }
+  @media (prefers-color-scheme: dark) {
+    :root.dark {
+      --background-color: #1a1a1a;
+      --hover-background-color: #2a2a2a;
+      --hover-border-color: #ffffff;
+      --label-color: #e5e7eb; /* Plus proche du blanc pour le contraste sombre */
+      /* Si vous utilisez vos variables primary en dark mode, 
+         il faudrait idéalement les ré-inverser (les rendre plus claires) */
+      --color-primary-500: oklch(.75 .15 237.323);
+    }
+  }
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --border-color: #444;
-    --background-color: #1a1a1a;
-    --hover-background-color: #2a2a2a;
-    --hover-border-color: #ffffff;
-    --label-color: #e5e7eb; /* Plus proche du blanc pour le contraste sombre */
-    /* Si vous utilisez vos variables primary en dark mode, 
-       il faudrait idéalement les ré-inverser (les rendre plus claires) */
-    --color-primary-500: oklch(.75 .15 237.323);
-  }
-}
 
 @layer base {
   .banner {
