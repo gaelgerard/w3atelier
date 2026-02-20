@@ -3,6 +3,7 @@
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 512 512"
+            style="width: 20px; height: 20px;"
             class="w-5 h-5 transition-transform group-hover:rotate-12 
                   fill-current ml-2 my-auto cursor-pointer
                   text-gray-700 dark:text-gray-200"
