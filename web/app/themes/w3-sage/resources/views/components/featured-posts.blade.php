@@ -18,7 +18,7 @@
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 @while($query->have_posts()) @php $query->the_post() @endphp
-                    <a href="{{ get_permalink() }}" class="group p-3 rounded-lg bg-gray-900/50 border border-gray-800 hover:border-primary-500/50 transition-all inline-block">
+                    <a href="{{ get_permalink() }}" class="group p-3 rounded-lg bg-zinc-50 dark:bg-[#1a1a1a] hover:bg-zinc-100 dark:hover:bg-[#2a2a2a] border border-[#444444] hover:border-white transition-all inline-block">
                         <span class="text-sm font-medium group-hover:text-primary-400">
                             {{ get_the_title() }} <x-arrow />
                         </span>
