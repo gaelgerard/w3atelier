@@ -299,3 +299,45 @@ function get_random_tags($request) {
 
     return rest_ensure_response($response);
 }
+// Source - https://stackoverflow.com/q/79893632
+// Posted by Dmitry
+// Retrieved 2026-02-21, License - CC BY-SA 4.0
+
+    add_filter( 'wpcf7_before_send_mail', 'App\wpcf7_before_send_mail_start_function' );
+    function wpcf7_before_send_mail_start_function($cf7){
+        $mail=$cf7->prop('mail');
+        if($mail){
+            $contact_form = $cf7->get_current();
+            $contact_form_id = $contact_form -> id;
+            if ($contact_form_id == 412){
+                if ( !is_admin()){ 
+                $product_name = "";
+                wc()->frontend_includes();
+                WC()->session = new WC_Session_Handler();
+                WC()->session->init();
+                WC()->customer = new WC_Customer( get_current_user_id(), true );
+                WC()->cart = new WC_Cart();
+                  // Debug log to display the contents of the cart
+            error_log('WC Cart Contents: ' . print_r(WC()->cart->get_cart(), true));
+
+                foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+                    $_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+                    $product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+                    if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
+                        $product_name = $product_name.apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key )."\n";
+                    }
+                    }
+                    $my = $product_name;
+                }else{
+                    $my = "";
+                } 
+
+             $mail['body'].="\n\r".$my; // Add the contents of the cart to the end of the email body.
+             
+             
+             WC()->cart->empty_cart();
+             WC()->session->set('cart', array());
+            }
+         $cf7->set_properties(array('mail'=>$mail));
+        } 
+    }
