@@ -153,7 +153,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         $body .= '<br>Adresse email : '.$from_email;
         $body .= '<br>Téléphone : '.$from_phone;
         $body .= '<br>Message : '.$message_html;
-        $body .= '<br>RGPD : '.$message_data['RGPD'];
+        $body .= '<br>RGPD : '.$dataForm['RGPD'];
 		$body .= '</body>';
 		$body .= '</html>';
 		
@@ -163,7 +163,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
             'Reply-To: '.$from_email.'',
         );
         $attachments = '';
-        custom_save_to_cf7_submissions( $message_data );
+        custom_save_to_cf7_submissions( $dataForm );
         if (wp_mail( $recipient, $subject, $body, $headers )) {
             $response = array(
                 'status' => 'success',
