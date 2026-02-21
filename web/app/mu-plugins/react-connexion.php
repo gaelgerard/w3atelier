@@ -82,25 +82,43 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         $subject = substr($message_html,0,50);
 		global $wpdb;
 		$table_db7_forms = $wpdb->prefix . "db7_forms"; // _ underscore déjà inclus dans wpdb->
-     // Enregistrer le message entrant
-        $message_data = array(
-            'cfdb7_status' => 'unread',
-            'channel' => 'contact-form-ggreact',
-            'subject' => $subject,
-            'from' => "$from_name <$from_email>",
-            'from_name' => $from_name,
-            'from_email' => $from_email,
-            'phone' => $from_phone,
-            'message' => $message_html,
-            'RGPD' => 'Accepte les conditions et la politique de confidentialité',
-            'source' => $source,
-        );
-        $data_to_be_inserted = array(
-            'form_post_id' => 412,
-            'form_value' => serialize($message_data),
-            'form_date' => date_i18n('Y-m-d H:i:s', time()),
-        );
-        $message = $wpdb->insert($table_db7_forms , $data_to_be_inserted);
+        // 1. Initialiser la classe de base du nouveau plugin pour accéder à sa DB
+        $cf7_sub = new \Codexpert\CF7_Submissions\App\Submission( $your_plugin_instance ); // Note : nécessite l'instance du plugin en paramètre
+        $db = new \Codexpert\CF7_Submissions\Database;
+
+        // 2. Préparer les données pour la table principale 'submissions'
+        $submission_id = $db->insert( 'submissions', [
+            'form_id'   => 412, // Votre ID de formulaire
+            'post_id'   => 0,   // ID de la page source si disponible, sinon 0
+            'user_id'   => get_current_user_id(),
+            'ip'        => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+            'fields'    => 7,   // Nombre de champs total
+            'files'     => 0,   // Nombre de fichiers
+            'time'      => current_time('U'), // Format Unix pour ce plugin
+            'seen'      => 0    // Statut non lu
+        ] );
+
+        if ( $submission_id ) {
+            // 3. Mapper vos variables vers le format 'submission_data' (Clé => Valeur)
+            $message_data = array(
+                'subject'    => $subject,
+                'from_name'  => $from_name,
+                'from_email' => $from_email,
+                'phone'      => $from_phone,
+                'message'    => $message_html,
+                'RGPD'       => 'Accepte les conditions et la politique de confidentialité',
+                'source'     => $source,
+            );
+
+            // 4. Insérer chaque ligne dans la table de données
+            foreach ( $message_data as $key => $value ) {
+                $db->insert( 'submission_data', [
+                    'submission_id' => $submission_id,
+                    'field'         => $key,
+                    'value'         => $value
+                ] );
+            }
+        }
 		$recipient = '';
         $recipient = 'gael.gerard@free.fr';
         $subject = 'Message sur le site : '.$subject;
