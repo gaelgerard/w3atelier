@@ -6,23 +6,32 @@ Description: Sécurisation du formulaire React vers WordPress
 
 // On utilise un hook WordPress pour les headers afin d'éviter le "headers already sent"
 add_action('init', function() {
+    // Add this at the top of the function or file logic
+    if (defined('DOING_CRON') && DOING_CRON) {
+        return;
+    }
+
+    // Or, when checking the method specifically:
+    $method = $_SERVER['REQUEST_METHOD'] ?? 'CLI';
+
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
     $allowed_origins = [
         'https://www.gaelgerard.com',
         'https://gaelgerard.com',
         'https://votre-projet-vercel.vercel.app'
     ];
-
     if (in_array($origin, $allowed_origins)) {
         header("Access-Control-Allow-Origin: " . $origin);
         header("Access-Control-Allow-Methods: POST, OPTIONS");
         header("Access-Control-Allow-Headers: Content-Type, X-GGCOM-KEY");
         header("Access-Control-Allow-Credentials: true");
     }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        status_header(200);
-        exit;
+    
+    if ($method === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            status_header(200);
+            exit;
+        }
     }
 });
 
