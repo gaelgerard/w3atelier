@@ -18,8 +18,8 @@ function custom_save_to_cf7_submissions( $data_params ) {
     $subject    = $data_params['subject']    ?? 'Sans objet';
     $from_name  = $data_params['from_name']  ?? 'Inconnu';
     $from_email = $data_params['from_email'] ?? '';
-    $from_phone = $data_params['phone']      ?? '';
-    $message_html = $data_params['message']  ?? '';
+    $from_phone = $data_params['from_phone']      ?? '';
+    $message_html = $data_params['message_html']  ?? '';
     $source     = $data_params['source']     ?? 'Direct';
 
     // 2. Insertion dans la table principale 'submissions'
@@ -153,7 +153,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         $body .= '<br>Adresse email : '.$from_email;
         $body .= '<br>Téléphone : '.$from_phone;
         $body .= '<br>Message : '.$message_html;
-        $body .= '<br>RGPD : '.$dataForm['RGPD'];
+        $body .= '<br>RGPD : Accepte les conditions et la politique de confidentialité';
 		$body .= '</body>';
 		$body .= '</html>';
 		
