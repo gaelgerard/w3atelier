@@ -1,8 +1,64 @@
 <?php
-/*
-Plugin Name: GGCom Custom API
-Description: Sécurisation du formulaire React vers WordPress
-*/
+/**
+ * Plugin Name: Adaptateur d'enregistrement CF7 Submissions
+ * Description: Enregistre manuellement des données de formulaire dans la structure Codexpert CF7 Submissions.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+function custom_save_to_cf7_submissions( $data_params ) {
+    // 1. Vérifier que le nouveau plugin est actif
+    if ( ! class_exists( '\Codexpert\CF7_Submissions\Database' ) ) {
+        return false;
+    }
+
+    $db = new \Codexpert\CF7_Submissions\Database();
+
+    // Extraire les variables passées en argument (ou les définir globalement)
+    $subject    = $data_params['subject']    ?? 'Sans objet';
+    $from_name  = $data_params['from_name']  ?? 'Inconnu';
+    $from_email = $data_params['from_email'] ?? '';
+    $from_phone = $data_params['phone']      ?? '';
+    $message_html = $data_params['message']  ?? '';
+    $source     = $data_params['source']     ?? 'Direct';
+
+    // 2. Insertion dans la table principale 'submissions'
+    // Note : Le plugin utilise 'time' au format Unix (U)
+    $submission_id = $db->insert( 'submissions', [
+        'form_id'   => 412, 
+        'post_id'   => 0,
+        'user_id'   => get_current_user_id(),
+        'ip'        => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+        'fields'    => 7, 
+        'files'     => 0,
+        'time'      => current_time( 'U' ),
+        'seen'      => 0 // 0 = non lu, 1 = lu
+    ] );
+
+    if ( ! $submission_id ) return false;
+
+    // 3. Préparation des données pour la table 'submission_data'
+    $message_data = [
+        'subject'    => $subject,
+        'from_name'  => $from_name,
+        'from_email' => $from_email,
+        'phone'      => $from_phone,
+        'message'    => $message_html,
+        'RGPD'       => 'Accepte les conditions et la politique de confidentialité',
+        'source'     => $source,
+    ];
+
+    // 4. Insertion de chaque champ individuellement
+    foreach ( $message_data as $key => $value ) {
+        $db->insert( 'submission_data', [
+            'submission_id' => $submission_id,
+            'field'         => $key,
+            'value'         => $value
+        ] );
+    }
+
+    return $submission_id;
+}
 
 // On utilise un hook WordPress pour les headers afin d'éviter le "headers already sent"
 add_action('init', function() {
@@ -70,6 +126,7 @@ function handle_ggcom_react_form(WP_REST_Request $request) {
 
     return new WP_Error('error', 'Function ggcom_react_form_save_and_notify not found', array('status' => 500));
 }
+
 //Enregistrement des formulaires de contact depuis le site www.gaelgerard.com
 if ( !function_exists('ggcom_react_form_save_and_notify')) {
 	function ggcom_react_form_save_and_notify ( $dataForm ) {
@@ -80,45 +137,9 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         $source = $dataForm['source'] ?? '';
         $message_html = $dataForm['message_html'] ?? '';
         $subject = substr($message_html,0,50);
-		global $wpdb;
-		$table_db7_forms = $wpdb->prefix . "db7_forms"; // _ underscore déjà inclus dans wpdb->
-        // 1. Initialiser la classe de base du nouveau plugin pour accéder à sa DB
-        $cf7_sub = new \Codexpert\CF7_Submissions\App\Submission( $your_plugin_instance ); // Note : nécessite l'instance du plugin en paramètre
-        $db = new \Codexpert\CF7_Submissions\Database;
+        
 
-        // 2. Préparer les données pour la table principale 'submissions'
-        $submission_id = $db->insert( 'submissions', [
-            'form_id'   => 412, // Votre ID de formulaire
-            'post_id'   => 0,   // ID de la page source si disponible, sinon 0
-            'user_id'   => get_current_user_id(),
-            'ip'        => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
-            'fields'    => 7,   // Nombre de champs total
-            'files'     => 0,   // Nombre de fichiers
-            'time'      => current_time('U'), // Format Unix pour ce plugin
-            'seen'      => 0    // Statut non lu
-        ] );
-
-        if ( $submission_id ) {
-            // 3. Mapper vos variables vers le format 'submission_data' (Clé => Valeur)
-            $message_data = array(
-                'subject'    => $subject,
-                'from_name'  => $from_name,
-                'from_email' => $from_email,
-                'phone'      => $from_phone,
-                'message'    => $message_html,
-                'RGPD'       => 'Accepte les conditions et la politique de confidentialité',
-                'source'     => $source,
-            );
-
-            // 4. Insérer chaque ligne dans la table de données
-            foreach ( $message_data as $key => $value ) {
-                $db->insert( 'submission_data', [
-                    'submission_id' => $submission_id,
-                    'field'         => $key,
-                    'value'         => $value
-                ] );
-            }
-        }
+       
 		$recipient = '';
         $recipient = 'gael.gerard@free.fr';
         $subject = 'Message sur le site : '.$subject;
@@ -142,7 +163,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
             'Reply-To: '.$from_email.'',
         );
         $attachments = '';
-        
+        custom_save_to_cf7_submissions( $message_data );
         if (wp_mail( $recipient, $subject, $body, $headers )) {
             $response = array(
                 'status' => 'success',
