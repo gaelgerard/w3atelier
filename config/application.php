@@ -172,11 +172,3 @@ if (!defined('ABSPATH')) {
  */
 define( 'WPCF7_AUTOP', false );
 
-/**
- * Gestion du Cron WP selon l'environnement
- */
-if (env('WP_ENV') === 'production') {
-    Config::define('DISABLE_WP_CRON', true);
-} else {
-    Config::define('DISABLE_WP_CRON', false);
-}
