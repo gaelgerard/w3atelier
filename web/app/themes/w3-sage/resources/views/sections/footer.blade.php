@@ -74,7 +74,10 @@
       </a>
     </div>
     <div class="mb-2 flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 text-sm text-gray-500 dark:text-gray-400 text-center sm:text-left">
-      <div>Gaël GÉRARD</div>
+      <div>
+        <a class="break-words w-full hover:text-blue-500 sm:w-auto" href="/" target="_blank">Blog de Gaël GÉRARD</a>
+        
+      </div>
       <div> • </div>
       <div>© {{ date('Y') }} </div>
       <div class="hidden sm:block"> • </div> 
@@ -87,7 +90,7 @@
       </p>
     </div>
     <div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
-      <a class="break-words" target="_blank" rel="noopener noreferrer" href="https://github.com/gaelgerard/w3atelier">Tailwind WordPress Theme</a>
+      <a class="break-words" target="_blank" rel="noopener noreferrer" href="https://github.com/gaelgerard/w3atelier">WordPress Bedrock blog with Tailwind Theme</a>
     </div>
     @php(dynamic_sidebar('sidebar-footer'))
   </div>
