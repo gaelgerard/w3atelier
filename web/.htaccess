@@ -93,3 +93,47 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+# ----------------------------------------------------------------------
+# RENFORCEMENT DE LA SÉCURITÉ (AJOUTS CONSEILLÉS)
+# ----------------------------------------------------------------------
+
+# 1. Bloquer l'accès au fichier XML-RPC (Cible n°1 des attaques par force brute)
+# Note : Si vous utilisez Jetpack ou l'app mobile WordPress, mettez "Allow" au lieu de "Deny"
+<Files xmlrpc.php>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# 2. Empêcher l'énumération des auteurs (Protège votre identifiant de connexion)
+# Bloque les requêtes du type ?author=1
+RewriteCond %{QUERY_STRING} author=([0-9]*) [NC]
+RewriteRule .* - [F]
+
+# 3. En-têtes de sécurité (Security Headers)
+# Protège contre le XSS, le Clickjacking et le reniflage de MIME-type
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    # Désactive la signature du serveur (sécurité par l'obscurité)
+    Header unset X-Powered-By
+</IfModule>
+
+# 4. Bloquer l'accès direct aux fichiers de log et de backup
+<FilesMatch "\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)$">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</FilesMatch>
+
+# 5. Protéger le dossier /wp-includes/ contre les scripts malveillants
+# Empêche l'exécution de fichiers PHP dans ce dossier spécifique
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^wp-admin/includes/ - [F,L]
+    RewriteRule !^wp-includes/ - [S=3]
+    RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+    RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+    RewriteRule ^wp-includes/theme-compat/ - [F,L]
+</IfModule>
