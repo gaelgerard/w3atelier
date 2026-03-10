@@ -36,7 +36,6 @@
                 </span>
             @endif
             
-            <span class="ml-auto text-sm text-primary-500">{{ __('Reading time:', 'sage') }} {{ \App\reading_time() }}</span>
         </div>
         <header>
             <h2 class="text-xl font-bold mb-3">
