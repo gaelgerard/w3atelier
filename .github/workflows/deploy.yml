@@ -7,8 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -16,7 +14,10 @@ jobs:
       # 1️⃣ WHITELIST (Lancée tôt pour laisser le pare-feu s'ouvrir pendant les installs)
       - name: Get runner public IP
         id: ip
-        uses: haythem/public-ip@v1.3
+        run: |
+          # Utilise l'API de ipify pour obtenir l'IPv4
+          IPV4=$(curl -s https://api.ipify.org)
+          echo "ipv4=$IPV4" >> $GITHUB_OUTPUT
 
       - name: Whitelist runner IP on o2switch
         run: |
