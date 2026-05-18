@@ -41,3 +41,4 @@ web/app/updraft/web.config
 web/app/updraft/.htaccess
 web/app/updraft/index.html
 web/app/litespeed/
+migration-wp7-php9.md
