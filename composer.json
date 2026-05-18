@@ -47,6 +47,7 @@
     "rector/rector": "^2.4"
   },
   "config": {
+    "platform-check": false,
     "optimize-autoloader": true,
     "preferred-install": "dist",
     "allow-plugins": {
