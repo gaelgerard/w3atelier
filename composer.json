@@ -25,22 +25,30 @@
   },
   "repositories": [
     {
-      "name": "wpackagist",
+      "name": "wp-packages",
       "type": "composer",
-      "url": "https://wpackagist.org",
-      "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
+      "url": "https://repo.wp-packages.org",
+      "only": [
+        "wp-plugin/*",
+        "wp-theme/*"
+      ]
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/gaelgerard/ggcom-mu-plugins"
     }
   ],
   "require": {
     "php": ">=8.1",
     "composer/installers": "^2.2",
+    "gaelgerard/ggcom-mu-plugins": "dev-master",
     "vlucas/phpdotenv": "^5.5",
     "oscarotero/env": "^2.1",
     "roots/bedrock-autoloader": "^1.0",
     "roots/bedrock-disallow-indexing": "^2.0",
     "roots/wordpress": "^6.9",
     "roots/wp-config": "1.0.0",
-    "wpackagist-theme/twentytwentyfive": "^1.0"
+    "wp-theme/twentytwentyfive": "^1.0"
   },
   "require-dev": {
     "laravel/pint": "^1.18",
