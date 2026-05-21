@@ -1,9 +1,6 @@
-# Cette ligne ne s'activera QUE sur le serveur de production
-<If "%{HTTP_HOST} =~ /w3blog\.gaelgerard\.com/">
-    <FilesMatch "\.(php4|php5|php3|php2|php7|phtml|php)$">
-        SetHandler application/x-httpd-alt-php83___lsphp
-    </FilesMatch>
-</If>
+<FilesMatch "\.(php4|php5|php3|php2|php7|phtml|php)$">
+    SetHandler application/x-httpd-alt-php83___lsphp
+</FilesMatch>
 # ==================================================
 # PERFORMANCES PAGE SPEED INSIGHTS
 # ==================================================
