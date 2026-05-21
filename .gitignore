@@ -42,3 +42,6 @@ web/app/updraft/.htaccess
 web/app/updraft/index.html
 web/app/litespeed/
 migration-wp7-php9.md
+
+#temporaire le temps que je n'ai plus besoin du Handler version php pour o2switch
+web/.htaccess
