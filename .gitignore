@@ -10,7 +10,17 @@ web/app/themes/*/public/build/
 web/wp/
 web/app/languages/
 web/app/plugins/
-
+web/app/themes/
+# Application
+web/app/plugins/*
+!web/app/plugins/.gitkeep
+# Ignore Composer-installed mu-plugin directories; single-file mu-plugins are tracked intentionally
+web/app/mu-plugins/*/
+web/app/themes/twentytwentyfive/
+web/app/upgrade
+web/app/uploads/*
+!web/app/uploads/.gitkeep
+web/app/cache/*
 
 # Uploads
 web/app/uploads/
@@ -42,6 +52,3 @@ web/app/updraft/.htaccess
 web/app/updraft/index.html
 web/app/litespeed/
 migration-wp7-php9.md
-
-#temporaire le temps que je n'ai plus besoin du Handler version php pour o2switch
-web/.htaccess
