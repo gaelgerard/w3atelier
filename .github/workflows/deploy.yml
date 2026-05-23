@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -30,17 +30,6 @@ jobs:
           
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
-
-      - name: 🔍 Analyse approfondie de la structure du dépôt
-        run: |
-          echo "1. Dossier de travail actuel :"
-          pwd
-          
-          echo "2. Contenu de la racine de votre dépôt Git sur GitHub :"
-          ls -la
-          
-          echo "3. Recherche automatique du fichier package-lock.json dans tout le projet :"
-          find . -name "package-lock.json"
 
       # 2️⃣ BUILD DES ASSETS SUR GITHUB (Inclus Critical CSS)
       - name: Setup Node.js 24
