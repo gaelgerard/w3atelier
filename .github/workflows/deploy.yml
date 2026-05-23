@@ -80,7 +80,7 @@ jobs:
           scp -o StrictHostKeyChecking=no -o ConnectTimeout=60 -P ${{ secrets.SFTP_PORT }} -r $LOCAL_BUILD_PATH ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:$REMOTE_THEME_PATH/public/
 
           # Commandes finales sur le serveur
-          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=60 -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} "
+          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=60 -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}  << 'EOF'
             set -e
             cd ${{ secrets.SFTP_TARGET_DIR }}
             
@@ -100,7 +100,7 @@ jobs:
               wp acorn optimize:clear || echo "Acorn non configuré, skip."
             fi
             # Test valodation finale
-            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://memo-tag.com/)
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" ${{ vars.WEBSITE_URL }} )
 
             if [ "$HTTP_CODE" -ne 200 ]; then
               echo "ERREUR : Le site répond avec un code $HTTP_CODE. Lancement du Rollback..."
@@ -110,7 +110,7 @@ jobs:
               echo "Succès : Le site est en ligne (Code 200)."
               rm backup-before-update.sql
             fi
-          "
+          EOF
 
       # 5️⃣ CLEANUP
       - name: Remove runner IP from whitelist
