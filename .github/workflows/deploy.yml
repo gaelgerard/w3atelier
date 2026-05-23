@@ -28,6 +28,12 @@ jobs:
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/add?address=$IP&port=$PORT&direction=in" | jq
 
+      - name: 🔍 Vérifier le chemin du thème
+        run: |
+          echo "Le chemin configuré est : ${{ secrets.THEME_DIR }}"
+          echo "Contenu de ce dossier :"
+          ls -la "${{ secrets.THEME_DIR }}"
+          
       # 2️⃣ BUILD DES ASSETS SUR GITHUB (Inclus Critical CSS)
       - name: Setup Node.js 24
         uses: actions/setup-node@v4
