@@ -10,7 +10,6 @@ web/app/themes/*/public/build/
 web/wp/
 web/app/languages/
 web/app/plugins/
-web/app/themes/
 # Application
 web/app/plugins/*
 !web/app/plugins/.gitkeep
