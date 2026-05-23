@@ -30,17 +30,17 @@ jobs:
 
       - name: 🔍 Vérifier le chemin du thème
         run: |
-          echo "Le chemin configuré est : ${{ secrets.THEME_DIR }}"
+          echo "Le chemin configuré est : ${{ vars.THEME_DIR }}"
           echo "Contenu de ce dossier :"
-          ls -la "${{ secrets.THEME_DIR }}"
-          
+          ls -la "${{ vars.THEME_DIR }}"
+
       # 2️⃣ BUILD DES ASSETS SUR GITHUB (Inclus Critical CSS)
       - name: Setup Node.js 24
         uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: 'npm'
-          cache-dependency-path: '${{ secrets.THEME_DIR }}/package-lock.json'
+          cache-dependency-path: '${{ vars.THEME_DIR }}/package-lock.json'
 
       - name: Install Puppeteer dependencies
         run: |
@@ -49,7 +49,7 @@ jobs:
 
       - name: Node Build (Local)
         run: |
-          cd ${{ secrets.THEME_DIR }}
+          cd ${{ vars.THEME_DIR }}
           npm install
           npm run build # Ici, GitHub génère le dossier /public/build avec le Critical CSS
 
@@ -63,8 +63,8 @@ jobs:
       - name: Sync and SSH Commands
         run: |
           # Variables de chemins
-          LOCAL_BUILD_PATH="${{ secrets.THEME_DIR }}/public/build"
-          REMOTE_THEME_PATH="${{ secrets.SFTP_TARGET_DIR }}/${{ secrets.THEME_DIR }}"
+          LOCAL_BUILD_PATH="${{ vars.THEME_DIR }}/public/build"
+          REMOTE_THEME_PATH="${{ secrets.SFTP_TARGET_DIR }}/${{ vars.THEME_DIR }}"
           # Nettoyage des slashs
           REMOTE_THEME_PATH=$(echo $REMOTE_THEME_PATH | sed 's#//#/#g')
 
