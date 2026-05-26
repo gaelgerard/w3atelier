@@ -81,7 +81,8 @@
   },
   "require-dev": {
     "laravel/pint": "^1.18",
-    "rector/rector": "^2.4"
+    "rector/rector": "^2.4",
+    "johnbillion/query-monitor": "^4.0"
   },
   "config": {
     "platform-check": false,
