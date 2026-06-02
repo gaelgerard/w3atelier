@@ -1,0 +1,7 @@
+path: web/wp
+server:
+  docroot: web
+# Alias pour le serveur de production de ce projet 
+# mettez à jour le path ci-dessous et enregistrez le fichier sans le .example dans le nom
+"@prod":
+  ssh: utilisateur@serveur.com:PORT/full/path/vers/installation/web/wp
