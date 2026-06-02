@@ -51,3 +51,6 @@ web/app/updraft/.htaccess
 web/app/updraft/index.html
 web/app/litespeed/
 migration-wp7-php9.md
+
+# Configuration locale de WP-CLI (Accès SSH)
+wp-cli.local.yml
