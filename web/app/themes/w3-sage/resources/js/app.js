@@ -2,7 +2,6 @@ import.meta.glob([
   '../images/**',
   '../fonts/**',
 ]);
-import 'fslightbox';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import translations from './translations';
@@ -297,4 +296,67 @@ function initializeSearchSuggestions() {
       // Rotation toutes les 3 secondes
       setInterval(updateAllPlaceholders, 3000);
     });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // On cible les liens d'images dans le contenu de l'article
+    const articleImages = document.querySelectorAll('.prose a[href$=".jpg"], .prose a[href$=".jpeg"], .prose a[href$=".png"], .prose a[href$=".webp"]');
+    if (articleImages.length === 0) return;
+
+    // Structure HTML requise par PhotoSwipe (souvent déjà injectée par WC, sinon on la vérifie)
+    // Note : PhotoSwipe a besoin de son balisage (.pswp) dans le DOM.
+
+    articleImages.forEach((link, index) => {
+        // On cherche la légende dans le bloc de l'image WordPress
+        const figure = link.closest('figure');
+        let captionText = '';
+        if (figure) {
+            const figcaption = figure.querySelector('figcaption');
+            if (figcaption) {
+                captionText = figcaption.textContent;
+            }
+        }
+
+        // On ajoute les attributs nécessaires pour PhotoSwipe
+        // PhotoSwipe a besoin de connaître la taille de l'image (ex: data-size="1024x768")
+        // Si vous ne l'avez pas, on peut la récupérer dynamiquement ou tricher temporairement
+        
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Tableau des items pour la galerie
+            // Vous pouvez boucler sur toutes les images pour créer une vraie galerie cliquable
+            initPhotoSwipe(index, articleImages);
+        });
+    });
+});
+
+function initPhotoSwipe(index, itemsList) {
+    const pswpElement = document.querySelectorAll('.pswp')[0];
+    const items = [];
+
+    itemsList.forEach(link => {
+        const figure = link.closest('figure');
+        let caption = '';
+        if (figure) {
+            const figcaption = figure.querySelector('figcaption');
+            if (figcaption) caption = figcaption.innerHTML; // Permet de garder le HTML (liens, gras...)
+        }
+
+        items.push({
+            src: link.getAttribute('href'),
+            w: 1200, // Idéalement à remplacer par la vraie largeur
+            h: 900,  // Idéalement à remplacer par la vraie hauteur
+            title: caption // C'est cette propriété "title" que PhotoSwipe utilise pour la légende !
+        });
+    });
+
+    const options = {
+        index: index,
+        bgOpacity: 0.85,
+        showHideOpacity: true
+    };
+
+    // Initialisation du combo PhotoSwipe + UI de base (celle de WooCommerce)
+    const gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+    gallery.init();
 }

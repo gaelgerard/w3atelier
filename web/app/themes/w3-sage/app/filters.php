@@ -95,20 +95,61 @@ function force_real_category_breadcrumb( $links ) {
 }
 
 /**
- * Vanilla JS Lightbox data attribute to image links
+ * Photoswipe lightbox 
  */
-add_filter('the_content', function ($content) {
-    // On ne cible que les liens pointant directement vers des images (jpg, jpeg, png, gif, webp)
-    $pattern = '/<a(.*?)href=["\']([^"\']+\.(?:jpe?g|png|gif|webp))["\']([^>]*)>/i';
-    
-    // On remplace pour ajouter data-fslightbox
-    $replacement = '<a$1href="$2"$3 data-fslightbox="gallery">';
-    
-    $content = preg_replace($pattern, $replacement, $content);
-    
-    return $content;
-}, 10);
 
+add_action('wp_enqueue_scripts', 'App\charger_photoswipe_blog', 99);
+function charger_photoswipe_blog() {
+    // On ne le charge que sur les articles de blog (ou pages) et si WC est là
+    if ( is_singular('post') && class_exists( 'WooCommerce' ) ) {
+        wp_enqueue_style( 'photoswipe' );
+        wp_enqueue_style( 'photoswipe-default-skin' );
+        wp_enqueue_script( 'photoswipe' );
+        wp_enqueue_script( 'photoswipe-ui-default' );
+    }
+}
+add_action('wp_footer', 'App\ajouter_template_html_photoswipe');
+function ajouter_template_html_photoswipe() {
+    // On ne l'affiche que sur le blog et si WooCommerce est actif pour réutiliser ses styles
+    if ( is_singular('post') && class_exists( 'WooCommerce' ) ) {
+        ?>
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="pswp__bg"></div>
+            <div class="pswp__scroll-wrap">
+                <div class="pswp__container">
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                </div>
+                <div class="pswp__ui pswp__ui--hidden">
+                    <div class="pswp__top-bar">
+                        <div class="pswp__counter"></div>
+                        <button class="pswp__button pswp__button--close" title="Fermer (Esc)"></button>
+                        <button class="pswp__button pswp__button--share" title="Partager"></button>
+                        <button class="pswp__button pswp__button--fs" title="Plein écran"></button>
+                        <button class="pswp__button pswp__button--zoom" title="Zoom +/-"></button>
+                        <div class="pswp__preloader">
+                            <div class="pswp__preloader__icn">
+                              <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div> 
+                    </div>
+                    <button class="pswp__button pswp__button--arrow--left" title="Précédent (flèche gauche)"></button>
+                    <button class="pswp__button pswp__button--arrow--right" title="Suivant (flèche droite)"></button>
+                    <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+}
 /**
  * Custom search form
  */
