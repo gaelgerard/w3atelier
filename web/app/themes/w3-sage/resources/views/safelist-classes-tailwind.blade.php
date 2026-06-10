@@ -1,0 +1,2 @@
+{{-- Fichier fantôme pour que Tailwind détecte les classes de CF7 --}}
+<input class="wpcf7-form-control wpcf7-submit has-spinner btn-submit w-full whitespace-normal" type="submit" value="Confirmer mon choix et envoyer" disabled="">
