@@ -31,25 +31,6 @@ export default defineConfig({
       disableTailwindFonts: false,
       disableTailwindFontSizes: false,
     }),
-    // Ajout du plugin Critical
-    // critical({
-    //   criticalUrl: siteUrl, // L'URL de votre blog Bedrock
-    //   criticalBase: 'public/build',
-    //   criticalPages: [
-    //     { uri: '/', template: 'index' }, // La home
-    //     { uri: '/wordpress-cms/creation-de-plateforme-de-cours-en-ligne-wordpress-retour-dexperience-et-choix-techniques', template: 'single' }, // Un article pour le LCP
-    //   ],
-    //   criticalConfig: {
-    //     penthouse: {
-    //       timeout: 60000,        // 60 secondes
-    //       strictSSL: false,      // Évite les blocages de certificats
-    //       blockJSRequests: true,
-    //       puppeteer: {
-    //         args: ['--no-sandbox', '--disable-setuid-sandbox']
-    //       }
-    //     },
-    //   },
-    // }),
   ],
   resolve: {
     alias: {
