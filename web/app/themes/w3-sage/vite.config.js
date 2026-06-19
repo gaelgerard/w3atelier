@@ -6,7 +6,7 @@ import critical from 'rollup-plugin-critical';
 // Déterminez l'URL selon l'environnement
 const siteUrl = process.env.NODE_ENV === 'production' 
     ? 'https://blog.gaelgerard.com' 
-    : 'http://w3.gg';
+    : 'https://w3.gg';
 
 export default defineConfig({
   base: '/app/themes/w3-sage/public/build/',
