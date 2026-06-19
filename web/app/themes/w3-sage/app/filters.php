@@ -340,3 +340,17 @@ function get_random_tags($request) {
 
     return rest_ensure_response($response);
 }
+//Ajout de la card author meta dans le flux du the_content
+add_filter('the_content', function ($content) {
+
+    if (is_single() && in_the_loop() && is_main_query() || is_page()) {
+        
+        // On récupère le code HTML du partial Blade
+        $author_meta = \Roots\view('partials.author-meta')->render();
+        
+        // On fusionne les deux (ici, l'auteur s'affichera AVANT le contenu)
+        return $author_meta . $content;
+    }
+
+    return $content;
+});

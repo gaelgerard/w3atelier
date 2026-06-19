@@ -25,10 +25,9 @@
   
     </header>
   
-    <div class="e-content grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-      @include('partials.author-meta')
+    <div class="e-content grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
       <div class="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
-        <div class="prose dark:prose-invert max-w-none pt-10 pb-8">
+        <div class="prose dark:prose-invert max-w-none pt-5 pb-8">
           <div class="w-full flex">
             <div class="mx-auto">
               @php(the_post_thumbnail('large', ['fetchpriority' => 'high', 'loading' => 'eager']))
