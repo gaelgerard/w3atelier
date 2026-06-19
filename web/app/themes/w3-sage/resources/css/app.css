@@ -69,7 +69,7 @@
       transition: background-size 0.5s;
     }
   
-    a:hover {
+    a:hover, .current-menu-item a {
       --underline-width: 77%;
     }
   }
