@@ -138,19 +138,18 @@ Config::define('CONCATENATE_SCRIPTS', false);
 
 // Enable WP_CACHE
 Config::define('WP_CACHE', env('WP_CACHE') ?: true);
-/**
- * Redis Object Cache Configuration
- */
-if (env('WP_REDIS_HOST')) {
-    Config::define('WP_REDIS_HOST', env('WP_REDIS_HOST'));
-}
-if (env('WP_REDIS_PORT')) {
-    Config::define('WP_REDIS_PORT', env('WP_REDIS_PORT'));
-}
-if (env('WP_REDIS_PASSWORD')) {
-    Config::define('WP_REDIS_PASSWORD', env('WP_REDIS_PASSWORD'));
-}
+//config redis o2switch
+Config::define( 'WP_REDIS_SCHEME', 'unix' );
+Config::define( 'WP_REDIS_DATABASE', 31 );
+//secrets in .env file
+Config::define('WP_REDIS_PATH', env('WP_REDIS_PATH'));
+Config::define('WP_REDIS_PASSWORD', env('WP_REDIS_PASSWORD'));
 
+// NE PAS CHANGER
+Config::define( 'WP_REDIS_PREFIX', substr(md5(__DIR__), 0, 8));
+Config::define( 'WP_REDIS_HOST', '127.0.0.1' );
+Config::define( 'WP_REDIS_TIMEOUT', 1 );
+Config::define( 'WP_REDIS_READ_TIMEOUT', 1 );
 /**
  * Debugging Settings
  */
