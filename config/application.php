@@ -136,6 +136,21 @@ Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 // Disable script concatenation
 Config::define('CONCATENATE_SCRIPTS', false);
 
+// Enable WP_CACHE
+Config::define('WP_CACHE', env('WP_CACHE') ?: true);
+/**
+ * Redis Object Cache Configuration
+ */
+if (env('WP_REDIS_HOST')) {
+    Config::define('WP_REDIS_HOST', env('WP_REDIS_HOST'));
+}
+if (env('WP_REDIS_PORT')) {
+    Config::define('WP_REDIS_PORT', env('WP_REDIS_PORT'));
+}
+if (env('WP_REDIS_PASSWORD')) {
+    Config::define('WP_REDIS_PASSWORD', env('WP_REDIS_PASSWORD'));
+}
+
 /**
  * Debugging Settings
  */

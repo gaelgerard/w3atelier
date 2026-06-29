@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd49bc2b6ea133bc1f0e260247fd8c37",
+    "content-hash": "63f7872bfdda16708e88ad6b01e30e11",
     "packages": [
         {
             "name": "composer/installers",
@@ -1604,6 +1604,37 @@
             "time": "2026-06-14T13:40:51+00:00"
         },
         {
+            "name": "wp-plugin/redis-cache",
+            "version": "2.8.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/redis-cache/",
+                "reference": "tags/2.8.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.8.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Till Krüss"
+                }
+            ],
+            "description": "A persistent object cache backend powered by Redis®¹. Supports Predis, PhpRedis, Relay, replication, sentinels, clustering and WP-CLI.",
+            "homepage": "https://wordpress.org/plugins/redis-cache/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/redis-cache/#developers",
+                "issues": "https://wordpress.org/support/plugin/redis-cache",
+                "source": "https://plugins.svn.wordpress.org/redis-cache"
+            },
+            "time": "2026-05-04T18:40:49+00:00"
+        },
+        {
             "name": "wp-plugin/search-exclude",
             "version": "2.6.5",
             "source": {
@@ -1943,6 +1974,37 @@
                 "source": "https://plugins.svn.wordpress.org/wp-mail-logging"
             },
             "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/wp-super-cache",
+            "version": "3.1.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-super-cache/",
+                "reference": "tags/3.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-super-cache.3.1.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Automattic"
+                }
+            ],
+            "description": "A very fast caching engine for WordPress that produces static html files.",
+            "homepage": "https://wordpress.org/plugins/wp-super-cache/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-super-cache/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-super-cache",
+                "source": "https://plugins.svn.wordpress.org/wp-super-cache"
+            },
+            "time": "2026-05-27T17:41:44+00:00"
         },
         {
             "name": "wp-theme/twentytwentyfive",
