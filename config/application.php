@@ -138,6 +138,11 @@ Config::define('CONCATENATE_SCRIPTS', false);
 
 // Enable WP_CACHE
 Config::define('WP_CACHE', env('WP_CACHE') ?: true);
+/**
+ * Configuration de WP Super Cache
+ */
+Config::define('WPCACHEHOME', WP_PLUGIN_DIR . '/wp-super-cache/');
+
 //config redis o2switch
 Config::define( 'WP_REDIS_SCHEME', 'unix' );
 Config::define( 'WP_REDIS_DATABASE', 31 );
