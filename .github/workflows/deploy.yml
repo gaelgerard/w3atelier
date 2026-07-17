@@ -18,9 +18,8 @@ jobs:
       - name: Get runner public IP
         id: ip
         run: |
-          # Utilise l'API de ipify pour obtenir l'IPv4
-          IPV4=$(curl -s https://api.ipify.org)
-          echo "ipv4=$IPV4" >> $GITHUB_OUTPUT
+          ENV_IPV4=$(curl -s https://api.ipify.org)
+          echo "ipv4=$ENV_IPV4" >> $GITHUB_OUTPUT
 
       - name: Whitelist runner IP on o2switch
         run: |
@@ -48,7 +47,7 @@ jobs:
         run: |
           cd ${{ vars.THEME_DIR }}
           npm install
-          npm run build # Ici, GitHub génère le dossier /public/build avec le Critical CSS
+          npm run build
 
       # 3️⃣ PRÉPARATION SSH
       - name: Setup SSH agent
@@ -56,50 +55,63 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SFTP_PRIVATE_KEY }}
 
-      # 4️⃣ DÉPLOIEMENT : Transfert des fichiers buildés + Git Pull
-      - name: Sync and SSH Commands
+      # 4️⃣ DÉPLOIEMENT SÉQUENTIEL
+      # Étape A : On met d'abord à jour le code Git sur le serveur et on fait le backup
+      - name: SSH Update Git & Backup DB
         run: |
-          # Variables de chemins
-          LOCAL_BUILD_PATH="${{ vars.THEME_DIR }}/public/build"
-          REMOTE_THEME_PATH="${{ secrets.SFTP_TARGET_DIR }}/${{ vars.THEME_DIR }}"
-          # Nettoyage des slashs
-          REMOTE_THEME_PATH=$(echo $REMOTE_THEME_PATH | sed 's#//#/#g')
-
-          echo "Transferring build assets to: $REMOTE_THEME_PATH/public/"
-
-          # Transfert uniquement du dossier build (plus rapide que tout uploader)
-          scp -o StrictHostKeyChecking=no -o ConnectTimeout=60 -P ${{ secrets.SFTP_PORT }} -r $LOCAL_BUILD_PATH ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:$REMOTE_THEME_PATH/public/
-
-          # Commandes finales sur le serveur
-          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=60 -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}  << 'EOF'
+          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=60 -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << 'EOF'
             set -e
             cd ${{ secrets.SFTP_TARGET_DIR }}
             
-            # Mise à jour du code (PHP/Templates)
+            # 1. Backup préventif de la base de données avant toute modification
+            if command -v wp > /dev/null 2>&1; then
+              wp db export backup-before-update.sql
+            fi
+
+            # 2. Nettoyage et mise à jour des fichiers PHP/Templates via Git
             git fetch origin
             git reset --hard origin/main
+          EOF
 
-            # preventive backup
-            wp db export backup-before-update.sql
+      # Étape B : Maintenant que Git a reset le dossier, on peut envoyer en toute sécurité les assets du thème compilés par GitHub
+      - name: Transfer built assets via SCP
+        run: |
+          LOCAL_BUILD_PATH="${{ vars.THEME_DIR }}/public/build"
+          REMOTE_THEME_PATH="${{ secrets.SFTP_TARGET_DIR }}/${{ vars.THEME_DIR }}"
+          REMOTE_THEME_PATH=$(echo $REMOTE_THEME_PATH | sed 's#//#/#g')
+
+          echo "Transferring build assets to: $REMOTE_THEME_PATH/public/"
+          scp -o StrictHostKeyChecking=no -o ConnectTimeout=60 -P ${{ secrets.SFTP_PORT }} -r $LOCAL_BUILD_PATH ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }}:$REMOTE_THEME_PATH/public/
+
+      # Étape C : Finalisation des dépendances PHP et vérification du site
+      - name: SSH Finalize Composer & WP Core
+        run: |
+          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=60 -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << 'EOF'
+            set -e
+            cd ${{ secrets.SFTP_TARGET_DIR }}
             
-            # Dépendances PHP
-            composer install --no-dev --optimize-autoloader
-             wp language plugin install --all fr_FR
-            wp plugin activate --all
+            # 1. Dépendances PHP (On force l'utilisation de la version PHP du projet
+            /opt/alt/php83/usr/bin/php -d memory_limit=-1 /usr/local/bin/composer install --no-dev --optimize-autoloader --no-interaction
             
+            # 2. Gestion des extensions et traductions via WP-CLI
             if command -v wp > /dev/null 2>&1; then
+              wp language plugin install --all fr_FR || echo "Erreur langues ignorée."
+              wp plugin activate --all
               wp acorn optimize:clear || echo "Acorn non configuré, skip."
             fi
-            # Test valodation finale
+
+            # 3. Test de validation finale (Code HTTP 200)
             HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" ${{ vars.WEBSITE_URL }} )
 
             if [ "$HTTP_CODE" -ne 200 ]; then
               echo "ERREUR : Le site répond avec un code $HTTP_CODE. Lancement du Rollback..."
-              wp db import backup-before-update.sql
+              if [ -f "backup-before-update.sql" ]; then
+                wp db import backup-before-update.sql
+              fi
               exit 1
             else
               echo "Succès : Le site est en ligne (Code 200)."
-              rm backup-before-update.sql
+              rm -f backup-before-update.sql
             fi
           EOF
 
@@ -111,10 +123,8 @@ jobs:
           PORT=${{ secrets.SFTP_PORT }}
           echo "Removing GitHub runner IP from whitelist: $IP"
 
-          # IN
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=in" | jq
 
-          # OUT
           curl -sm 45 -H "Authorization: cpanel ${{ secrets.CPANEL_LOGIN }}:${{ secrets.CPANEL_TOKEN }}" \
             "https://${{ secrets.CPANEL_SERVER }}:2083/execute/SshWhitelist/remove?address=$IP&port=$PORT&direction=out" | jq
