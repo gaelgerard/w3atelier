@@ -67,7 +67,7 @@
     "wp-plugin/woocommerce-pdf-invoices": "^3.2.1",
     "wp-plugin/login-armor": "^2.4.0",
     "wp-plugin/post-type-switcher": "^4.0.1",
-    "wp-plugin/redirection": "^5.8.0",
+    "wp-plugin/redirection": "^5.0.0",
     "wp-plugin/search-exclude": "^2.6.5",
     "wp-plugin/sucuri-scanner": "^2.7.3",
     "wp-plugin/updraftplus": "^1.26.5",
