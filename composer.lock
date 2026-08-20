@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e31725a90f19b2b6d061237b96485565",
+    "content-hash": "d304e7b8e6fee55dd433b5b38fc95319",
     "packages": [
         {
             "name": "composer/installers",
@@ -1512,15 +1512,15 @@
         },
         {
             "name": "wp-plugin/login-armor",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/login-armor/",
-                "reference": "tags/2.5.1"
+                "reference": "tags/2.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/login-armor.2.5.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/login-armor.2.5.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1539,7 +1539,7 @@
                 "issues": "https://wordpress.org/support/plugin/login-armor",
                 "source": "https://plugins.svn.wordpress.org/login-armor"
             },
-            "time": "2026-08-13T07:22:04+00:00"
+            "time": "2026-08-20T14:31:03+00:00"
         },
         {
             "name": "wp-plugin/post-type-switcher",
@@ -1791,15 +1791,15 @@
         },
         {
             "name": "wp-plugin/woocommerce",
-            "version": "10.9.4",
+            "version": "11.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woocommerce/",
-                "reference": "tags/10.9.4"
+                "reference": "tags/11.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woocommerce.10.9.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/woocommerce.11.0.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1884,15 +1884,15 @@
         },
         {
             "name": "wp-plugin/wordpress-seo",
-            "version": "27.9",
+            "version": "28.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/27.9"
+                "reference": "tags/28.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.27.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
