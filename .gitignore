@@ -54,3 +54,4 @@ migration-wp7-php9.md
 
 # Configuration locale de WP-CLI (Accès SSH)
 wp-cli.local.yml
+web/llms.txt
