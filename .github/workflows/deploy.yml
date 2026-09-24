@@ -98,6 +98,7 @@ jobs:
               wp language plugin install --all fr_FR || echo "Erreur langues ignorée."
               wp plugin activate --all
               wp acorn optimize:clear || echo "Acorn non configuré, skip."
+              wp cache flush
             fi
 
             # 3. Test de validation finale (Code HTTP 200)
