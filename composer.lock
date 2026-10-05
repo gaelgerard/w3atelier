@@ -825,16 +825,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.38.2",
+            "version": "v1.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6"
+                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
-                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
+                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
                 "shasum": ""
             },
             "require": {
@@ -886,7 +886,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.2"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.0"
             },
             "funding": [
                 {
@@ -906,20 +906,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T06:59:30+00:00"
+            "time": "2026-09-24T15:19:04+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.37.0",
+            "version": "v1.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "dfb55726c3a76ea3b6459fcfda1ec2d80a682411"
+                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/dfb55726c3a76ea3b6459fcfda1ec2d80a682411",
-                "reference": "dfb55726c3a76ea3b6459fcfda1ec2d80a682411",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
+                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
                 "shasum": ""
             },
             "require": {
@@ -970,7 +970,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.43.0"
             },
             "funding": [
                 {
@@ -990,7 +990,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T16:19:22+00:00"
+            "time": "2026-09-25T15:50:05+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -1326,15 +1326,15 @@
         },
         {
             "name": "wp-plugin/duracelltomi-google-tag-manager",
-            "version": "2.0.3",
+            "version": "2.0.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/duracelltomi-google-tag-manager/",
-                "reference": "tags/2.0.3"
+                "reference": "tags/2.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/duracelltomi-google-tag-manager.2.0.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/duracelltomi-google-tag-manager.2.0.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1353,7 +1353,7 @@
                 "issues": "https://wordpress.org/support/plugin/duracelltomi-google-tag-manager",
                 "source": "https://plugins.svn.wordpress.org/duracelltomi-google-tag-manager"
             },
-            "time": "2026-09-24T06:21:05+00:00"
+            "time": "2026-10-01T13:51:15+00:00"
         },
         {
             "name": "wp-plugin/email-address-encoder",
@@ -1512,15 +1512,15 @@
         },
         {
             "name": "wp-plugin/login-armor",
-            "version": "2.7.5",
+            "version": "2.8.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/login-armor/",
-                "reference": "tags/2.7.5"
+                "reference": "tags/2.8.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/login-armor.2.7.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/login-armor.2.8.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1539,7 +1539,7 @@
                 "issues": "https://wordpress.org/support/plugin/login-armor",
                 "source": "https://plugins.svn.wordpress.org/login-armor"
             },
-            "time": "2026-09-24T03:56:13+00:00"
+            "time": "2026-10-04T14:01:43+00:00"
         },
         {
             "name": "wp-plugin/post-type-switcher",
@@ -1636,15 +1636,15 @@
         },
         {
             "name": "wp-plugin/search-exclude",
-            "version": "2.6.6",
+            "version": "2.6.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/search-exclude/",
-                "reference": "tags/2.6.6"
+                "reference": "tags/2.6.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/search-exclude.2.6.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/search-exclude.2.6.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1663,7 +1663,7 @@
                 "issues": "https://wordpress.org/support/plugin/search-exclude",
                 "source": "https://plugins.svn.wordpress.org/search-exclude"
             },
-            "time": "2026-08-24T17:56:52+00:00"
+            "time": "2026-09-30T10:46:20+00:00"
         },
         {
             "name": "wp-plugin/sucuri-scanner",
@@ -1729,15 +1729,15 @@
         },
         {
             "name": "wp-plugin/user-role-editor",
-            "version": "4.66.1",
+            "version": "4.66.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/user-role-editor/",
-                "reference": "tags/4.66.1"
+                "reference": "tags/4.66.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.66.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.66.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1756,7 +1756,7 @@
                 "issues": "https://wordpress.org/support/plugin/user-role-editor",
                 "source": "https://plugins.svn.wordpress.org/user-role-editor"
             },
-            "time": "2026-08-25T09:21:17+00:00"
+            "time": "2026-09-25T08:26:23+00:00"
         },
         {
             "name": "wp-plugin/woo-cart-abandonment-recovery",
@@ -1818,7 +1818,7 @@
                 "issues": "https://wordpress.org/support/plugin/woocommerce",
                 "source": "https://plugins.svn.wordpress.org/woocommerce"
             },
-            "time": "2026-09-22T19:02:05+00:00"
+            "time": "2026-09-28T15:14:59+00:00"
         },
         {
             "name": "wp-plugin/woocommerce-pdf-invoices",
@@ -1884,15 +1884,15 @@
         },
         {
             "name": "wp-plugin/wordpress-seo",
-            "version": "28.5",
+            "version": "28.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/28.5"
+                "reference": "tags/28.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1911,7 +1911,7 @@
                 "issues": "https://wordpress.org/support/plugin/wordpress-seo",
                 "source": "https://plugins.svn.wordpress.org/wordpress-seo"
             },
-            "time": "2026-09-21T14:58:27+00:00"
+            "time": "2026-10-02T12:02:20+00:00"
         },
         {
             "name": "wp-plugin/wp-crontrol",
@@ -1977,15 +1977,15 @@
         },
         {
             "name": "wp-plugin/wp-super-cache",
-            "version": "3.1.3",
+            "version": "3.1.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-super-cache/",
-                "reference": "tags/3.1.3"
+                "reference": "tags/3.1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-super-cache.3.1.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-super-cache.3.1.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -2004,7 +2004,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-super-cache",
                 "source": "https://plugins.svn.wordpress.org/wp-super-cache"
             },
-            "time": "2026-08-26T18:31:09+00:00"
+            "time": "2026-09-30T18:36:05+00:00"
         },
         {
             "name": "wp-theme/twentytwentyfive",
@@ -2176,11 +2176,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.15",
+            "version": "2.2.17",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b158556ffd26825cf615a1c1f72fb5157a2301b7",
-                "reference": "b158556ffd26825cf615a1c1f72fb5157a2301b7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e676a49fa70cee9f5bf6ff4796186b928a08673f",
+                "reference": "e676a49fa70cee9f5bf6ff4796186b928a08673f",
                 "shasum": ""
             },
             "require": {
@@ -2236,7 +2236,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-23T12:23:07+00:00"
+            "time": "2026-10-04T19:40:09+00:00"
         },
         {
             "name": "rector/rector",
