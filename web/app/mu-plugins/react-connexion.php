@@ -142,7 +142,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
        
 		$recipient = '';
         $recipient = 'gael.gerard@free.fr';
-        $subject = 'Message sur le site : '.$subject;
+        $subject_headers = 'Message sur le site : '.$subject;
 		$body = '<html>';
 		$body .= '<head>';
 		$body .= '<title>Message depuis le site</title>';
@@ -165,7 +165,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         );
         $attachments = '';
         custom_save_to_cf7_submissions( $dataForm );
-        if (wp_mail( $recipient, $subject, $body, $headers )) {
+        if (wp_mail( $recipient, $subject_headers, $body, $headers )) {
             $response = array(
                 'status' => 'success',
                 'message' => 'Contact and message saved successfully',
