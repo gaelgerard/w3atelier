@@ -136,7 +136,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         $to_name = $dataForm['to_name'] ?? '';
         $source = $dataForm['source'] ?? '';
         $message_html = $dataForm['message_html'] ?? '';
-        $subject = substr($message_html,0,50);
+        $subject = $dataForm['subject'] ?? '';
         
 
        
@@ -152,6 +152,7 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         $body .= '<br>Source : '.$source;
         $body .= '<br>Adresse email : '.$from_email;
         $body .= '<br>Téléphone : '.$from_phone;
+        $body .= '<br>Sujet : '.$subject;
         $body .= '<br>Message : '.$message_html;
         $body .= '<br>RGPD : Accepte les conditions et la politique de confidentialité';
 		$body .= '</body>';
