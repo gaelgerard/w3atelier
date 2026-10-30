@@ -2036,16 +2036,16 @@
     "packages-dev": [
         {
             "name": "johnbillion/query-monitor",
-            "version": "4.0.7",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/query-monitor.git",
-                "reference": "50c3cad9f710b3edcb00f266687d351d9f2c3ac6"
+                "reference": "e53a8172c8e24da8c44ebe0fde864b71ea3bb90a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/query-monitor/zipball/50c3cad9f710b3edcb00f266687d351d9f2c3ac6",
-                "reference": "50c3cad9f710b3edcb00f266687d351d9f2c3ac6",
+                "url": "https://api.github.com/repos/johnbillion/query-monitor/zipball/e53a8172c8e24da8c44ebe0fde864b71ea3bb90a",
+                "reference": "e53a8172c8e24da8c44ebe0fde864b71ea3bb90a",
                 "shasum": ""
             },
             "require": {
@@ -2055,17 +2055,16 @@
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
                 "guzzlehttp/guzzle": "^7.0",
-                "johnbillion/plugin-infrastructure": "2.9.4",
-                "johnbillion/wp-compat": "1.5.0",
-                "php-stubs/wordpress-stubs": "7.0.0 as 6.9.4",
-                "php-stubs/wp-cli-stubs": "2.12.0",
-                "phpcompatibility/phpcompatibility-wp": "2.1.5",
+                "johnbillion/plugin-infrastructure": "2.9.9",
+                "johnbillion/wp-compat": "3.0.1",
+                "php-stubs/wordpress-stubs": "7.1.0",
+                "phpcompatibility/phpcompatibility-wp": "2.1.8",
                 "phpstan/phpstan": "2.1.46",
                 "phpstan/phpstan-deprecation-rules": "2.0.4",
                 "phpstan/phpstan-phpunit": "2.0.16",
-                "squizlabs/php_codesniffer": "3.11.1",
-                "szepeviktor/phpstan-wordpress": "2.0.3",
-                "wp-coding-standards/wpcs": "2.3.0"
+                "squizlabs/php_codesniffer": "3.13.6",
+                "szepeviktor/phpstan-wordpress": "2.0.4",
+                "wp-coding-standards/wpcs": "3.4.1"
             },
             "type": "wordpress-plugin",
             "extra": {
@@ -2102,7 +2101,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-20T20:10:50+00:00"
+            "time": "2026-10-27T01:18:32+00:00"
         },
         {
             "name": "laravel/pint",
