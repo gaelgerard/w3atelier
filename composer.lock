@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cf3cc72857c81508165e3f1fc486c30",
+    "content-hash": "6424b39d4f79b89f6f5983758eacb633",
     "packages": [
         {
             "name": "composer/installers",
@@ -1140,15 +1140,15 @@
         },
         {
             "name": "wp-plugin/code-snippets",
-            "version": "3.10.2",
+            "version": "4.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/code-snippets/",
-                "reference": "tags/3.10.2"
+                "reference": "tags/4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/code-snippets.3.10.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/code-snippets.4.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1167,19 +1167,19 @@
                 "issues": "https://wordpress.org/support/plugin/code-snippets",
                 "source": "https://plugins.svn.wordpress.org/code-snippets"
             },
-            "time": "2026-10-20T10:04:35+00:00"
+            "time": "2026-10-12T14:19:48+00:00"
         },
         {
             "name": "wp-plugin/contact-form-7",
-            "version": "6.2.3",
+            "version": "6.2.4.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/contact-form-7/",
-                "reference": "tags/6.2.3"
+                "reference": "tags/6.2.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/contact-form-7.6.2.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/contact-form-7.6.2.4.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1198,7 +1198,7 @@
                 "issues": "https://wordpress.org/support/plugin/contact-form-7",
                 "source": "https://plugins.svn.wordpress.org/contact-form-7"
             },
-            "time": "2026-10-21T08:46:11+00:00"
+            "time": "2026-10-29T11:49:08+00:00"
         },
         {
             "name": "wp-plugin/contact-form-7-dynamic-text-extension",
@@ -1233,15 +1233,15 @@
         },
         {
             "name": "wp-plugin/disable-comments",
-            "version": "2.9.0",
+            "version": "2.9.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/disable-comments/",
-                "reference": "tags/2.9.0"
+                "reference": "tags/2.9.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/disable-comments.2.9.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/disable-comments.2.9.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1260,7 +1260,7 @@
                 "issues": "https://wordpress.org/support/plugin/disable-comments",
                 "source": "https://plugins.svn.wordpress.org/disable-comments"
             },
-            "time": "2026-09-01T09:41:03+00:00"
+            "time": "2026-10-25T10:50:51+00:00"
         },
         {
             "name": "wp-plugin/duplicate-menu",
@@ -1698,15 +1698,15 @@
         },
         {
             "name": "wp-plugin/updraftplus",
-            "version": "1.26.13",
+            "version": "1.26.14",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/updraftplus/",
-                "reference": "tags/1.26.13"
+                "reference": "tags/1.26.14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/updraftplus.1.26.13.zip"
+                "url": "https://downloads.wordpress.org/plugin/updraftplus.1.26.14.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1719,25 +1719,25 @@
                 }
             ],
             "description": "Backup, restore or migrate your WordPress website to another host or domain. Schedule backups or run manually. Migrate in minutes.",
-            "homepage": "https://updraftplus.com",
+            "homepage": "https://teamupdraft.com/updraftplus",
             "support": {
                 "changelog": "https://wordpress.org/plugins/updraftplus/#developers",
                 "issues": "https://wordpress.org/support/plugin/updraftplus",
                 "source": "https://plugins.svn.wordpress.org/updraftplus"
             },
-            "time": "2026-10-19T21:02:21+00:00"
+            "time": "2026-10-26T23:06:05+00:00"
         },
         {
             "name": "wp-plugin/user-role-editor",
-            "version": "4.66.2",
+            "version": "4.66.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/user-role-editor/",
-                "reference": "tags/4.66.2"
+                "reference": "tags/4.66.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.66.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.66.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1756,19 +1756,19 @@
                 "issues": "https://wordpress.org/support/plugin/user-role-editor",
                 "source": "https://plugins.svn.wordpress.org/user-role-editor"
             },
-            "time": "2026-09-25T08:26:23+00:00"
+            "time": "2026-10-26T11:24:00+00:00"
         },
         {
             "name": "wp-plugin/woo-cart-abandonment-recovery",
-            "version": "2.2.1",
+            "version": "2.2.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woo-cart-abandonment-recovery/",
-                "reference": "tags/2.2.1"
+                "reference": "tags/2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woo-cart-abandonment-recovery.2.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/woo-cart-abandonment-recovery.2.2.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1787,7 +1787,7 @@
                 "issues": "https://wordpress.org/support/plugin/woo-cart-abandonment-recovery",
                 "source": "https://plugins.svn.wordpress.org/woo-cart-abandonment-recovery"
             },
-            "time": "2026-10-16T08:16:01+00:00"
+            "time": "2026-10-26T10:42:58+00:00"
         },
         {
             "name": "wp-plugin/woocommerce",
@@ -1884,15 +1884,15 @@
         },
         {
             "name": "wp-plugin/wordpress-seo",
-            "version": "28.7",
+            "version": "28.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/28.7"
+                "reference": "tags/28.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.8.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1911,19 +1911,19 @@
                 "issues": "https://wordpress.org/support/plugin/wordpress-seo",
                 "source": "https://plugins.svn.wordpress.org/wordpress-seo"
             },
-            "time": "2026-10-21T08:51:20+00:00"
+            "time": "2026-10-27T06:18:09+00:00"
         },
         {
             "name": "wp-plugin/wp-crontrol",
-            "version": "1.22.0",
+            "version": "2.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-crontrol/",
-                "reference": "tags/1.22.0"
+                "reference": "tags/2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.22.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.2.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1942,7 +1942,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-crontrol",
                 "source": "https://plugins.svn.wordpress.org/wp-crontrol"
             },
-            "time": "2026-10-15T14:20:56+00:00"
+            "time": "2026-10-15T14:17:08+00:00"
         },
         {
             "name": "wp-plugin/wp-mail-logging",
