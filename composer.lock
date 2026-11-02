@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cf3cc72857c81508165e3f1fc486c30",
+    "content-hash": "6424b39d4f79b89f6f5983758eacb633",
     "packages": [
         {
             "name": "composer/installers",
@@ -1140,15 +1140,15 @@
         },
         {
             "name": "wp-plugin/code-snippets",
-            "version": "3.10.2",
+            "version": "4.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/code-snippets/",
-                "reference": "tags/3.10.2"
+                "reference": "tags/4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/code-snippets.3.10.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/code-snippets.4.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1167,7 +1167,7 @@
                 "issues": "https://wordpress.org/support/plugin/code-snippets",
                 "source": "https://plugins.svn.wordpress.org/code-snippets"
             },
-            "time": "2026-09-29T13:03:58+00:00"
+            "time": "2026-10-12T14:19:48+00:00"
         },
         {
             "name": "wp-plugin/contact-form-7",
@@ -1915,15 +1915,15 @@
         },
         {
             "name": "wp-plugin/wp-crontrol",
-            "version": "1.22.0",
+            "version": "2.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-crontrol/",
-                "reference": "tags/1.22.0"
+                "reference": "tags/2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.22.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.2.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1942,7 +1942,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-crontrol",
                 "source": "https://plugins.svn.wordpress.org/wp-crontrol"
             },
-            "time": "2026-10-08T14:14:34+00:00"
+            "time": "2026-10-15T14:17:08+00:00"
         },
         {
             "name": "wp-plugin/wp-mail-logging",
