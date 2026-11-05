@@ -137,7 +137,8 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
         $source = $dataForm['source'] ?? '';
         $message_html = $dataForm['message_html'] ?? '';
         $subject = $dataForm['subject'] ?? '';
-        
+        $sender_ip = $dataForm['sender_ip'] ?? 'Non renseignée';
+        $user_agent = $dataForm['user_agent'] ?? 'Inconnu';
 
        
 		$recipient = '';
@@ -150,6 +151,8 @@ if ( !function_exists('ggcom_react_form_save_and_notify')) {
 		$body .= '<body>';
         $body .= 'Message reçu de '.$from_name;
         $body .= '<br>Source : '.$source;
+        $body .= '<br>Support '.$user_agent;
+        $body .= '<br>Adresse IP : '.$sender_ip;
         $body .= '<br>Adresse email : '.$from_email;
         $body .= '<br>Téléphone : '.$from_phone;
         $body .= '<br>Sujet : '.$subject;
