@@ -51,7 +51,7 @@
     "wp-theme/twentytwentyfive": "^1.5",
     "wp-plugin/akismet": "^5.7",
     "wp-plugin/woo-cart-abandonment-recovery": "^2.1.3",
-    "wp-plugin/cf7-submissions": "^0.27",
+    "wp-plugin/cf7-submissions": "*",
     "wp-plugin/code-snippets": "^3.10.2",
     "wp-plugin/contact-form-7": "^6.1.6",
     "wp-plugin/contact-form-7-dynamic-text-extension": "^5.0.6",
