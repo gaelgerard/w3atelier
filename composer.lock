@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f29b81fe9061ad5fb3221b96fcda631",
+    "content-hash": "7d634ebc3b39557f1150fc3ff4d032a3",
     "packages": [
         {
             "name": "composer/installers",
@@ -1140,15 +1140,15 @@
         },
         {
             "name": "wp-plugin/code-snippets",
-            "version": "3.10.2",
+            "version": "4.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/code-snippets/",
-                "reference": "tags/3.10.2"
+                "reference": "tags/4.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/code-snippets.3.10.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/code-snippets.4.1.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1167,7 +1167,7 @@
                 "issues": "https://wordpress.org/support/plugin/code-snippets",
                 "source": "https://plugins.svn.wordpress.org/code-snippets"
             },
-            "time": "2026-09-29T13:03:58+00:00"
+            "time": "2026-11-05T11:01:35+00:00"
         },
         {
             "name": "wp-plugin/contact-form-7",
@@ -1326,15 +1326,15 @@
         },
         {
             "name": "wp-plugin/duracelltomi-google-tag-manager",
-            "version": "2.0.6",
+            "version": "2.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/duracelltomi-google-tag-manager/",
-                "reference": "tags/2.0.6"
+                "reference": "tags/2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/duracelltomi-google-tag-manager.2.0.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/duracelltomi-google-tag-manager.2.1.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1353,7 +1353,7 @@
                 "issues": "https://wordpress.org/support/plugin/duracelltomi-google-tag-manager",
                 "source": "https://plugins.svn.wordpress.org/duracelltomi-google-tag-manager"
             },
-            "time": "2026-10-12T07:33:53+00:00"
+            "time": "2026-11-05T09:16:33+00:00"
         },
         {
             "name": "wp-plugin/email-address-encoder",
@@ -1729,15 +1729,15 @@
         },
         {
             "name": "wp-plugin/user-role-editor",
-            "version": "4.66.3",
+            "version": "4.67",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/user-role-editor/",
-                "reference": "tags/4.66.3"
+                "reference": "tags/4.67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.66.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.67.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1756,7 +1756,7 @@
                 "issues": "https://wordpress.org/support/plugin/user-role-editor",
                 "source": "https://plugins.svn.wordpress.org/user-role-editor"
             },
-            "time": "2026-10-26T11:24:00+00:00"
+            "time": "2026-11-04T02:46:44+00:00"
         },
         {
             "name": "wp-plugin/woo-cart-abandonment-recovery",
@@ -1791,15 +1791,15 @@
         },
         {
             "name": "wp-plugin/woocommerce",
-            "version": "11.2.1",
+            "version": "11.2.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woocommerce/",
-                "reference": "tags/11.2.1"
+                "reference": "tags/11.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woocommerce.11.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/woocommerce.11.2.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1818,7 +1818,7 @@
                 "issues": "https://wordpress.org/support/plugin/woocommerce",
                 "source": "https://plugins.svn.wordpress.org/woocommerce"
             },
-            "time": "2026-10-09T15:35:21+00:00"
+            "time": "2026-11-04T21:34:49+00:00"
         },
         {
             "name": "wp-plugin/woocommerce-pdf-invoices",
@@ -1915,15 +1915,15 @@
         },
         {
             "name": "wp-plugin/wp-crontrol",
-            "version": "1.22.0",
+            "version": "2.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-crontrol/",
-                "reference": "tags/1.22.0"
+                "reference": "tags/2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.22.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.2.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1942,7 +1942,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-crontrol",
                 "source": "https://plugins.svn.wordpress.org/wp-crontrol"
             },
-            "time": "2026-10-08T14:14:34+00:00"
+            "time": "2026-10-15T14:17:08+00:00"
         },
         {
             "name": "wp-plugin/wp-mail-logging",
@@ -1977,15 +1977,15 @@
         },
         {
             "name": "wp-plugin/wp-super-cache",
-            "version": "3.1.4",
+            "version": "3.1.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-super-cache/",
-                "reference": "tags/3.1.4"
+                "reference": "tags/3.1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-super-cache.3.1.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-super-cache.3.1.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -2004,7 +2004,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-super-cache",
                 "source": "https://plugins.svn.wordpress.org/wp-super-cache"
             },
-            "time": "2026-09-30T18:33:58+00:00"
+            "time": "2026-11-02T15:18:20+00:00"
         },
         {
             "name": "wp-theme/twentytwentyfive",
