@@ -21,7 +21,8 @@ function custom_save_to_cf7_submissions( $data_params ) {
     $from_phone = $data_params['from_phone']      ?? '';
     $message_html = $data_params['message_html']  ?? '';
     $source     = $data_params['source']     ?? 'Direct';
-
+    $user_agent = $data_params['user_agent'] ?? '';
+    $sender_ip  = $data_params['sender_ip']  ?? '';
     // 2. Insertion dans la table principale 'submissions'
     // Note : Le plugin utilise 'time' au format Unix (U)
     $submission_id = $db->insert( 'submissions', [
@@ -46,6 +47,9 @@ function custom_save_to_cf7_submissions( $data_params ) {
         'message'    => $message_html,
         'RGPD'       => 'Accepte les conditions et la politique de confidentialité',
         'source'     => $source,
+        'user_agent' => $user_agent,
+        'sender_ip'  => $sender_ip
+
     ];
 
     // 4. Insertion de chaque champ individuellement
