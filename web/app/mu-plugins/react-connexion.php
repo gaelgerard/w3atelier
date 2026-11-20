@@ -523,8 +523,9 @@ function handle_ggcom_visibility_result(WP_REST_Request $request) {
         : '';
 
     $tested_url_html = $testedUrl !== null
-        ? '<p>Site analysé :'
-            . esc_html($testedUrl) . '</p>'
+        ? '<p>Site analysé :  <a href="'
+           . esc_html($testedUrl) . '">'
+            . esc_html($testedUrl) . '</a></p>'
         : '';
 
     $message = '
