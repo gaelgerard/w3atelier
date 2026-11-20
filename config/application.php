@@ -117,7 +117,7 @@ Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 Config::define('NONCE_SALT', env('NONCE_SALT'));
 // API KEY for react connexion
 Config::define('REACT_FORM_API_KEY', env('REACT_FORM_API_KEY'));
-Config::define('WEBSITE_URL', env('WEBSITE_URL' ?: 'https://www.gaelgerard.com/'));
+Config::define('WEBSITE_URL', env('WEBSITE_URL', 'https://www.gaelgerard.com'));
 /**
  * Custom Settings
  */
