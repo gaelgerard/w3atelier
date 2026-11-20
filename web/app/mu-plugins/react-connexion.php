@@ -510,11 +510,7 @@ function handle_ggcom_visibility_result(WP_REST_Request $request) {
         $token,
         WEBSITE_URL.'/test-visibilite'
     );
-    if (!defined('WEBSITE_URL')) {
-        error_log('WEBSITE_URL is not defined');
-    } else {
-        error_log('WEBSITE_URL is defined: ' . WEBSITE_URL);
-    }
+ 
     $subject = 'Votre diagnostic de visibilité en ligne';
 
     $score_html = $score !== null
