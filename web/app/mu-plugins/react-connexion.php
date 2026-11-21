@@ -505,12 +505,8 @@ function handle_ggcom_visibility_result(WP_REST_Request $request) {
     // 5. CONSTRUCTION DE L'EMAIL
     // =================================================
 
-    $result_url = add_query_arg(
-        'token',
-        $token,
-        WEBSITE_URL.'/test-visibilite'
-    );
- 
+    $result_url = WEBSITE_URL.'/test-visibilite/audit/'.$token;
+    
     $subject = 'Votre diagnostic de visibilité en ligne';
 
     $score_html = $score !== null
