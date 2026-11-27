@@ -1140,15 +1140,15 @@
         },
         {
             "name": "wp-plugin/code-snippets",
-            "version": "4.1.0",
+            "version": "4.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/code-snippets/",
-                "reference": "tags/4.1.0"
+                "reference": "tags/4.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/code-snippets.4.1.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/code-snippets.4.1.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1167,19 +1167,19 @@
                 "issues": "https://wordpress.org/support/plugin/code-snippets",
                 "source": "https://plugins.svn.wordpress.org/code-snippets"
             },
-            "time": "2026-11-05T11:01:35+00:00"
+            "time": "2026-11-25T23:28:10+00:00"
         },
         {
             "name": "wp-plugin/contact-form-7",
-            "version": "6.2.5",
+            "version": "6.2.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/contact-form-7/",
-                "reference": "tags/6.2.5"
+                "reference": "tags/6.2.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/contact-form-7.6.2.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/contact-form-7.6.2.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1198,7 +1198,7 @@
                 "issues": "https://wordpress.org/support/plugin/contact-form-7",
                 "source": "https://plugins.svn.wordpress.org/contact-form-7"
             },
-            "time": "2026-11-10T05:51:36+00:00"
+            "time": "2026-11-23T02:31:55+00:00"
         },
         {
             "name": "wp-plugin/contact-form-7-dynamic-text-extension",
@@ -1605,15 +1605,15 @@
         },
         {
             "name": "wp-plugin/redis-cache",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redis-cache/",
-                "reference": "tags/3.0.1"
+                "reference": "tags/3.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redis-cache.3.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.3.0.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1632,19 +1632,19 @@
                 "issues": "https://wordpress.org/support/plugin/redis-cache",
                 "source": "https://plugins.svn.wordpress.org/redis-cache"
             },
-            "time": "2026-11-16T21:46:30+00:00"
+            "time": "2026-11-26T19:46:32+00:00"
         },
         {
             "name": "wp-plugin/search-exclude",
-            "version": "2.6.8",
+            "version": "2.6.10",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/search-exclude/",
-                "reference": "tags/2.6.8"
+                "reference": "tags/2.6.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/search-exclude.2.6.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/search-exclude.2.6.10.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1663,7 +1663,7 @@
                 "issues": "https://wordpress.org/support/plugin/search-exclude",
                 "source": "https://plugins.svn.wordpress.org/search-exclude"
             },
-            "time": "2026-10-05T19:19:53+00:00"
+            "time": "2026-11-24T16:11:52+00:00"
         },
         {
             "name": "wp-plugin/sucuri-scanner",
@@ -1760,15 +1760,15 @@
         },
         {
             "name": "wp-plugin/woo-cart-abandonment-recovery",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woo-cart-abandonment-recovery/",
-                "reference": "tags/2.2.2"
+                "reference": "tags/2.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woo-cart-abandonment-recovery.2.2.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/woo-cart-abandonment-recovery.2.2.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1787,7 +1787,7 @@
                 "issues": "https://wordpress.org/support/plugin/woo-cart-abandonment-recovery",
                 "source": "https://plugins.svn.wordpress.org/woo-cart-abandonment-recovery"
             },
-            "time": "2026-10-26T10:42:58+00:00"
+            "time": "2026-11-24T10:26:20+00:00"
         },
         {
             "name": "wp-plugin/woocommerce",
