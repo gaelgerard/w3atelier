@@ -57,6 +57,11 @@
 }
 
 @layer base {
+  .wp-block-paragraph {
+    a {
+      text-decoration: underline;
+    }
+  }
   .nav {
     a {
       background: linear-gradient(currentColor 0 0) 
